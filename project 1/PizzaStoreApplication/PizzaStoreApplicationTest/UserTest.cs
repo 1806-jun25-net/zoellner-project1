@@ -8,66 +8,54 @@ namespace PizzaStoreApplicationTest
 {
     public class UserTest
     {
-        public static IEnumerable<object[]> GetTestData()
+        [Fact]
+        public void UserShouldBeAbleToCreateOrder()
         {
-            yield return new object[] { };
-            yield return new object[] { };
-            yield return new object[] { } };
-            yield return new object[] { };
-        }
-
-        [Theory]
-        [MemberData(nameof(GetTestData))]
-        public void UserShouldBeAbleToCreateOrder(string[] data)
-        {
-            var expected = true;
             //Arrange
-            var user = new Order();
-            user.CreateOrder(data);
+            var user = new User();
+            user.CreateOrder(1);
 
             //Act
-            var actual = user.RecentOrder;
+            var actual = user.OrderedRecently;
 
             //Assert
-            Assert.True(expected, actual);
+            Assert.True(actual);
         }
 
-        [Theory]
-        [MemberData(nameof(GetTestData))]
-        public void UserShouldNotBeAbleToOrderTwiceInTwoHours(string[] data)
-        {
-            var expected = True;
+        //[Fact]
+        //public void UserShouldNotBeAbleToOrderTwiceInTwoHours()
+        //{
+        //    var expected = True;
 
-            //Arrange
-            var user = new Order();
-            user.CreateOrder(data);
+        //    //Arrange
+        //    var user = new Order();
+        //    user.CreateOrder(data);
 
-            //Act
-            user.CreateOrder();
-            var actual = user.RecentOrder;
+        //    //Act
+        //    user.CreateOrder();
+        //    var actual = user.RecentOrder;
 
-            //Assert
-            Assert.True(expected, actual);
-        }
+        //    //Assert
+        //    Assert.True(expected, actual);
+        //}
 
-        [Theory]
-        [MemberData(nameof(GetTestData))]
-        public void UserShouldBeAbleToOrderTwiceInMoreThanTwoHours(string[] data)
-        {
-            var expected = false;
+        //[Fact]
+        //public void UserShouldBeAbleToOrderTwiceInMoreThanTwoHours()
+        //{
+        //    var expected = false;
 
-            //Arrange
-            var user = new Order();
-            user.CreateOrder(data);
+        //    //Arrange
+        //    var user = new Order();
+        //    user.CreateOrder(data);
 
-            //Act
-            user.AlterOrderTime();
-            user.CreateOrder();
-            var actual = user.RecentOrder;
+        //    //Act
+        //    user.AlterOrderTime();
+        //    user.CreateOrder();
+        //    var actual = user.RecentOrder;
 
-            //Assert
-            Assert.False(expected, actual);
-        }
+        //    //Assert
+        //    Assert.False(expected, actual);
+        //}
 
 
     }

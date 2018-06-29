@@ -8,6 +8,6 @@ namespace PizzaStoreApplicationTest
     public class TwoHoursAgo : Order
     {
         //override order time, moving it back two hours
-        public override OrderPlacedAt => base.OrderPlacedAt - TimeSpan.FromHours(2);
+        //public override OrderPlacedAt => base.OrderPlacedAt - TimeSpan.FromHours(2);
     }
 }

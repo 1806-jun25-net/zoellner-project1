@@ -22,6 +22,8 @@ namespace PizzaStoreApplicationLibrary
 
         Address deliveryAddress;
 
+        public bool OrderedRecently = false;
+
         //constructors
         public User()
         {
@@ -39,6 +41,20 @@ namespace PizzaStoreApplicationLibrary
             PhoneNumber = phone;
             Email = email;
             deliveryAddress = new Address(address, city, state, zip);
+        }
+
+        //methods
+
+        public Order CreateOrder(int NumPizzas)
+        {
+            if(NumPizzas > 12)
+            {
+                Console.WriteLine("Unable to fill order: too many pizzas requested");
+                return new Order();
+            }
+            Order NewOrder = new Order(NumPizzas);
+            OrderedRecently = true;
+            return NewOrder;
         }
     }
 }

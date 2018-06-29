@@ -14,35 +14,19 @@ namespace PizzaStoreApplicationLibrary
 
         public int NumberOfPizzas;
 
-        public string[,] PizzaOrder;
+        public IEnumerable<string[]> OrderedPizzas;
 
         //constructors
         public Order()
         {
-            PizzaOrder = new string[1, 4] { { "medium", "pepperoni", "green pepper", "onion" } };
+            
         }
 
-        //nested 'for' loops included for user input
+        //Ultimately, the pizzas will have up to 3 toppings. Thus, for testing, the chosen topping will
+        //iterate 3 times per pizza
         public Order (int NumPizzas)
         {
-            PizzaOrder = new string[NumPizzas, 4];
-
-            for(int i = 0; i < NumPizzas; i++)
-            {
-                for(int j = 0; j < 4; j++)
-                {
-                    if(j == 0)
-                    {
-                        Console.WriteLine("Type in a pizza size: small, medium, large");
-                        Console.ReadLine();
-                    }
-                    else
-                    {
-                        Console.WriteLine("Type in a desired topping");
-                        Console.ReadLine();
-                    }
-                }
-            }
+            
         }
     }
 }
