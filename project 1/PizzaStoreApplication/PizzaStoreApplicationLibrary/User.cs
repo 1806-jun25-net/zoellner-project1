@@ -20,6 +20,25 @@ namespace PizzaStoreApplicationLibrary
 
         public Location DefaultLocation = new Location();
 
-        //methods
+        Address deliveryAddress;
+
+        //constructors
+        public User()
+        {
+            FirstName = "Anthony";
+            LastName = "Zoellner";
+            PhoneNumber = "802-782-7550";
+            Email = "ajzoellner@gmail.com";
+            deliveryAddress = new Address();
+        }
+
+        public User(string first, string second, string phone, string email, string address, string city, string state, string zip)
+        {
+            FirstName = first;
+            LastName = second;
+            PhoneNumber = phone;
+            Email = email;
+            deliveryAddress = new Address(address, city, state, zip);
+        }
     }
 }
