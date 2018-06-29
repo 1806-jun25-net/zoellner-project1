@@ -10,10 +10,10 @@ namespace PizzaStoreApplicationTest
     {
         public static IEnumerable<object[]> GetTestData()
         {
-            yield return new object[] { "large", new string[] { "pepperoni" } };
-            yield return new object[] { "medium", new string[] { "pepperoni", "ham" } };
-            yield return new object[] { "small", new string[] { "pepperoni", "green peppers", "onions" } };
-            yield return new object[] { "small", null };
+            yield return new object[] { };
+            yield return new object[] { };
+            yield return new object[] { } };
+            yield return new object[] { };
         }
 
         [Theory]

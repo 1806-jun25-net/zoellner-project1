@@ -7,7 +7,7 @@ using System.Text;
 
 namespace PizzaStoreApplicationLibrary
 {
-    public class Order : Address
+    public class User : Address
     {
         //fields
         public string FirstName { get; set; }
