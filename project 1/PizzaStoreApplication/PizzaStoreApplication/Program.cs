@@ -14,7 +14,6 @@ namespace PizzaStoreApplication
     class Program
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-        int NumUsers;
 
         public static User CreateNewUser()
         {
@@ -104,37 +103,30 @@ namespace PizzaStoreApplication
             }
         }
 
-        static void FirstLaunch()
+        static void Main(string[] args)
         {
-            logger.Info("First time launch on this computer. Creating locations.");
+            logger.Info("Beginning application");
+            User CurrentUser;
+            List<Location> LocationsList = new List<Location>();
             Location Reston = new Location("Reston");
             Location Herndon = new Location("Herndon");
             Location Hattontown = new Location("Hattontown");
             Location Dulles = new Location("Dulles");
-            logger.Info("Locations created");
-
-            CreateNewUser();
-            logger.Info("New user created");
-
-        }
-
-        static void Main(string[] args)
-        {
-            logger.Info("Beginning application");
-
+            LocationsList.Add(Reston);
+            LocationsList.Add(Herndon);
+            LocationsList.Add(Hattontown);
+            LocationsList.Add(Dulles);
             if (File.Exists("locations.xml"))
             {
-                DeserializeLocationsAsync("locations.xml");
-            }
-            else
-            {
-                FirstLaunch();
+                var desList = DeserializeLocationsAsync("locations.xml");
+                
+                LocationsList.Clear();
+                LocationsList = (List<Location>)desList.Result;
             }
             
             Console.WriteLine("Welcome! Please enter a username or enter 'new'");
             string Input = Console.ReadLine();
             IEnumerable<User> result = new List<User>();
-            User CurrentUser;
             if (Input.Equals("new"))
             {
                 logger.Info("Creating New User");
@@ -184,6 +176,11 @@ namespace PizzaStoreApplication
                     KeepOpen = false;
                 }
             }
+            logger.Info("Beginning serialization of locations and user");
+            List<Object> Locations = new List<object>();
+            Locations.AddRange(LocationsList);
+            SerializeToFile("locations.xml", Locations);
+            SerializeToFile(CurrentUser.Username + ".xml", CurrentUser);
             logger.Info("Exitting Application");
             Environment.Exit(0);
         }
