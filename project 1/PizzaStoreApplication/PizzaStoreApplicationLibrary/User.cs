@@ -10,6 +10,8 @@ namespace PizzaStoreApplicationLibrary
     public class User : Address
     {
         //fields
+        public string Username { get; set; }
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
@@ -34,8 +36,9 @@ namespace PizzaStoreApplicationLibrary
             deliveryAddress = new Address();
         }
 
-        public User(string first, string second, string phone, string email, string address, string city)
+        public User(string username, string first, string second, string phone, string email, string address, string city)
         {
+            Username = username;
             FirstName = first;
             LastName = second;
             PhoneNumber = phone;
