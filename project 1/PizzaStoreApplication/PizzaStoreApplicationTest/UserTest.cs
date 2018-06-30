@@ -11,52 +11,11 @@ namespace PizzaStoreApplicationTest
         [Fact]
         public void UserShouldBeAbleToCreateOrder()
         {
-            //Arrange
             var user = new User();
-            user.CreateOrder(1);
-
-            //Act
-            var actual = user.OrderedRecently;
-
-            //Assert
-            Assert.True(actual);
+            user.CreateOrder("Reston", 3, new int[] { 1,2,3}, new int[] {1, 2, 3 });
+            //No exception thrown implies success
+            
         }
-
-        //[Fact]
-        //public void UserShouldNotBeAbleToOrderTwiceInTwoHours()
-        //{
-        //    var expected = True;
-
-        //    //Arrange
-        //    var user = new Order();
-        //    user.CreateOrder(data);
-
-        //    //Act
-        //    user.CreateOrder();
-        //    var actual = user.RecentOrder;
-
-        //    //Assert
-        //    Assert.True(expected, actual);
-        //}
-
-        //[Fact]
-        //public void UserShouldBeAbleToOrderTwiceInMoreThanTwoHours()
-        //{
-        //    var expected = false;
-
-        //    //Arrange
-        //    var user = new Order();
-        //    user.CreateOrder(data);
-
-        //    //Act
-        //    user.AlterOrderTime();
-        //    user.CreateOrder();
-        //    var actual = user.RecentOrder;
-
-        //    //Assert
-        //    Assert.False(expected, actual);
-        //}
-
-
+        
     }
 }

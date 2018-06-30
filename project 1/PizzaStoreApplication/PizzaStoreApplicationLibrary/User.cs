@@ -45,10 +45,11 @@ namespace PizzaStoreApplicationLibrary
 
         //methods
 
-        public Order CreateOrder(Location ChosenLocation, )
+        public Order CreateOrder(string ChosenLocation, int NumPizzas, int[] Sizes, int[] Types)
         {
-            
-            
+            Order NewOrder = new Order(ChosenLocation, NumPizzas, Sizes, Types);
+
+            return NewOrder;   
         }
     }
 }

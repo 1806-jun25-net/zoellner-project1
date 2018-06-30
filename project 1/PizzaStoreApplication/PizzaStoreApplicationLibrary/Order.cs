@@ -7,14 +7,16 @@ using System.Text;
 
 namespace PizzaStoreApplicationLibrary
 {
-    public class Order : IIngredients
+    public class Order
     {
         //fields
         public DateTime OrderPlaced => DateTime.Now;
 
         public int NumberOfPizzas;
 
-        public IEnumerable<string[]> OrderedPizzas;
+        public int[] DesiredSizes { get; }
+
+        public int[] DesiredTypes { get; }
 
         //constructors
         public Order()
@@ -22,11 +24,11 @@ namespace PizzaStoreApplicationLibrary
             
         }
 
-        //Ultimately, the pizzas will have up to 3 toppings. Thus, for testing, the chosen topping will
-        //iterate 3 times per pizza
-        public Order ()
+        public Order (string ChosenLocation, int NumPizzas, int[] Sizes, int[] PizzaTypes)
         {
-            
+            NumberOfPizzas = NumPizzas;
+            DesiredSizes = Sizes;
+            DesiredTypes = PizzaTypes;
         }
     }
 }
