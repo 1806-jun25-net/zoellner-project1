@@ -4,6 +4,8 @@
 using NLog;
 using PizzaStoreApplicationLibrary;
 using System;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace PizzaStoreApplication
 {
@@ -41,14 +43,34 @@ namespace PizzaStoreApplication
             return NewUser;
         }
 
+        public async static void DeserializeFile()
+        {
+
+        }
+
         static void Main(string[] args)
         {
             logger.Info("Beginning application");
 
-            logger.Info("Creating New User");
-            CreateNewUser();
-            logger.Info("New User Created");
+            Console.WriteLine("Welcome! Please enter a username or enter 'new'");
+            if (Console.ReadLine().Equals("new"))
+            {
+                logger.Info("Creating New User");
+                CreateNewUser();
+                logger.Info("New User Created");
+            }
 
+            else
+            {
+                try
+                {
+
+                }
+                catch(Exception ex)
+                {
+
+                }
+            }
             logger.Info("Exitting Application");
         }
     }

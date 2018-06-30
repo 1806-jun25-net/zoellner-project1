@@ -47,7 +47,8 @@ namespace PizzaStoreApplicationLibrary
 
         public Order CreateOrder(string ChosenLocation, int NumPizzas, int[] Sizes, int[] Types)
         {
-            Order NewOrder = new Order(ChosenLocation, NumPizzas, Sizes, Types);
+            string UserName = this.FirstName;
+            Order NewOrder = new Order(UserName, ChosenLocation, NumPizzas, Sizes, Types);
 
             return NewOrder;   
         }

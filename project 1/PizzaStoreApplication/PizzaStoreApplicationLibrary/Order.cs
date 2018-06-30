@@ -18,17 +18,23 @@ namespace PizzaStoreApplicationLibrary
 
         public int[] DesiredTypes { get; }
 
+        public string location { get; set; }
+
+        public string name;
+
         //constructors
         public Order()
         {
             
         }
 
-        public Order (string ChosenLocation, int NumPizzas, int[] Sizes, int[] PizzaTypes)
+        public Order (string UserName, string ChosenLocation, int NumPizzas, int[] Sizes, int[] PizzaTypes)
         {
             NumberOfPizzas = NumPizzas;
             DesiredSizes = Sizes;
             DesiredTypes = PizzaTypes;
+            location = ChosenLocation;
+            name = UserName;
         }
     }
 }
