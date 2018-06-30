@@ -45,16 +45,10 @@ namespace PizzaStoreApplicationLibrary
 
         //methods
 
-        public Order CreateOrder(int NumPizzas)
+        public Order CreateOrder(Location ChosenLocation, )
         {
-            if(NumPizzas > 12)
-            {
-                Console.WriteLine("Unable to fill order: too many pizzas requested");
-                return new Order();
-            }
-            Order NewOrder = new Order(NumPizzas);
-            OrderedRecently = true;
-            return NewOrder;
+            
+            
         }
     }
 }

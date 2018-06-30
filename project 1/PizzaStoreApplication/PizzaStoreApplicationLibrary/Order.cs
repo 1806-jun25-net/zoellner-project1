@@ -24,7 +24,7 @@ namespace PizzaStoreApplicationLibrary
 
         //Ultimately, the pizzas will have up to 3 toppings. Thus, for testing, the chosen topping will
         //iterate 3 times per pizza
-        public Order (int NumPizzas)
+        public Order ()
         {
             
         }
