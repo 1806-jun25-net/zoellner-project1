@@ -34,13 +34,13 @@ namespace PizzaStoreApplicationLibrary
             deliveryAddress = new Address();
         }
 
-        public User(string first, string second, string phone, string email, string address, string city, string state, string zip)
+        public User(string first, string second, string phone, string email, string address, string city)
         {
             FirstName = first;
             LastName = second;
             PhoneNumber = phone;
             Email = email;
-            deliveryAddress = new Address(address, city, state, zip);
+            deliveryAddress = new Address(address, city);
         }
 
         //methods
