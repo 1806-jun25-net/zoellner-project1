@@ -75,7 +75,35 @@ namespace PizzaStoreApplication
             }
         }
 
-        public static void SerializeToFile(string fileName, List<Object> list)
+        public static void SerializeToFile(string fileName, User user)
+        {
+            var serializer = new XmlSerializer(typeof(List<Object>));
+            FileStream fileStream = null;
+
+            try
+            {
+                fileStream = new FileStream(fileName, FileMode.Create);
+                serializer.Serialize(fileStream, user);
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine($"Exception occured during serialization: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Unexpected exception was thrown: {ex.Message}");
+                throw;
+            }
+            finally
+            {
+                if (fileStream != null)
+                {
+                    fileStream.Dispose();
+                }
+            }
+        }
+
+        public static void SerializeToFile(string fileName, List<Location> list)
         {
             var serializer = new XmlSerializer(typeof(List<Object>));
             FileStream fileStream = null;
@@ -106,7 +134,9 @@ namespace PizzaStoreApplication
         static void Main(string[] args)
         {
             logger.Info("Beginning application");
+            
             User CurrentUser;
+
             List<Location> LocationsList = new List<Location>();
             Location Reston = new Location("Reston");
             Location Herndon = new Location("Herndon");
@@ -116,6 +146,7 @@ namespace PizzaStoreApplication
             LocationsList.Add(Herndon);
             LocationsList.Add(Hattontown);
             LocationsList.Add(Dulles);
+
             if (File.Exists("locations.xml"))
             {
                 var desList = DeserializeLocationsAsync("locations.xml");
@@ -130,7 +161,10 @@ namespace PizzaStoreApplication
             if (Input.Equals("new"))
             {
                 logger.Info("Creating New User");
-                CurrentUser = CreateNewUser();
+                User newUser = CreateNewUser();
+                List<User> users = new List<User>();
+                users.Add(newUser);
+                result = users;
                 logger.Info("New User Created");
 
             }
@@ -147,8 +181,7 @@ namespace PizzaStoreApplication
                     Console.WriteLine("file wasn't found");
                 }
             }
-
-            CurrentUser = (User)result;
+            
 
             bool KeepOpen = true;
             while (KeepOpen)
@@ -177,9 +210,7 @@ namespace PizzaStoreApplication
                 }
             }
             logger.Info("Beginning serialization of locations and user");
-            List<Object> Locations = new List<object>();
-            Locations.AddRange(LocationsList);
-            SerializeToFile("locations.xml", Locations);
+            SerializeToFile("locations.xml", LocationsList);
             SerializeToFile(CurrentUser.Username + ".xml", CurrentUser);
             logger.Info("Exitting Application");
             Environment.Exit(0);
