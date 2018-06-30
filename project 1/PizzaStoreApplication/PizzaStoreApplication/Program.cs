@@ -47,138 +47,109 @@ namespace PizzaStoreApplication
             return NewUser;
         }
 
-        public async static Task<IEnumerable<Object>> DeserializeLocationsAsync(string fileName)
+        public static Location DeserializeLocation(string fileName)
         {
-            var serializer = new XmlSerializer(typeof(List<Object>));
-            using(var memoryStream = new MemoryStream())
+            using (var stream = new FileStream(fileName, FileMode.Open))
             {
-                using (var fileStream = new FileStream(fileName, FileMode.Open))
-                {
-                    await fileStream.CopyToAsync(memoryStream);
-                }
-                memoryStream.Position = 0;
-                return (List<Object>)serializer.Deserialize(memoryStream);
+                var serializer = new XmlSerializer(typeof(Location));
+                return (Location)serializer.Deserialize(stream);
+            }
+
+        }
+
+        public static User DeserializeUser(string fileName)
+        {
+            using (var stream = new FileStream(fileName, FileMode.Open))
+            {
+                var serializer = new XmlSerializer(typeof(User));
+                return (User)serializer.Deserialize(stream);
             }
         }
 
-        public async static Task<List<User>> DeserializeUserObjectAsync(string fileName)
+        public static void SerializeLocation(string fileName, Location location)
         {
-            var serializer = new XmlSerializer(typeof(List<User>));
-            using (var memoryStream = new MemoryStream())
+            using (var stream = new FileStream(fileName, FileMode.Create))
             {
-                using (var fileStream = new FileStream(fileName, FileMode.Open))
-                {
-                    await fileStream.CopyToAsync(memoryStream);
-                }
-                memoryStream.Position = 0;
-                return (List<User>)serializer.Deserialize(memoryStream);
+                var serializer = new XmlSerializer(typeof(Location));
+                serializer.Serialize(stream, location);
             }
         }
 
-        public static void SerializeToFile(string fileName, User user)
+        public static void SerializeUser(string fileName, User user)
         {
-            var serializer = new XmlSerializer(typeof(List<Object>));
-            FileStream fileStream = null;
-
-            try
+            using (var stream = new FileStream(fileName, FileMode.Create))
             {
-                fileStream = new FileStream(fileName, FileMode.Create);
-                serializer.Serialize(fileStream, user);
-            }
-            catch (IOException ex)
-            {
-                Console.WriteLine($"Exception occured during serialization: {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Unexpected exception was thrown: {ex.Message}");
-                throw;
-            }
-            finally
-            {
-                if (fileStream != null)
-                {
-                    fileStream.Dispose();
-                }
-            }
-        }
-
-        public static void SerializeToFile(string fileName, List<Location> list)
-        {
-            var serializer = new XmlSerializer(typeof(List<Object>));
-            FileStream fileStream = null;
-
-            try
-            {
-                fileStream = new FileStream(fileName, FileMode.Create);
-                serializer.Serialize(fileStream, list);
-            }
-            catch(IOException ex)
-            {
-                Console.WriteLine($"Exception occured during serialization: {ex.Message}");
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine($"Unexpected exception was thrown: {ex.Message}");
-                throw;
-            }
-            finally
-            {
-                if(fileStream != null)
-                {
-                    fileStream.Dispose();
-                }
+                var serializer = new XmlSerializer(typeof(User));
+                serializer.Serialize(stream, user);
             }
         }
 
         static void Main(string[] args)
         {
             logger.Info("Beginning application");
-            
             User CurrentUser;
+            Location Reston;
+            Location Herndon;
+            Location Dulles;
+            Location Hattontown;
 
-            List<Location> LocationsList = new List<Location>();
-            Location Reston = new Location("Reston");
-            Location Herndon = new Location("Herndon");
-            Location Hattontown = new Location("Hattontown");
-            Location Dulles = new Location("Dulles");
-            LocationsList.Add(Reston);
-            LocationsList.Add(Herndon);
-            LocationsList.Add(Hattontown);
-            LocationsList.Add(Dulles);
-
-            if (File.Exists("locations.xml"))
+            if (File.Exists("reston.xml"))
             {
-                var desList = DeserializeLocationsAsync("locations.xml");
-                
-                LocationsList.Clear();
-                LocationsList = (List<Location>)desList.Result;
-            }
-            
-            Console.WriteLine("Welcome! Please enter a username or enter 'new'");
-            string Input = Console.ReadLine();
-            IEnumerable<User> result = new List<User>();
-            if (Input.Equals("new"))
-            {
-                logger.Info("Creating New User");
-                User newUser = CreateNewUser();
-                List<User> users = new List<User>();
-                users.Add(newUser);
-                result = users;
-                logger.Info("New User Created");
-
+                Reston = DeserializeLocation("reston.xml");
             }
             else
             {
-                var UserList = DeserializeUserObjectAsync("" + Input + ".xml");
-                
-                try
+                Reston = new Location("Reston");
+            }
+            if (File.Exists("herndon.xml"))
+            {
+                Herndon = DeserializeLocation("herndon.xml");
+            }
+            else
+            {
+                Herndon = new Location("Herndon");
+            }
+            if (File.Exists("dulles.xml"))
+            {
+                Dulles = DeserializeLocation("dulles.xml");
+            }
+            else
+            {
+                Dulles = new Location("Dulles");
+            }
+            if (File.Exists("hattontown.xml"))
+            {
+                Hattontown = DeserializeLocation("hattontown.xml");
+            }
+            else
+            {
+                Hattontown = new Location("Hattontown");
+            }
+
+            Console.WriteLine("Welcome! Please enter a username or enter 'new'");
+            string Input = Console.ReadLine();
+            bool UsernameEntered = false;
+            while (!UsernameEntered)
+            {
+                if (Input.Equals("new"))
                 {
-                    result = UserList.Result;
+                    logger.Info("Creating New User");
+                    CurrentUser = CreateNewUser();
+                    logger.Info("New User Created");
+                    UsernameEntered = true;
+
                 }
-                catch (AggregateException ex)
+                else if (File.Exists(Input + ".xml"))
                 {
-                    Console.WriteLine("file wasn't found");
+                    logger.Info("Retrieving user information"); 
+                    string path = Input + ".xml";
+                    CurrentUser = DeserializeUser(path);
+                    logger.Info("User information retrieved");
+                    UsernameEntered = true;
+                }
+                else
+                {
+                    Console.WriteLine("Username not detected. Please either input phrase 'new' or a registered username");
                 }
             }
             
@@ -187,7 +158,7 @@ namespace PizzaStoreApplication
             while (KeepOpen)
             {
                 Console.Clear();
-                Console.WriteLine("Welcome " + CurrentUser.FirstName);
+                Console.WriteLine("Welcome! Let's get started!");
                 Console.WriteLine("Please input one of the following:");
                 Console.WriteLine("Order: place a new order; Exit: exit the application");
                 Input = Console.ReadLine();
@@ -209,9 +180,16 @@ namespace PizzaStoreApplication
                     KeepOpen = false;
                 }
             }
-            logger.Info("Beginning serialization of locations and user");
-            SerializeToFile("locations.xml", LocationsList);
-            SerializeToFile(CurrentUser.Username + ".xml", CurrentUser);
+            logger.Info("Beginning serialization of locations");
+            SerializeLocation("reston.xml", Reston);
+            SerializeLocation("herndon.xml", Herndon);
+            SerializeLocation("dulles.xml", Dulles);
+            SerializeLocation("hattontown.xml", Hattontown);
+
+            logger.Info("Locations serialized. Serializing user.");
+            string name = CurrentUser.Username;
+            string NewFile = name + ".xml";
+            SerializeUser(name, CurrentUser);
             logger.Info("Exitting Application");
             Environment.Exit(0);
         }
