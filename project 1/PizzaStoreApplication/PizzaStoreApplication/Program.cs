@@ -4,8 +4,10 @@
 using NLog;
 using PizzaStoreApplicationLibrary;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace PizzaStoreApplication
 {
@@ -43,9 +45,37 @@ namespace PizzaStoreApplication
             return NewUser;
         }
 
-        public async static void DeserializeFile()
+        public async static Task<IEnumerable<Object>> DeserializeFromFileAsync(string fileName)
         {
+            var
+        }
 
+        public static void SerializeToFile(string fileName, List<Object> list)
+        {
+            var serializer = new XmlSerializer(typeof(List<Object>));
+            FileStream fileStream = null;
+
+            try
+            {
+                fileStream = new FileStream(fileName, FileMode.Create);
+                serializer.Serialize(fileStream, list);
+            }
+            catch(IOException ex)
+            {
+                Console.WriteLine($"Exception occured during serialization: {ex.Message}");
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Unexpected exception was thrown: {ex.Message}");
+                throw;
+            }
+            finally
+            {
+                if(fileStream != null)
+                {
+                    fileStream.Dispose();
+                }
+            }
         }
 
         static void Main(string[] args)
