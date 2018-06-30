@@ -133,6 +133,7 @@ namespace PizzaStoreApplication
             {
                 Console.WriteLine("Please enter a valid username or enter 'new'");
                 Input = Console.ReadLine();
+                Input = Input.ToLower();
                 if (Input.Equals("new"))
                 {
                     logger.Info("Creating New User");
@@ -163,14 +164,14 @@ namespace PizzaStoreApplication
                 Console.WriteLine("Please input one of the following:");
                 Console.WriteLine("Order: place a new order; Exit: exit the application");
                 Input = Console.ReadLine();
-                Input.ToLower();
+                Input = Input.ToLower();
 
                 if(!Input.Equals("order") && !Input.Equals("exit"))
                 {
                     Console.WriteLine("Please input an accepted command");
                     Console.WriteLine("Order: place a new order; Exit: exit the application");
                     Input = Console.ReadLine();
-                    Input.ToLower();
+                    Input = Input.ToLower();
                 }
                 else if (Input.Equals("order"))
                 {
