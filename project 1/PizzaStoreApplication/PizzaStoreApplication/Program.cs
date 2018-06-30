@@ -47,7 +47,16 @@ namespace PizzaStoreApplication
 
         public async static Task<IEnumerable<Object>> DeserializeFromFileAsync(string fileName)
         {
-            var
+            var serializer = new XmlSerializer(typeof(List<Object>));
+            using(var memoryStream = new MemoryStream())
+            {
+                using (var fileStream = new FileStream(fileName, FileMode.Open))
+                {
+                    await fileStream.CopyToAsync(memoryStream);
+                }
+                memoryStream.Position = 0;
+                return (List<Object>)serializer.Deserialize(memoryStream);
+            }
         }
 
         public static void SerializeToFile(string fileName, List<Object> list)
@@ -82,6 +91,22 @@ namespace PizzaStoreApplication
         {
             logger.Info("Beginning application");
 
+            if (File.Exists("users.xml"))
+            {
+                DeserializeFromFileAsync("users.xml");
+            }
+            if (File.Exists("locations.xml"))
+            {
+                DeserializeFromFileAsync("locations.xml");
+            }
+            else
+            {
+                Location Reston = new Location("Reston");
+                Location Herndon = new Location("Herndon");
+                Location Hattontown = new Location("Hattontown");
+                Location Dulles = new Location("Dulles");
+            }
+
             Console.WriteLine("Welcome! Please enter a username or enter 'new'");
             if (Console.ReadLine().Equals("new"))
             {
@@ -90,17 +115,6 @@ namespace PizzaStoreApplication
                 logger.Info("New User Created");
             }
 
-            else
-            {
-                try
-                {
-
-                }
-                catch(Exception ex)
-                {
-
-                }
-            }
             logger.Info("Exitting Application");
         }
     }
