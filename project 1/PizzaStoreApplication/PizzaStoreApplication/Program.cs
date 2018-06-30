@@ -87,7 +87,7 @@ namespace PizzaStoreApplication
         static void Main(string[] args)
         {
             logger.Info("Beginning application");
-            User CurrentUser;
+            User CurrentUser = new User();
             Location Reston;
             Location Herndon;
             Location Dulles;
@@ -126,11 +126,13 @@ namespace PizzaStoreApplication
                 Hattontown = new Location("Hattontown");
             }
 
-            Console.WriteLine("Welcome! Please enter a username or enter 'new'");
-            string Input = Console.ReadLine();
+            Console.WriteLine("Welcome to our new pizza application!");
+            string Input;
             bool UsernameEntered = false;
             while (!UsernameEntered)
             {
+                Console.WriteLine("Please enter a valid username or enter 'new'");
+                Input = Console.ReadLine();
                 if (Input.Equals("new"))
                 {
                     logger.Info("Creating New User");
@@ -149,10 +151,9 @@ namespace PizzaStoreApplication
                 }
                 else
                 {
-                    Console.WriteLine("Username not detected. Please either input phrase 'new' or a registered username");
+                    Console.WriteLine("Username not detected.");
                 }
             }
-            
 
             bool KeepOpen = true;
             while (KeepOpen)
@@ -189,7 +190,7 @@ namespace PizzaStoreApplication
             logger.Info("Locations serialized. Serializing user.");
             string name = CurrentUser.Username;
             string NewFile = name + ".xml";
-            SerializeUser(name, CurrentUser);
+            SerializeUser(NewFile, CurrentUser);
             logger.Info("Exitting Application");
             Environment.Exit(0);
         }
