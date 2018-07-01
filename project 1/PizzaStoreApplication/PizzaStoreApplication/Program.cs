@@ -283,23 +283,26 @@ namespace PizzaStoreApplication
                             DeliveryLocation = CurrentUser.Favorite;
                         }
                         DeliveryLocation = DeliveryLocation.ToLower();
+                        Order CurrentOrder = new Order();
                         switch (DeliveryLocation)
                         {
                             case "reston":
-                                Reston.CreateOrder(CurrentUser, NumPizzas);
+                                CurrentOrder = Reston.CreateOrder(CurrentUser, NumPizzas);
                                 break;
                             case "herndon":
-                                Herndon.CreateOrder(CurrentUser, NumPizzas);
+                                CurrentOrder = Herndon.CreateOrder(CurrentUser, NumPizzas);
                                 break;
                             case "dulles":
-                                Dulles.CreateOrder(CurrentUser, NumPizzas);
+                                CurrentOrder = Dulles.CreateOrder(CurrentUser, NumPizzas);
                                 break;
                             case "hattontown":
-                                Hattontown.CreateOrder(CurrentUser, NumPizzas);
+                                CurrentOrder = Hattontown.CreateOrder(CurrentUser, NumPizzas);
                                 break;
                             default:
                                 break;
                         }
+
+                        CurrentUser.UserFavoritePizza(CurrentOrder);
 
                         Console.Clear();
                         Console.WriteLine("Your order has been placed!");

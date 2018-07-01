@@ -67,6 +67,7 @@ namespace PizzaStoreApplicationLibrary
 
                         Console.WriteLine("And what type of pizza would you like?");
                         Console.WriteLine("The options are: Cheese, Pepperoni, Meat (Pepperoni, Ham, and Meatball), or Veggie (Pepperoni, Green Peppers, and Onions)");
+                        Console.WriteLine("We recommend " + CurrentUser.FavoritePizza);
 
                         string pizzaType = "1";
                         ValidInput = false;
@@ -97,8 +98,9 @@ namespace PizzaStoreApplicationLibrary
                             Console.WriteLine("We're sorry. We cannot currently make that pizza. Please recreate the current pizza.");
                         }
                     }
+                    Console.Clear();
                 }
-                Console.WriteLine("");
+                Console.Clear();
                 Console.WriteLine("Does this look good to you?");
                 Console.WriteLine("");
 

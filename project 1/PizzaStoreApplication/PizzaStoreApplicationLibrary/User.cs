@@ -26,6 +26,16 @@ namespace PizzaStoreApplicationLibrary
 
         Address deliveryAddress;
 
+        public int CheeseOrdered { get; set; } = 0;
+
+        public int PepperoniOrdered { get; set; } = 0;
+
+        public int MeatOrdered { get; set; } = 0;
+
+        public int VeggieOrdered { get; set; } = 0;
+
+        public string FavoritePizza { get; set; } = "Pepperoni Pizza";
+
         public bool OrderedRecently = false;
 
         //constructors
@@ -52,6 +62,53 @@ namespace PizzaStoreApplicationLibrary
 
         //methods
 
-        
+        public void UserFavoritePizza(Order order)
+        {
+            List<int> PizzasOrdered = order.DesiredTypes;
+            foreach (var item in PizzasOrdered)
+            {
+                switch (item)
+                {
+                    case 1:
+                        CheeseOrdered++;
+                        break;
+                    case 2:
+                        PepperoniOrdered++;
+                        break;
+                    case 3:
+                        MeatOrdered++;
+                        break;
+                    case 4:
+                        VeggieOrdered++;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            if(CheeseOrdered > PepperoniOrdered && CheeseOrdered > MeatOrdered
+                && CheeseOrdered > VeggieOrdered)
+            {
+                FavoritePizza = "Cheese Pizza";
+            }
+
+            else if (PepperoniOrdered > CheeseOrdered && PepperoniOrdered > MeatOrdered
+                && PepperoniOrdered > VeggieOrdered)
+            {
+                FavoritePizza = "Pepperoni Pizza";
+            }
+
+            else if (MeatOrdered > CheeseOrdered && MeatOrdered > PepperoniOrdered
+                && MeatOrdered > VeggieOrdered)
+            {
+                FavoritePizza = "Meat Pizza";
+            }
+
+            else if (VeggieOrdered > CheeseOrdered && VeggieOrdered > MeatOrdered
+                && VeggieOrdered > PepperoniOrdered)
+            {
+                FavoritePizza = "Veggie Pizza";
+            }
+        }
     }
 }
