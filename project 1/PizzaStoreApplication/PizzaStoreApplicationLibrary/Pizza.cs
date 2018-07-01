@@ -9,8 +9,7 @@ namespace PizzaStoreApplicationLibrary
 {
     public class Pizza
     {
-        enum Size { Small=1, Medium, Large};
-        double SizeModifier;
+        double SizeModifier = 1.0;
         public double DoughUsage { get; set; } = 0;
         public double SauceUsage { get; set; } = 0;
         public double CheeseUsage { get; set; } = 0;

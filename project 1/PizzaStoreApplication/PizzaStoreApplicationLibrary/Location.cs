@@ -119,6 +119,8 @@ namespace PizzaStoreApplicationLibrary
                     {
                         Console.Clear();
                         Console.WriteLine("You have indicated that you were not satisfied with your order. We're sorry about that. Please resubmit your order from the beginning.");
+                        PizzaSizes.Clear();
+                        PizzaType.Clear();
                         SubmitOrder = true;
                     }
                     else if (Input.Equals("y"))
@@ -130,6 +132,7 @@ namespace PizzaStoreApplicationLibrary
                 }
             }
             Order NewOrder = new Order(CurrentUser, Name, NumPizzas, PizzaSizes, PizzaType);
+            DecreaseInventory(NewOrder);
             OrderHistory.Add(NewOrder);
 
             return NewOrder;
@@ -144,6 +147,7 @@ namespace PizzaStoreApplicationLibrary
             {
                 Makeable = false;
             }
+            
             return Makeable;
         }
 
@@ -197,6 +201,20 @@ namespace PizzaStoreApplicationLibrary
                 Console.WriteLine("     " + item.OrderPlaced + " " + item.name + " ordered the following:");
                 CurrentOrder(item.DesiredSizes, item.DesiredTypes, item.NumberOfPizzas);
                 Console.WriteLine("");
+            }
+        }
+
+        public void DecreaseInventory(Order CurrentOrder)
+        {
+            for(int i = 0; i < CurrentOrder.DesiredSizes.Capacity; i++)
+            {
+                Pizza CurrentPizza = new Pizza(CurrentOrder.DesiredSizes[i], CurrentOrder.DesiredTypes[i]);
+                Dough = Dough - CurrentPizza.DoughUsage;
+                Sauce = Sauce - CurrentPizza.SauceUsage;
+                Cheese = Cheese - CurrentPizza.CheeseUsage;
+                Pepperoni = Pepperoni - CurrentPizza.PepperoniUsage;
+                HamAndMeatball = HamAndMeatball - CurrentPizza.HamAndMeatballUsage;
+                PeppersAndOnions = PeppersAndOnions - CurrentPizza.PepperAndOnionUsage;
             }
         }
     }
