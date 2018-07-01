@@ -52,12 +52,6 @@ namespace PizzaStoreApplicationLibrary
 
         //methods
 
-        public Order CreateOrder(string ChosenLocation, int NumPizzas, int[] Sizes, int[] Types)
-        {
-            string UserName = this.FirstName;
-            Order NewOrder = new Order(UserName, ChosenLocation, NumPizzas, Sizes, Types);
-
-            return NewOrder;   
-        }
+        
     }
 }

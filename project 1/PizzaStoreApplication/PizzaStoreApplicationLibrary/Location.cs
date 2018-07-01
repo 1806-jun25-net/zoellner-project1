@@ -28,5 +28,12 @@ namespace PizzaStoreApplicationLibrary
         {
             Name = name;
         }
+
+        //methods
+        public Order CreateOrder(User CurrentUser, int NumPizzas)
+        {
+            Order placeholder = new Order();
+            return placeholder;
+        }
     }
 }

@@ -243,7 +243,24 @@ namespace PizzaStoreApplication
                         Console.WriteLine("Your favorite store is:" + CurrentUser.Favorite);
                         Input = Console.ReadLine().ToLower();
                         bool ValidLocation = false;
+                        bool AcceptedInput = false;
                         string DeliveryLocation = "";
+                        if(Input != "y" && Input != "n")
+                        {
+                            while (!AcceptedInput)
+                            {
+                                Console.WriteLine("Please input either 'y' for yes or 'n' for no.");
+                                Input = Console.ReadLine().ToLower();
+                                if (Input != "y" && Input != "n")
+                                {
+                                    continue;
+                                }
+                                else
+                                {
+                                    AcceptedInput = true;
+                                }
+                            }
+                        }
                         if (Input == "n")
                         {
                             while (!ValidLocation)
@@ -260,6 +277,29 @@ namespace PizzaStoreApplication
                                 }
                             }
                         }
+                        if(Input == "y")
+                        {
+                            DeliveryLocation = CurrentUser.Favorite;
+                        }
+                        DeliveryLocation = DeliveryLocation.ToLower();
+                        switch (DeliveryLocation)
+                        {
+                            case "reston":
+                                Reston.CreateOrder(CurrentUser, NumPizzas);
+                                break;
+                            case "herndon":
+                                Herndon.CreateOrder(CurrentUser, NumPizzas);
+                                break;
+                            case "dulles":
+                                Dulles.CreateOrder(CurrentUser, NumPizzas);
+                                break;
+                            case "hattontown":
+                                Hattontown.CreateOrder(CurrentUser, NumPizzas);
+                                break;
+                            default:
+                                break;
+                        }
+
                     }
                 }
                 else if (Input.Equals("exit"))
