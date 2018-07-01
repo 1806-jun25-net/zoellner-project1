@@ -214,6 +214,7 @@ namespace PizzaStoreApplication
                 }
                 else if (Input.Equals("order"))
                 {
+                    Console.Clear();
                     Console.WriteLine("How many pizzas would you like to order (max of 12)? Please input a number.");
                     Input = Console.ReadLine();
                     try
@@ -237,7 +238,7 @@ namespace PizzaStoreApplication
                         Console.WriteLine("Wait...didn't you want to order at least one pizza? We have to start over...");
                         continue;
                     }
-                    else
+                    else if(NumPizzas > 0 && NumPizzas <= 12)
                     {
                         Console.WriteLine("Are we delivering from your favorite store? Y/N");
                         Console.WriteLine("Your favorite store is:" + CurrentUser.Favorite);
@@ -300,6 +301,12 @@ namespace PizzaStoreApplication
                                 break;
                         }
 
+                    }
+                    else
+                    {
+                        Console.WriteLine("Error: There is a 12 pizza maximum. Please input a lower number of pizzas.");
+                        Console.WriteLine("We're going to have to start over...");
+                        continue;
                     }
                 }
                 else if (Input.Equals("exit"))

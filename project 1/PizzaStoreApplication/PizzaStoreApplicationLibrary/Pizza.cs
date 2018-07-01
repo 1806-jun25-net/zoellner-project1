@@ -11,7 +11,35 @@ namespace PizzaStoreApplicationLibrary
     {
         enum Size { Small=1, Medium, Large};
         double SizeModifier;
+        public double DoughUsage { get; set; }
+        public double SauceUsage { get; set; }
+        public double CheeseUsage { get; set; }
+        public double PepperoniUsage { get; set; }
+        public double HamAndMeatballUsage { get; set; }
+        public double PepperAndOnionUsage { get; set; }
 
+
+        public Pizza(int size, int type)
+        {
+            SizeModifierSet(size);
+            switch (type)
+            {
+                case 1:
+                    CheesePizza(SizeModifier);
+                    break;
+                case 2:
+                    PepperoniPizza(SizeModifier);
+                    break;
+                case 3:
+                    MeatPizza(SizeModifier);
+                    break;
+                case 4:
+                    VeggieAndPepperoniPizza(SizeModifier);
+                    break;
+                default:
+                    break;
+            }
+        }
 
         private void SizeModifierSet(int PizzaSize)
         {
@@ -32,24 +60,37 @@ namespace PizzaStoreApplicationLibrary
             }
         }
 
-        public void CheesePizza()
+        public void CheesePizza(double sizeModifier)
         {
-            
+            DoughUsage = sizeModifier * 1;
+            SauceUsage = sizeModifier * 1;
+            CheeseUsage = sizeModifier * 1;
         }
 
-        public void PepperoniPizza()
+        public void PepperoniPizza(double sizeModifier)
         {
-
+            DoughUsage = sizeModifier * 1;
+            SauceUsage = sizeModifier * 1;
+            CheeseUsage = sizeModifier * 1;
+            PepperoniUsage = sizeModifier * 1;
         }
 
-        public void VeggieAndPepperoniPizza()
+        public void VeggieAndPepperoniPizza(double sizeModifier)
         {
-
+            DoughUsage = sizeModifier * 1;
+            SauceUsage = sizeModifier * 1;
+            CheeseUsage = sizeModifier * 1;
+            PepperoniUsage = sizeModifier * 1;
+            PepperAndOnionUsage = sizeModifier * 1;
         }
 
-        public void MeatPizza()
+        public void MeatPizza(double sizeModifier)
         {
-
+            DoughUsage = sizeModifier * 1;
+            SauceUsage = sizeModifier * 1;
+            CheeseUsage = sizeModifier * 1;
+            PepperoniUsage = sizeModifier * 1;
+            HamAndMeatballUsage = sizeModifier * 1;
         }
     }
 }
