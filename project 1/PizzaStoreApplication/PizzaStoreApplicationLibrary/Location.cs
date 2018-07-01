@@ -129,6 +129,7 @@ namespace PizzaStoreApplicationLibrary
             }
             Order NewOrder = new Order(CurrentUser, Name, NumPizzas, PizzaSizes, PizzaType);
 
+            return NewOrder;
         }
 
         public bool CanMakePizza(int size, int type)
