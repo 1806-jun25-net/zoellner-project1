@@ -53,9 +53,23 @@ namespace PizzaStoreApplication
             Console.WriteLine("Please enter your city:");
             string City = Console.ReadLine();
 
+            bool ValidFavorite = false;
+            string Favorite = "";
             Console.WriteLine("Which store would you like to mark as your favorite?");
-            Console.WriteLine("Available stores: Reston, Herndon, Dulles, Hattontown");
-            string Favorite = Console.ReadLine();
+            while (!ValidFavorite)
+            {
+                Console.WriteLine("Available stores: Reston, Herndon, Dulles, Hattontown");
+                Favorite = Console.ReadLine().ToLower();
+
+                if (Favorite != "reston" && Favorite != "herndon" && Favorite != "dulles" && Favorite != "hattontown")
+                {
+                    Console.WriteLine("Please input a valid favorite location.");
+                }
+                else
+                {
+                    ValidFavorite = true;
+                }
+            }
 
             Console.WriteLine("Excellent! We have all of your information!");
             logger.Info("Creating User object");
