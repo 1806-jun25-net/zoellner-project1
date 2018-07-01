@@ -241,8 +241,25 @@ namespace PizzaStoreApplication
                     {
                         Console.WriteLine("Are we delivering from your favorite store? Y/N");
                         Console.WriteLine("Your favorite store is:" + CurrentUser.Favorite);
-                        Input = Console.ReadLine();
-
+                        Input = Console.ReadLine().ToLower();
+                        bool ValidLocation = false;
+                        string DeliveryLocation = "";
+                        if (Input == "n")
+                        {
+                            while (!ValidLocation)
+                            {
+                                Console.WriteLine("Which location shall we send the order to?");
+                                DeliveryLocation = Console.ReadLine().ToLower();
+                                if (DeliveryLocation != "reston" && DeliveryLocation != "herndon" && DeliveryLocation != "dulles" && DeliveryLocation != "hattontown")
+                                {
+                                    Console.WriteLine("Please input a valid favorite location.");
+                                }
+                                else
+                                {
+                                    ValidLocation = true;
+                                }
+                            }
+                        }
                     }
                 }
                 else if (Input.Equals("exit"))
