@@ -19,6 +19,8 @@ namespace PizzaStoreApplicationLibrary
         public double PeppersAndOnions { get; set; } = 1000;
         public double HamAndMeatball { get; set; } = 1000;
 
+        public List<Order> OrderHistory;
+
         public Location()
         {
             Name = "Close Store";
@@ -128,6 +130,7 @@ namespace PizzaStoreApplicationLibrary
                 }
             }
             Order NewOrder = new Order(CurrentUser, Name, NumPizzas, PizzaSizes, PizzaType);
+            OrderHistory.Add(NewOrder);
 
             return NewOrder;
         }
@@ -182,6 +185,18 @@ namespace PizzaStoreApplicationLibrary
                         break;
                 }
                 Console.WriteLine(currentPizza);
+            }
+        }
+
+        public void ViewOrderHistory()
+        {
+            Console.Clear();
+            Console.WriteLine("Order history for " + Name + " location:");
+            foreach (var item in OrderHistory)
+            {
+                Console.WriteLine("     " + item.OrderPlaced + " " + item.name + " ordered the following:");
+                CurrentOrder(item.DesiredSizes, item.DesiredTypes, item.NumberOfPizzas);
+                Console.WriteLine("");
             }
         }
     }

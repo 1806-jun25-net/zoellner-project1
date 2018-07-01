@@ -301,6 +301,9 @@ namespace PizzaStoreApplication
                                 break;
                         }
 
+                        Console.Clear();
+                        Console.WriteLine("Your order has been placed!");
+
                     }
                     else
                     {
