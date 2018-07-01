@@ -14,9 +14,9 @@ namespace PizzaStoreApplicationLibrary
 
         public int NumberOfPizzas;
 
-        public int[] DesiredSizes { get; }
+        public List<int> DesiredSizes { get; }
 
-        public int[] DesiredTypes { get; }
+        public List<int> DesiredTypes { get; }
 
         public string location { get; set; }
 
@@ -28,13 +28,13 @@ namespace PizzaStoreApplicationLibrary
             
         }
 
-        public Order (string UserName, string ChosenLocation, int NumPizzas, int[] Sizes, int[] PizzaTypes)
+        public Order (User CurrentUser, string ChosenLocation, int NumPizzas, List<int> Sizes, List<int> PizzaTypes)
         {
             NumberOfPizzas = NumPizzas;
             DesiredSizes = Sizes;
             DesiredTypes = PizzaTypes;
             location = ChosenLocation;
-            name = UserName;
+            name = CurrentUser.FirstName;
         }
     }
 }

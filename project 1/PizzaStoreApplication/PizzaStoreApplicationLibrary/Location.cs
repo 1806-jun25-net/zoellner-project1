@@ -34,69 +34,101 @@ namespace PizzaStoreApplicationLibrary
         {
             List<int> PizzaSizes = new List<int>();
             List<int> PizzaType = new List<int>();
-            for (int i = 0; i < NumPizzas; i++)
+            bool ConfirmedOrder = false;
+            while (!ConfirmedOrder)
             {
-                bool Incomplete = true;
-                while (Incomplete)
+                for (int i = 0; i < NumPizzas; i++)
                 {
-                    int currentSize;
-                    int currentType;
-                    string size = "";
-                    Console.WriteLine("What size will pizza" + (i + 1) + "be?");
-                    bool ValidInput = false;
-                    while (!ValidInput)
+                    bool Incomplete = true;
+                    while (Incomplete)
                     {
-                        Console.WriteLine("Please input 1 for small, 2 for medium, and 3 for large.");
-                        size = Console.ReadLine();
-                        if (!size.Equals("1") && !size.Equals("2") && !size.Equals("3"))
+                        int currentSize;
+                        int currentType;
+                        string size = "";
+                        Console.WriteLine("What size will pizza" + (i + 1) + "be?");
+                        bool ValidInput = false;
+                        while (!ValidInput)
                         {
-                            Console.WriteLine("Invalid input. Try again.");
-                            continue;
+                            Console.WriteLine("Please input 1 for small, 2 for medium, and 3 for large.");
+                            size = Console.ReadLine();
+                            if (!size.Equals("1") && !size.Equals("2") && !size.Equals("3"))
+                            {
+                                Console.WriteLine("Invalid input. Try again.");
+                                continue;
+                            }
+                            else
+                            {
+                                ValidInput = true;
+                            }
+                        }
+                        currentSize = int.Parse(size);
+
+                        Console.WriteLine("And what type of pizza would you like?");
+                        Console.WriteLine("The options are: Cheese, Pepperoni, Meat (Pepperoni, Ham, and Meatball), or Veggie (Pepperoni, Green Peppers, and Onions)");
+
+                        string pizzaType = "1";
+                        ValidInput = false;
+                        while (!ValidInput)
+                        {
+                            Console.WriteLine("Please select 1 for Cheese, 2 for Pepperoni, 3 for Meat, or 4 for Veggie");
+                            pizzaType = Console.ReadLine();
+                            if (!pizzaType.Equals("1") && !pizzaType.Equals("2") && !pizzaType.Equals("3") && !pizzaType.Equals("4"))
+                            {
+                                Console.WriteLine("Invalid input. Try again.");
+                                continue;
+                            }
+                            else
+                            {
+                                ValidInput = true;
+                            }
+                        }
+                        currentType = int.Parse(pizzaType);
+                        bool Makeable = CanMakePizza(currentSize, currentType);
+                        if (Makeable)
+                        {
+                            PizzaSizes.Add(currentSize);
+                            PizzaType.Add(currentType);
+                            Incomplete = false;
                         }
                         else
                         {
-                            ValidInput = true;
+                            Console.WriteLine("We're sorry. We cannot currently make that pizza. Please recreate the current pizza.");
                         }
                     }
-                    currentSize = int.Parse(size);
+                }
+                Console.WriteLine("");
+                Console.WriteLine("Does this look good to you?");
+                Console.WriteLine("");
 
-                    Console.WriteLine("And what type of pizza would you like?");
-                    Console.WriteLine("The options are: Cheese, Pepperoni, Meat (Pepperoni, Ham, and Meatball), or Veggie (Pepperoni, Green Peppers, and Onions)");
+                CurrentOrder(PizzaSizes, PizzaType, NumPizzas);
 
-                    string pizzaType = "1";
-                    ValidInput = false;
-                    while (!ValidInput)
+                bool SubmitOrder = false;
+                while (!SubmitOrder)
+                {
+                    Console.WriteLine("Shall we submit the order? Y/N");
+                    string Input = Console.ReadLine().ToLower();
+
+                    if (Input.Equals("y") && Input.Equals("n"))
                     {
-                        Console.WriteLine("Please select 1 for Cheese, 2 for Pepperoni, 3 for Meat, or 4 for Veggie");
-                        pizzaType = Console.ReadLine();
-                        if (!pizzaType.Equals("1") && !pizzaType.Equals("2") && !pizzaType.Equals("3") && !pizzaType.Equals("4"))
-                        {
-                            Console.WriteLine("Invalid input. Try again.");
-                            continue;
-                        }
-                        else
-                        {
-                            ValidInput = true;
-                        }
+                        Console.WriteLine("Please input either 'y' for yes or 'n' for no.");
+                        continue;
                     }
-                    currentType = int.Parse(pizzaType);
-                    bool Makeable = CanMakePizza(currentSize, currentType);
-                    if (Makeable)
+                    else if (Input.Equals("n"))
                     {
-                        PizzaSizes.Add(currentSize);
-                        PizzaType.Add(currentType);
-                        Incomplete = false;
+                        Console.Clear();
+                        Console.WriteLine("You have indicated that you were not satisfied with your order. We're sorry about that. Please resubmit your order from the beginning.");
+                        SubmitOrder = true;
                     }
-                    else
+                    else if (Input.Equals("y"))
                     {
-                        Console.WriteLine("We're sorry. We cannot currently make that pizza. Please recreate the current pizza.");
+                        Console.WriteLine("Excellent! We shall submit your order for you!");
+                        SubmitOrder = true;
+                        ConfirmedOrder = true;
                     }
                 }
             }
-            Console.WriteLine("");
-            Console.WriteLine("Does this look good to you?");
-            Console.WriteLine("");
-            
+            Order NewOrder = new Order(CurrentUser, Name, NumPizzas, PizzaSizes, PizzaType);
+
         }
 
         public bool CanMakePizza(int size, int type)
