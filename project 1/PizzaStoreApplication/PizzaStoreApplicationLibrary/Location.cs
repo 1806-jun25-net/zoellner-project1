@@ -34,13 +34,20 @@ namespace PizzaStoreApplicationLibrary
         //methods
         public Order CreateOrder(User CurrentUser, int NumPizzas)
         {
+            double TotalCost = 0;
             List<int> PizzaSizes = new List<int>();
             List<int> PizzaType = new List<int>();
             bool ConfirmedOrder = false;
+            bool ContinueOrder = true;
             while (!ConfirmedOrder)
             {
                 for (int i = 0; i < NumPizzas; i++)
                 {
+                    if (!ContinueOrder)
+                    {
+                        continue;
+                    }
+
                     bool Incomplete = true;
                     while (Incomplete)
                     {
@@ -68,24 +75,81 @@ namespace PizzaStoreApplicationLibrary
                         Console.WriteLine("And what type of pizza would you like?");
                         Console.WriteLine("The options are: Cheese, Pepperoni, Meat (Pepperoni, Ham, and Meatball), or Veggie (Pepperoni, Green Peppers, and Onions)");
                         Console.WriteLine("We recommend " + CurrentUser.FavoritePizza);
-
+                        
                         string pizzaType = "1";
                         ValidInput = false;
                         while (!ValidInput)
                         {
-                            Console.WriteLine("Please select 1 for Cheese, 2 for Pepperoni, 3 for Meat, or 4 for Veggie");
-                            pizzaType = Console.ReadLine();
-                            if (!pizzaType.Equals("1") && !pizzaType.Equals("2") && !pizzaType.Equals("3") && !pizzaType.Equals("4"))
+                            if (currentSize == 1)
                             {
-                                Console.WriteLine("Invalid input. Try again.");
-                                continue;
+                                Console.WriteLine("Please select 1 for Cheese($8.00), 2 for Pepperoni($9.00), 3 for Meat($11.00), or 4 for Veggie($11.00)");
+                                pizzaType = Console.ReadLine();
+                                if (!pizzaType.Equals("1") && !pizzaType.Equals("2") && !pizzaType.Equals("3") && !pizzaType.Equals("4"))
+                                {
+                                    Console.WriteLine("Invalid input. Try again.");
+                                    continue;
+                                }
+                                else
+                                {
+                                    ValidInput = true;
+                                }
                             }
-                            else
+                            if (currentSize == 2)
                             {
-                                ValidInput = true;
+                                Console.WriteLine("Please select 1 for Cheese($11.00), 2 for Pepperoni($12.00), 3 for Meat($14.00), or 4 for Veggie($14.00)");
+                                pizzaType = Console.ReadLine();
+                                if (!pizzaType.Equals("1") && !pizzaType.Equals("2") && !pizzaType.Equals("3") && !pizzaType.Equals("4"))
+                                {
+                                    Console.WriteLine("Invalid input. Try again.");
+                                    continue;
+                                }
+                                else
+                                {
+                                    ValidInput = true;
+                                }
+                            }
+                            if (currentSize == 3)
+                            {
+                                Console.WriteLine("Please select 1 for Cheese($14.00), 2 for Pepperoni($15.00), 3 for Meat($17.00), or 4 for Veggie($17.00)");
+                                pizzaType = Console.ReadLine();
+                                if (!pizzaType.Equals("1") && !pizzaType.Equals("2") && !pizzaType.Equals("3") && !pizzaType.Equals("4"))
+                                {
+                                    Console.WriteLine("Invalid input. Try again.");
+                                    continue;
+                                }
+                                else
+                                {
+                                    ValidInput = true;
+                                }
                             }
                         }
                         currentType = int.Parse(pizzaType);
+                        bool OverLimit = CostCalculator(currentSize, currentType, TotalCost);
+                        if (OverLimit)
+                        {
+                            Console.WriteLine("We're sorry. We have a $500.00 cost limit. Your current total price is $" + TotalCost);
+                            Console.WriteLine("Would you like to keep ordering? Y/N");
+                            string RepeatPizza = Console.ReadLine().ToLower();
+                            if (RepeatPizza.Equals("y"))
+                            {
+                                Console.Clear();
+                                Console.WriteLine("Restarting current pizza");
+                                continue;
+                            }
+                            if(!RepeatPizza.Equals("y") && !RepeatPizza.Equals("n"))
+                            {
+                                Console.Clear();
+                                Console.WriteLine("Invalid input. Restarting current pizza");
+                                continue;
+                            }
+                            if (RepeatPizza.Equals("n"))
+                            {
+                                Console.WriteLine("We understand. Finishing order.");
+                                ContinueOrder = false;
+                            }
+
+                        }
+
                         bool Makeable = CanMakePizza(currentSize, currentType);
                         if (Makeable)
                         {
@@ -96,6 +160,10 @@ namespace PizzaStoreApplicationLibrary
                         else
                         {
                             Console.WriteLine("We're sorry. We cannot currently make that pizza. Please recreate the current pizza.");
+                        }
+                        if (!ContinueOrder)
+                        {
+                            Incomplete = false;
                         }
                     }
                     Console.Clear();
@@ -218,6 +286,111 @@ namespace PizzaStoreApplicationLibrary
                 HamAndMeatball = HamAndMeatball - CurrentPizza.HamAndMeatballUsage;
                 PeppersAndOnions = PeppersAndOnions - CurrentPizza.PepperAndOnionUsage;
             }
+        }
+
+        public bool CostCalculator(int size, int type, double totalCost)
+        {
+            bool OverLimit = false;
+            if(size == 1 && type == 1)
+            {
+                double pizzaCost = 8.00;
+                if((totalCost + pizzaCost) > 500)
+                {
+                    OverLimit = true;
+                }
+            }
+            if (size == 2 && type == 1)
+            {
+                double pizzaCost = 11.00;
+                if ((totalCost + pizzaCost) > 500)
+                {
+                    OverLimit = true;
+                }
+            }
+            if (size == 3 && type == 1)
+            {
+                double pizzaCost = 14.00;
+                if ((totalCost + pizzaCost) > 500)
+                {
+                    OverLimit = true;
+                }
+            }
+
+            if (size == 1 && type == 2)
+            {
+                double pizzaCost = 9.00;
+                if ((totalCost + pizzaCost) > 500)
+                {
+                    OverLimit = true;
+                }
+            }
+            if (size == 2 && type == 2)
+            {
+                double pizzaCost = 12.00;
+                if ((totalCost + pizzaCost) > 500)
+                {
+                    OverLimit = true;
+                }
+            }
+            if (size == 3 && type == 2)
+            {
+                double pizzaCost = 15.00;
+                if ((totalCost + pizzaCost) > 500)
+                {
+                    OverLimit = true;
+                }
+            }
+
+            if (size == 1 && type == 3)
+            {
+                double pizzaCost = 11.00;
+                if ((totalCost + pizzaCost) > 500)
+                {
+                    OverLimit = true;
+                }
+            }
+            if (size == 2 && type == 3)
+            {
+                double pizzaCost = 14.00;
+                if ((totalCost + pizzaCost) > 500)
+                {
+                    OverLimit = true;
+                }
+            }
+            if (size == 3 && type == 3)
+            {
+                double pizzaCost = 17.00;
+                if ((totalCost + pizzaCost) > 500)
+                {
+                    OverLimit = true;
+                }
+            }
+
+            if (size == 1 && type == 4)
+            {
+                double pizzaCost = 11.00;
+                if ((totalCost + pizzaCost) > 500)
+                {
+                    OverLimit = true;
+                }
+            }
+            if (size == 2 && type == 4)
+            {
+                double pizzaCost = 14.00;
+                if ((totalCost + pizzaCost) > 500)
+                {
+                    OverLimit = true;
+                }
+            }
+            if (size == 3 && type == 4)
+            {
+                double pizzaCost = 17.00;
+                if ((totalCost + pizzaCost) > 500)
+                {
+                    OverLimit = true;
+                }
+            }
+            return OverLimit;
         }
     }
 }
