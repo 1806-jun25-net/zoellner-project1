@@ -18,8 +18,22 @@ namespace PizzaStoreApplication
         public static User CreateNewUser()
         {
             logger.Info("Begin CreateNewUser method");
-            Console.WriteLine("Welcome! Please enter a new username:");
-            string Username = Console.ReadLine();
+            bool NewUsername = false;
+            string Username = "";
+            while (!NewUsername)
+            {
+                Console.WriteLine("Welcome! Please enter a new username:");
+                Username = Console.ReadLine();
+                string PossiblePath = Username + ".xml";
+                if (File.Exists(PossiblePath))
+                {
+                    Console.WriteLine("Username taken. Please select a different username.");
+                }
+                else
+                {
+                    NewUsername = true;
+                }
+            }
 
             Console.WriteLine("Please enter your first name:");
             string First = Console.ReadLine();
@@ -39,10 +53,15 @@ namespace PizzaStoreApplication
             Console.WriteLine("Please enter your city:");
             string City = Console.ReadLine();
 
+            Console.WriteLine("Which store would you like to mark as your favorite?");
+            Console.WriteLine("Available stores: Reston, Herndon, Dulles, Hattontown");
+            string Favorite = Console.ReadLine();
+
             Console.WriteLine("Excellent! We have all of your information!");
             logger.Info("Creating User object");
 
-            User NewUser = new User(Username, First, Last, Phone, Email, Address, City);
+
+            User NewUser = new User(Username, First, Last, Phone, Email, Address, City, Favorite);
             logger.Info("Object Created");
             return NewUser;
         }
@@ -84,6 +103,11 @@ namespace PizzaStoreApplication
             }
         }
 
+        static void OrderPizzas()
+        {
+
+        }
+
         static void Main(string[] args)
         {
             logger.Info("Beginning application");
@@ -92,6 +116,7 @@ namespace PizzaStoreApplication
             Location Herndon;
             Location Dulles;
             Location Hattontown;
+            int NumPizzas;
 
             if (File.Exists("reston.xml"))
             {
@@ -175,7 +200,36 @@ namespace PizzaStoreApplication
                 }
                 else if (Input.Equals("order"))
                 {
+                    Console.WriteLine("How many pizzas would you like to order (max of 12)? Please input a number.");
+                    Input = Console.ReadLine();
+                    try
+                    {
+                        NumPizzas = int.Parse(Input);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error: Input was not an integer. Please input a number.");
+                        continue;
+                    }
 
+                    if(NumPizzas < 0)
+                    {
+                        Console.WriteLine("Error: Invalid input detected (we can't make negative pizzas)");
+                        Console.WriteLine("Let's try this again from the top.");
+                        continue;
+                    }
+                    else if(NumPizzas == 0)
+                    {
+                        Console.WriteLine("Wait...didn't you want to order at least one pizza? We have to start over...");
+                        continue;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Are we delivering from your favorite store? Y/N");
+                        Console.WriteLine("Your favorite store is:" + CurrentUser.Favorite);
+                        Input = Console.ReadLine();
+
+                    }
                 }
                 else if (Input.Equals("exit"))
                 {

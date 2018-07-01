@@ -20,6 +20,8 @@ namespace PizzaStoreApplicationLibrary
 
         public string Email { get; set; }
 
+        public string Favorite { get; set; }
+
         public Location DefaultLocation = new Location();
 
         Address deliveryAddress;
@@ -34,9 +36,10 @@ namespace PizzaStoreApplicationLibrary
             PhoneNumber = "802-782-7550";
             Email = "ajzoellner@gmail.com";
             deliveryAddress = new Address();
+            Favorite = "Herndon";
         }
 
-        public User(string username, string first, string second, string phone, string email, string address, string city)
+        public User(string username, string first, string second, string phone, string email, string address, string city, string favorite)
         {
             Username = username;
             FirstName = first;
@@ -44,6 +47,7 @@ namespace PizzaStoreApplicationLibrary
             PhoneNumber = phone;
             Email = email;
             deliveryAddress = new Address(address, city);
+            Favorite = favorite;
         }
 
         //methods
