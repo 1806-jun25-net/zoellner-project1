@@ -14,6 +14,7 @@ namespace PizzaStoreApplication
     class Program
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+        public static List<User> UserList = new List<User>();
 
         public static User CreateNewUser()
         {
@@ -77,6 +78,9 @@ namespace PizzaStoreApplication
 
             User NewUser = new User(Username, First, Last, Phone, Email, Address, City, Favorite);
             logger.Info("Object Created");
+
+            UserList.Add(NewUser);
+            
             return NewUser;
         }
 
@@ -99,6 +103,21 @@ namespace PizzaStoreApplication
             }
         }
 
+        public static void DeserializeUserList(string fileName)
+        {
+            using (var stream = new FileStream(fileName, FileMode.Open))
+            {
+                var serializer = new XmlSerializer(typeof(List<User>));
+                IEnumerable<User> desList = (IEnumerable<User>)serializer.Deserialize(stream);
+                foreach (var item in desList)
+                {
+                    User user = (User)item;
+                    UserList.Add(user);
+                }
+            }
+            
+        }
+
         public static void SerializeLocation(string fileName, Location location)
         {
             using (var stream = new FileStream(fileName, FileMode.Create))
@@ -117,9 +136,23 @@ namespace PizzaStoreApplication
             }
         }
 
-        static void OrderPizzas()
+        public static void SerializeUserList(string fileName, List<User> list)
         {
+            using (var stream = new FileStream(fileName, FileMode.Create))
+            {
+                var serializer = new XmlSerializer(typeof(List<User>));
+                serializer.Serialize(stream, list);
+            }
+        }
 
+        public static void ViewCurrentUsers()
+        {
+            Console.WriteLine("Listing current users:");
+            foreach (var item in UserList)
+            {
+                Console.WriteLine("     " + item.Username);
+            }
+            Console.WriteLine("");
         }
 
         static void Main(string[] args)
@@ -165,12 +198,17 @@ namespace PizzaStoreApplication
                 Hattontown = new Location("Hattontown");
             }
 
+            if (File.Exists("userlist.xml"))
+            {
+                DeserializeUserList("userlist.xml");
+            }
+
             Console.WriteLine("Welcome to our new pizza application!");
             string Input;
             bool UsernameEntered = false;
             while (!UsernameEntered)
             {
-                Console.WriteLine("Please enter a valid username or enter 'new'");
+                Console.WriteLine("Please enter a valid username, type 'users' to see all current users, or enter 'new'");
                 Input = Console.ReadLine();
                 Input = Input.ToLower();
                 if (Input.Equals("new"))
@@ -188,6 +226,10 @@ namespace PizzaStoreApplication
                     CurrentUser = DeserializeUser(path);
                     logger.Info("User information retrieved");
                     UsernameEntered = true;
+                }
+                else if (Input.Equals("users"))
+                {
+                    ViewCurrentUsers();
                 }
                 else
                 {
@@ -330,6 +372,7 @@ namespace PizzaStoreApplication
             string name = CurrentUser.Username;
             string NewFile = name + ".xml";
             SerializeUser(NewFile, CurrentUser);
+            SerializeUserList("userlist.xml", UserList);
             logger.Info("Exitting Application");
             Environment.Exit(0);
         }
