@@ -36,51 +36,120 @@ namespace PizzaStoreApplicationLibrary
             List<int> PizzaType = new List<int>();
             for (int i = 0; i < NumPizzas; i++)
             {
-                Console.WriteLine("What size will pizza" + (i + 1) + "be?");
-                bool ValidInput = false;
-                while (!ValidInput)
+                bool Incomplete = true;
+                while (Incomplete)
                 {
-                    Console.WriteLine("Please input 1 for small, 2 for medium, and 3 for large.");
-                    string size = Console.ReadLine();
-                    if (!size.Equals("1") && !size.Equals("2") && !size.Equals("3"))
+                    int currentSize;
+                    int currentType;
+                    string size = "";
+                    Console.WriteLine("What size will pizza" + (i + 1) + "be?");
+                    bool ValidInput = false;
+                    while (!ValidInput)
                     {
-                        Console.WriteLine("Invalid input. Try again.");
+                        Console.WriteLine("Please input 1 for small, 2 for medium, and 3 for large.");
+                        size = Console.ReadLine();
+                        if (!size.Equals("1") && !size.Equals("2") && !size.Equals("3"))
+                        {
+                            Console.WriteLine("Invalid input. Try again.");
                             continue;
+                        }
+                        else
+                        {
+                            ValidInput = true;
+                        }
+                    }
+                    currentSize = int.Parse(size);
+
+                    Console.WriteLine("And what type of pizza would you like?");
+                    Console.WriteLine("The options are: Cheese, Pepperoni, Meat (Pepperoni, Ham, and Meatball), or Veggie (Pepperoni, Green Peppers, and Onions)");
+
+                    string pizzaType = "1";
+                    ValidInput = false;
+                    while (!ValidInput)
+                    {
+                        Console.WriteLine("Please select 1 for Cheese, 2 for Pepperoni, 3 for Meat, or 4 for Veggie");
+                        pizzaType = Console.ReadLine();
+                        if (!pizzaType.Equals("1") && !pizzaType.Equals("2") && !pizzaType.Equals("3") && !pizzaType.Equals("4"))
+                        {
+                            Console.WriteLine("Invalid input. Try again.");
+                            continue;
+                        }
+                        else
+                        {
+                            ValidInput = true;
+                        }
+                    }
+                    currentType = int.Parse(pizzaType);
+                    bool Makeable = CanMakePizza(currentSize, currentType);
+                    if (Makeable)
+                    {
+                        PizzaSizes.Add(currentSize);
+                        PizzaType.Add(currentType);
+                        Incomplete = false;
                     }
                     else
                     {
-                        ValidInput = true;
+                        Console.WriteLine("We're sorry. We cannot currently make that pizza. Please recreate the current pizza.");
                     }
                 }
-
-                Console.WriteLine("And what type of pizza would you like?");
-                Console.WriteLine("The options are: Cheese, Pepperoni, Meat (Pepperoni, Ham, and Meatball), or Veggie (Pepperoni, Green Peppers, and Onions)");
-
-                string pizzaType = "1";
-                ValidInput = false;
-                while (!ValidInput)
-                {
-                    Console.WriteLine("Please select 1 for Cheese, 2 for Pepperoni, 3 for Meat, or 4 for Veggie");
-                    pizzaType = Console.ReadLine();
-                    if (!pizzaType.Equals("1") && !pizzaType.Equals("2") && !pizzaType.Equals("3") && !pizzaType.Equals("4"))
-                    {
-                        Console.WriteLine("Invalid input. Try again.");
-                        continue;
-                    }
-                    else
-                    {
-                        ValidInput = true;
-                    }
-                }
-
             }
+            Console.WriteLine("");
+            Console.WriteLine("Does this look good to you?");
+            Console.WriteLine("");
+            
         }
 
         public bool CanMakePizza(int size, int type)
         {
             bool Makeable = true;
-            Pizza(size, type);
+            Pizza CurrentPizza = new Pizza(size, type);
+            if(CurrentPizza.DoughUsage < Dough || CurrentPizza.SauceUsage < Sauce || CurrentPizza.CheeseUsage < Cheese || CurrentPizza.PepperoniUsage < Pepperoni ||
+                CurrentPizza.HamAndMeatballUsage < HamAndMeatball || CurrentPizza.PepperAndOnionUsage < PeppersAndOnions)
+            {
+                Makeable = false;
+            }
             return Makeable;
+        }
+
+        public void CurrentOrder(List<int> Sizes, List<int> Types, int NumPizzas)
+        {
+            for(int i = 0; i < NumPizzas; i++)
+            {
+                string currentPizza = "One ";
+                switch (Sizes.IndexOf(i))
+                {
+                    case 1:
+                        currentPizza = currentPizza + "small ";
+                        break;
+                    case 2:
+                        currentPizza = currentPizza + "medium ";
+                        break;
+                    case 3:
+                        currentPizza = currentPizza + "large ";
+                        break;
+                    default:
+                        break;
+                }
+
+                switch (Types.IndexOf(i))
+                {
+                    case 1:
+                        currentPizza = currentPizza + "cheese pizza.";
+                        break;
+                    case 2:
+                        currentPizza = currentPizza + "pepperoni pizza.";
+                        break;
+                    case 3:
+                        currentPizza = currentPizza + "meat pizza.";
+                        break;
+                    case 4:
+                        currentPizza = currentPizza + "veggie pizza.";
+                        break;
+                    default:
+                        break;
+                }
+                Console.WriteLine(currentPizza);
+            }
         }
     }
 }

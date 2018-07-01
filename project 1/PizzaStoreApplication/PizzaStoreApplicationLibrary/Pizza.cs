@@ -11,12 +11,12 @@ namespace PizzaStoreApplicationLibrary
     {
         enum Size { Small=1, Medium, Large};
         double SizeModifier;
-        public double DoughUsage { get; set; }
-        public double SauceUsage { get; set; }
-        public double CheeseUsage { get; set; }
-        public double PepperoniUsage { get; set; }
-        public double HamAndMeatballUsage { get; set; }
-        public double PepperAndOnionUsage { get; set; }
+        public double DoughUsage { get; set; } = 0;
+        public double SauceUsage { get; set; } = 0;
+        public double CheeseUsage { get; set; } = 0;
+        public double PepperoniUsage { get; set; } = 0;
+        public double HamAndMeatballUsage { get; set; } = 0;
+        public double PepperAndOnionUsage { get; set; } = 0;
 
 
         public Pizza(int size, int type)
