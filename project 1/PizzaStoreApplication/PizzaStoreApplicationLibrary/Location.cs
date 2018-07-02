@@ -159,7 +159,26 @@ namespace PizzaStoreApplicationLibrary
                         }
                         else
                         {
-                            Console.WriteLine("We're sorry. We cannot currently make that pizza. Please recreate the current pizza.");
+                            Console.WriteLine("We're sorry. We cannot currently make that pizza. We're running low on ingredients.");
+                            Console.WriteLine("Would you like to keep ordering? Y/N");
+                            string RepeatPizza = Console.ReadLine().ToLower();
+                            if (RepeatPizza.Equals("y"))
+                            {
+                                Console.Clear();
+                                Console.WriteLine("Restarting current pizza");
+                                continue;
+                            }
+                            if (!RepeatPizza.Equals("y") && !RepeatPizza.Equals("n"))
+                            {
+                                Console.Clear();
+                                Console.WriteLine("Invalid input. Restarting current pizza");
+                                continue;
+                            }
+                            if (RepeatPizza.Equals("n"))
+                            {
+                                Console.WriteLine("We understand. Finishing order.");
+                                ContinueOrder = false;
+                            }
                         }
                         if (!ContinueOrder)
                         {
