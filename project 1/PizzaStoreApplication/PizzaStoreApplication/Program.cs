@@ -325,29 +325,55 @@ namespace PizzaStoreApplication
                             DeliveryLocation = CurrentUser.Favorite;
                         }
                         DeliveryLocation = DeliveryLocation.ToLower();
+
                         Order CurrentOrder = new Order();
+                        bool CanOrder = true;
                         switch (DeliveryLocation)
                         {
                             case "reston":
-                                CurrentOrder = Reston.CreateOrder(CurrentUser, NumPizzas);
+                                CanOrder = Reston.LastOrderOverTwoHoursAgo(CurrentUser);
+                                if (CanOrder)
+                                {
+                                    CurrentOrder = Reston.CreateOrder(CurrentUser, NumPizzas);
+                                }
                                 break;
                             case "herndon":
-                                CurrentOrder = Herndon.CreateOrder(CurrentUser, NumPizzas);
+                                CanOrder = Herndon.LastOrderOverTwoHoursAgo(CurrentUser);
+                                if (CanOrder)
+                                {
+                                    CurrentOrder = Herndon.CreateOrder(CurrentUser, NumPizzas);
+                                }
                                 break;
                             case "dulles":
-                                CurrentOrder = Dulles.CreateOrder(CurrentUser, NumPizzas);
+                                CanOrder = Dulles.LastOrderOverTwoHoursAgo(CurrentUser);
+                                if (CanOrder)
+                                {
+                                    CurrentOrder = Dulles.CreateOrder(CurrentUser, NumPizzas);
+                                }
                                 break;
                             case "hattontown":
-                                CurrentOrder = Hattontown.CreateOrder(CurrentUser, NumPizzas);
+                                CanOrder = Hattontown.LastOrderOverTwoHoursAgo(CurrentUser);
+                                if (CanOrder)
+                                {
+                                    CurrentOrder = Hattontown.CreateOrder(CurrentUser, NumPizzas);
+                                }
                                 break;
                             default:
                                 break;
                         }
+                        if (CanOrder)
+                        {
+                            CurrentUser.UserFavoritePizza(CurrentOrder);
 
-                        CurrentUser.UserFavoritePizza(CurrentOrder);
-
-                        Console.Clear();
-                        Console.WriteLine("Your order has been placed!");
+                            Console.Clear();
+                            Console.WriteLine("Your order has been placed!");
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            Console.WriteLine("We're sorry, but you have already placed an order at this location within the past two hours.");
+                            Console.WriteLine("Please begin the order again selecting another location or wait two hours");
+                        }
 
                     }
                     else

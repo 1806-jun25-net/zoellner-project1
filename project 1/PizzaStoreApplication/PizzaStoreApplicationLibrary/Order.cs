@@ -22,6 +22,8 @@ namespace PizzaStoreApplicationLibrary
 
         public string name;
 
+        public string username;
+
         //constructors
         public Order()
         {
@@ -35,6 +37,7 @@ namespace PizzaStoreApplicationLibrary
             DesiredTypes = PizzaTypes;
             location = ChosenLocation;
             name = CurrentUser.FirstName;
+            username = CurrentUser.Username;
         }
     }
 }

@@ -411,5 +411,21 @@ namespace PizzaStoreApplicationLibrary
             }
             return OverLimit;
         }
+
+        public bool LastOrderOverTwoHoursAgo(User user)
+        {
+            bool CanOrderAgain = true;
+
+            string UserName = user.Username;
+            Order LastOrder = OrderHistory.FindLast(x => x.username == UserName);
+            DateTime TimeToCheck = LastOrder.OrderPlaced;
+
+            if((DateTime.Now - TimeToCheck) < TimeSpan.FromHours(2))
+            {
+                CanOrderAgain = false;
+            }
+
+            return CanOrderAgain;
+        }
     }
 }
