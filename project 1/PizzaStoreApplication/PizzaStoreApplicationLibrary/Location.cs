@@ -35,8 +35,8 @@ namespace PizzaStoreApplicationLibrary
         public Order CreateOrder(User CurrentUser, int NumPizzas)
         {
             double TotalCost = 0;
-            List<int> PizzaSizes = new List<int>();
-            List<int> PizzaType = new List<int>();
+            List<int> PizzaSizes = new List<int>(NumPizzas);
+            List<int> PizzaType = new List<int>(NumPizzas);
             bool ConfirmedOrder = false;
             bool ContinueOrder = true;
             bool OrderSubmitted = false;
@@ -236,8 +236,8 @@ namespace PizzaStoreApplicationLibrary
         {
             bool Makeable = true;
             Pizza CurrentPizza = new Pizza(size, type);
-            if(CurrentPizza.DoughUsage < Dough || CurrentPizza.SauceUsage < Sauce || CurrentPizza.CheeseUsage < Cheese || CurrentPizza.PepperoniUsage < Pepperoni ||
-                CurrentPizza.HamAndMeatballUsage < HamAndMeatball || CurrentPizza.PepperAndOnionUsage < PeppersAndOnions)
+            if(CurrentPizza.DoughUsage > Dough || CurrentPizza.SauceUsage > Sauce || CurrentPizza.CheeseUsage > Cheese || CurrentPizza.PepperoniUsage > Pepperoni ||
+                CurrentPizza.HamAndMeatballUsage > HamAndMeatball || CurrentPizza.PepperAndOnionUsage > PeppersAndOnions)
             {
                 Makeable = false;
             }
@@ -250,7 +250,7 @@ namespace PizzaStoreApplicationLibrary
             for(int i = 0; i < NumPizzas; i++)
             {
                 string currentPizza = "One ";
-                switch (Sizes.IndexOf(i))
+                switch (Sizes[i])
                 {
                     case 1:
                         currentPizza = currentPizza + "small ";
@@ -265,7 +265,7 @@ namespace PizzaStoreApplicationLibrary
                         break;
                 }
 
-                switch (Types.IndexOf(i))
+                switch (Types[i])
                 {
                     case 1:
                         currentPizza = currentPizza + "cheese pizza.";

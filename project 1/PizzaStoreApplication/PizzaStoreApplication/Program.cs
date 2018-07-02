@@ -172,6 +172,8 @@ namespace PizzaStoreApplication
             else
             {
                 Reston = new Location("Reston");
+                SerializeLocation("reston.xml", Reston);
+                Reston = DeserializeLocation("reston.xml");
             }
             if (File.Exists("herndon.xml"))
             {
@@ -180,6 +182,8 @@ namespace PizzaStoreApplication
             else
             {
                 Herndon = new Location("Herndon");
+                SerializeLocation("herndon.xml", Herndon);
+                Reston = DeserializeLocation("herndon.xml");
             }
             if (File.Exists("dulles.xml"))
             {
@@ -188,6 +192,8 @@ namespace PizzaStoreApplication
             else
             {
                 Dulles = new Location("Dulles");
+                SerializeLocation("dulles.xml", Dulles);
+                Reston = DeserializeLocation("dulles.xml");
             }
             if (File.Exists("hattontown.xml"))
             {
@@ -196,6 +202,8 @@ namespace PizzaStoreApplication
             else
             {
                 Hattontown = new Location("Hattontown");
+                SerializeLocation("hattontown.xml", Hattontown);
+                Reston = DeserializeLocation("hattontown.xml");
             }
 
             if (File.Exists("userlist.xml"))
@@ -217,6 +225,7 @@ namespace PizzaStoreApplication
                     CurrentUser = CreateNewUser();
                     logger.Info("New User Created");
                     UsernameEntered = true;
+                    Console.Clear();
 
                 }
                 else if (File.Exists(Input + ".xml"))
@@ -226,6 +235,7 @@ namespace PizzaStoreApplication
                     CurrentUser = DeserializeUser(path);
                     logger.Info("User information retrieved");
                     UsernameEntered = true;
+                    Console.Clear();
                 }
                 else if (Input.Equals("users"))
                 {
@@ -240,7 +250,6 @@ namespace PizzaStoreApplication
             bool KeepOpen = true;
             while (KeepOpen)
             {
-                Console.Clear();
                 Console.WriteLine("Welcome! Let's get started!");
                 Console.WriteLine("Please input one of the following:");
                 Console.WriteLine("Order: place a new order; Exit: exit the application");
@@ -373,6 +382,7 @@ namespace PizzaStoreApplication
                             Console.Clear();
                             Console.WriteLine("We're sorry, but you have already placed an order at this location within the past two hours.");
                             Console.WriteLine("Please begin the order again selecting another location or wait two hours");
+                            Console.WriteLine("");
                         }
 
                     }
