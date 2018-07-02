@@ -283,7 +283,7 @@ namespace PizzaStoreApplication
                     else if(NumPizzas > 0 && NumPizzas <= 12)
                     {
                         Console.WriteLine("Are we delivering from your favorite store? Y/N");
-                        Console.WriteLine("Your favorite store is:" + CurrentUser.Favorite);
+                        Console.WriteLine("Your favorite store is: " + CurrentUser.Favorite);
                         Input = Console.ReadLine().ToLower();
                         bool ValidLocation = false;
                         bool AcceptedInput = false;

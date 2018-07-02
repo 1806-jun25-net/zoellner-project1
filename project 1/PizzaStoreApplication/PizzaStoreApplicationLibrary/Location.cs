@@ -39,6 +39,8 @@ namespace PizzaStoreApplicationLibrary
             List<int> PizzaType = new List<int>();
             bool ConfirmedOrder = false;
             bool ContinueOrder = true;
+            bool OrderSubmitted = false;
+            bool DidNotFinishOrder = false;
             while (!ConfirmedOrder)
             {
                 for (int i = 0; i < NumPizzas; i++)
@@ -54,7 +56,7 @@ namespace PizzaStoreApplicationLibrary
                         int currentSize;
                         int currentType;
                         string size = "";
-                        Console.WriteLine("What size will pizza" + (i + 1) + "be?");
+                        Console.WriteLine("What size will pizza " + (i + 1) + " be?");
                         bool ValidInput = false;
                         while (!ValidInput)
                         {
@@ -178,6 +180,7 @@ namespace PizzaStoreApplicationLibrary
                             {
                                 Console.WriteLine("We understand. Finishing order.");
                                 ContinueOrder = false;
+                                DidNotFinishOrder = true;
                             }
                         }
                         if (!ContinueOrder)
@@ -185,11 +188,13 @@ namespace PizzaStoreApplicationLibrary
                             Incomplete = false;
                         }
                     }
-                    Console.Clear();
                 }
-                Console.Clear();
-                Console.WriteLine("Does this look good to you?");
-                Console.WriteLine("");
+                if (!DidNotFinishOrder)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Does this look good to you?");
+                    Console.WriteLine("");
+                }
 
                 CurrentOrder(PizzaSizes, PizzaType, NumPizzas);
 
@@ -417,12 +422,16 @@ namespace PizzaStoreApplicationLibrary
             bool CanOrderAgain = true;
 
             string UserName = user.Username;
-            Order LastOrder = OrderHistory.FindLast(x => x.username == UserName);
-            DateTime TimeToCheck = LastOrder.OrderPlaced;
 
-            if((DateTime.Now - TimeToCheck) < TimeSpan.FromHours(2))
+            if (OrderHistory.Exists(x => x.username == UserName))
             {
-                CanOrderAgain = false;
+                Order LastOrder = OrderHistory.FindLast(x => x.username == UserName);
+                DateTime TimeToCheck = LastOrder.OrderPlaced;
+
+                if ((DateTime.Now - TimeToCheck) < TimeSpan.FromHours(2))
+                {
+                    CanOrderAgain = false;
+                }
             }
 
             return CanOrderAgain;
