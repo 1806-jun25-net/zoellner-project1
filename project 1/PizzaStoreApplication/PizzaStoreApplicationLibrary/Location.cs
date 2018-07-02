@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace PizzaStoreApplicationLibrary
@@ -151,6 +152,71 @@ namespace PizzaStoreApplicationLibrary
                             }
 
                         }
+                        else
+                        {
+                            switch (currentSize)
+                            {
+                                case 1:
+                                    switch (currentType)
+                                    {
+                                        case 1:
+                                            TotalCost += 8.00;
+                                            break;
+                                        case 2:
+                                            TotalCost += 9.00;
+                                            break;
+                                        case 3:
+                                            TotalCost += 11.00;
+                                            break;
+                                        case 4:
+                                            TotalCost += 11.00;
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                    break;
+                                case 2:
+                                    switch (currentType)
+                                    {
+                                        case 1:
+                                            TotalCost += 11.00;
+                                            break;
+                                        case 2:
+                                            TotalCost += 12.00;
+                                            break;
+                                        case 3:
+                                            TotalCost += 14.00;
+                                            break;
+                                        case 4:
+                                            TotalCost += 14.00;
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                    break;
+                                case 3:
+                                    switch (currentType)
+                                    {
+                                        case 1:
+                                            TotalCost += 14.00;
+                                            break;
+                                        case 2:
+                                            TotalCost += 15.00;
+                                            break;
+                                        case 3:
+                                            TotalCost += 17.00;
+                                            break;
+                                        case 4:
+                                            TotalCost += 17.00;
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
 
                         bool Makeable = CanMakePizza(currentSize, currentType);
                         if (Makeable)
@@ -225,7 +291,7 @@ namespace PizzaStoreApplicationLibrary
                     }
                 }
             }
-            Order NewOrder = new Order(CurrentUser, Name, NumPizzas, PizzaSizes, PizzaType);
+            Order NewOrder = new Order(CurrentUser, Name, NumPizzas, PizzaSizes, PizzaType, TotalCost);
             DecreaseInventory(NewOrder);
             OrderHistory.Add(NewOrder);
 
@@ -435,6 +501,12 @@ namespace PizzaStoreApplicationLibrary
             }
 
             return CanOrderAgain;
+        }
+
+        public List<Order> RetrieveUserOrderHistory(string Username)
+        {
+            List<Order> UserOrderHistory = OrderHistory.Where(x => x.username == Username).Select(x => x).ToList();
+            return UserOrderHistory;
         }
     }
 }

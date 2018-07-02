@@ -6,6 +6,7 @@ using PizzaStoreApplicationLibrary;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
@@ -155,6 +156,29 @@ namespace PizzaStoreApplication
             Console.WriteLine("");
         }
 
+        public static List<Order> DisplayUserOrderHistory(User user, string Sort, Location location)
+        {
+            string username = user.Username;
+            List<Order> OrdersFromThisLocation = location.RetrieveUserOrderHistory(username);
+            switch (Sort)
+            {
+                case "1":
+                    break;
+                case "2":
+                    OrdersFromThisLocation.Reverse();
+                    break;
+                case "3":
+                    OrdersFromThisLocation.OrderBy(x => x.cost);
+                    break;
+                case "4":
+                    OrdersFromThisLocation.OrderByDescending(x => x.cost);
+                    break;
+                default:
+                    break;
+            }
+            return OrdersFromThisLocation;
+        }
+
         static void Main(string[] args)
         {
             logger.Info("Beginning application");
@@ -252,11 +276,11 @@ namespace PizzaStoreApplication
             {
                 Console.WriteLine("Welcome! Let's get started!");
                 Console.WriteLine("Please input one of the following:");
-                Console.WriteLine("Order: place a new order; Exit: exit the application");
+                Console.WriteLine("Order: place a new order; History: view your order history; Exit: exit the application");
                 Input = Console.ReadLine();
                 Input = Input.ToLower();
 
-                if(!Input.Equals("order") && !Input.Equals("exit"))
+                if(!Input.Equals("order") && !Input.Equals("exit") && !Input.Equals("history"))
                 {
                     Console.WriteLine("Please input an accepted command");
                     Console.WriteLine("Order: place a new order; Exit: exit the application");
@@ -340,28 +364,40 @@ namespace PizzaStoreApplication
                         switch (DeliveryLocation)
                         {
                             case "reston":
-                                CanOrder = Reston.LastOrderOverTwoHoursAgo(CurrentUser);
+                                if (File.Exists("reston.xml"))
+                                {
+                                    CanOrder = Reston.LastOrderOverTwoHoursAgo(CurrentUser);
+                                }
                                 if (CanOrder)
                                 {
                                     CurrentOrder = Reston.CreateOrder(CurrentUser, NumPizzas);
                                 }
                                 break;
                             case "herndon":
-                                CanOrder = Herndon.LastOrderOverTwoHoursAgo(CurrentUser);
+                                if (File.Exists("herndon.xml"))
+                                {
+                                    CanOrder = Herndon.LastOrderOverTwoHoursAgo(CurrentUser);
+                                }
                                 if (CanOrder)
                                 {
                                     CurrentOrder = Herndon.CreateOrder(CurrentUser, NumPizzas);
                                 }
                                 break;
                             case "dulles":
-                                CanOrder = Dulles.LastOrderOverTwoHoursAgo(CurrentUser);
+                                if (File.Exists("dulles.xml"))
+                                {
+                                    CanOrder = Dulles.LastOrderOverTwoHoursAgo(CurrentUser);
+                                }
                                 if (CanOrder)
                                 {
                                     CurrentOrder = Dulles.CreateOrder(CurrentUser, NumPizzas);
                                 }
                                 break;
                             case "hattontown":
-                                CanOrder = Hattontown.LastOrderOverTwoHoursAgo(CurrentUser);
+                                if (File.Exists("hattontown.xml"))
+                                {
+                                    CanOrder = Hattontown.LastOrderOverTwoHoursAgo(CurrentUser);
+                                }
                                 if (CanOrder)
                                 {
                                     CurrentOrder = Hattontown.CreateOrder(CurrentUser, NumPizzas);
@@ -376,6 +412,7 @@ namespace PizzaStoreApplication
 
                             Console.Clear();
                             Console.WriteLine("Your order has been placed!");
+                            Console.WriteLine("");
                         }
                         else
                         {
@@ -392,6 +429,50 @@ namespace PizzaStoreApplication
                         Console.WriteLine("We're going to have to start over...");
                         continue;
                     }
+                }
+                else if (Input.Equals("history"))
+                {
+                    string username = CurrentUser.Username;
+                    Console.Clear();
+                    Console.WriteLine("How would you like the information displayed?");
+                    Console.WriteLine("We can sort by: earliest, latest, cheapest, most expensive.");
+                    Console.WriteLine("Type '1' for earliest, '2' for latest, '3' for cheapest, or '4' for most expensive.");
+                    string Sort = Console.ReadLine();
+                    Console.WriteLine("");
+
+                    List<Order> UserOrderHistory = new List<Order>();
+                    UserOrderHistory.AddRange(DisplayUserOrderHistory(CurrentUser, Sort, Reston));
+                    UserOrderHistory.AddRange(DisplayUserOrderHistory(CurrentUser, Sort, Herndon));
+                    UserOrderHistory.AddRange(DisplayUserOrderHistory(CurrentUser, Sort, Dulles));
+                    UserOrderHistory.AddRange(DisplayUserOrderHistory(CurrentUser, Sort, Hattontown));
+
+                    switch (Sort)
+                    {
+                        case "1":
+                            UserOrderHistory.OrderBy(x => x.OrderPlaced);
+                            break;
+                        case "2":
+                            UserOrderHistory.OrderByDescending(x => x.OrderPlaced);
+                            break;
+                        case "3":
+                            UserOrderHistory.OrderBy(x => x.cost);
+                            break;
+                        case "4":
+                            UserOrderHistory.OrderByDescending(x => x.cost);
+                            break;
+                        default:
+                            break;
+                    }
+
+                    foreach (var item in UserOrderHistory)
+                    {
+                        Console.WriteLine(item.OrderPlaced + " " + item.cost + " " + item.NumberOfPizzas + " You ordered:");
+                        for (int i = 0; i < item.NumberOfPizzas; i++)
+                        {
+                            Console.WriteLine(item.PrintPizza(item.DesiredSizes[i], item.DesiredTypes[i]));
+                        }
+                    }
+                    
                 }
                 else if (Input.Equals("exit"))
                 {
