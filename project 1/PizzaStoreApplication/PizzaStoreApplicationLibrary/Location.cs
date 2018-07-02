@@ -20,7 +20,7 @@ namespace PizzaStoreApplicationLibrary
         public double PeppersAndOnions { get; set; } = 1000;
         public double HamAndMeatball { get; set; } = 1000;
 
-        public List<Order> OrderHistory;
+        public List<Order> OrderHistory = new List<Order>();
 
         public Location()
         {
@@ -94,6 +94,7 @@ namespace PizzaStoreApplicationLibrary
                                 }
                                 else
                                 {
+                                    Console.Clear();
                                     ValidInput = true;
                                 }
                             }
@@ -108,6 +109,7 @@ namespace PizzaStoreApplicationLibrary
                                 }
                                 else
                                 {
+                                    Console.Clear();
                                     ValidInput = true;
                                 }
                             }
@@ -122,6 +124,7 @@ namespace PizzaStoreApplicationLibrary
                                 }
                                 else
                                 {
+                                    Console.Clear();
                                     ValidInput = true;
                                 }
                             }

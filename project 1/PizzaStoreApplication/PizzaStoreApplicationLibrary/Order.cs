@@ -14,9 +14,9 @@ namespace PizzaStoreApplicationLibrary
 
         public int NumberOfPizzas;
 
-        public List<int> DesiredSizes { get; }
+        public List<int> DesiredSizes { get; set; }
 
-        public List<int> DesiredTypes { get; }
+        public List<int> DesiredTypes { get; set; }
 
         public string location { get; set; }
 

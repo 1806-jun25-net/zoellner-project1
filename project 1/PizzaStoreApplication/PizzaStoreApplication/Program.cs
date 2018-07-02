@@ -283,7 +283,7 @@ namespace PizzaStoreApplication
                 if(!Input.Equals("order") && !Input.Equals("exit") && !Input.Equals("history"))
                 {
                     Console.WriteLine("Please input an accepted command");
-                    Console.WriteLine("Order: place a new order; Exit: exit the application");
+                    Console.WriteLine("Order: place a new order; History : view your order history; Exit: exit the application");
                     Input = Console.ReadLine();
                     Input = Input.ToLower();
                 }
@@ -374,7 +374,7 @@ namespace PizzaStoreApplication
                                 }
                                 break;
                             case "herndon":
-                                if (File.Exists("herndon.xml"))
+                                if (File.Exists("herndon.xml") && Herndon.OrderHistory.Capacity > 0)
                                 {
                                     CanOrder = Herndon.LastOrderOverTwoHoursAgo(CurrentUser);
                                 }
@@ -466,11 +466,14 @@ namespace PizzaStoreApplication
 
                     foreach (var item in UserOrderHistory)
                     {
-                        Console.WriteLine(item.OrderPlaced + " " + item.cost + " " + item.NumberOfPizzas + " You ordered:");
+                        Console.WriteLine(item.OrderPlaced + " Total cost: $" + item.cost + ".00  Total pizzas:" + item.NumberOfPizzas );
+                        Console.WriteLine("You ordered:");
+                        Console.WriteLine("");
                         for (int i = 0; i < item.NumberOfPizzas; i++)
                         {
-                            Console.WriteLine(item.PrintPizza(item.DesiredSizes[i], item.DesiredTypes[i]));
+                            Console.WriteLine("     " + item.PrintPizza(item.DesiredSizes[i], item.DesiredTypes[i]));
                         }
+                        Console.WriteLine("");
                     }
                     
                 }
