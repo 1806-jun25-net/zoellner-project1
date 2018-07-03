@@ -437,6 +437,7 @@ namespace PizzaStoreApplication
                     Console.WriteLine("");
 
                     List<Order> UserOrderHistory = new List<Order>();
+                    dynamic SortedHistory = "";
                     UserOrderHistory.AddRange(DisplayUserOrderHistory(CurrentUser, Sort, Reston));
                     UserOrderHistory.AddRange(DisplayUserOrderHistory(CurrentUser, Sort, Herndon));
                     UserOrderHistory.AddRange(DisplayUserOrderHistory(CurrentUser, Sort, Dulles));
@@ -445,22 +446,22 @@ namespace PizzaStoreApplication
                     switch (Sort)
                     {
                         case "1":
-                            UserOrderHistory.OrderBy(x => x).Select(x => x.OrderPlaced);
+                            SortedHistory = UserOrderHistory.OrderBy(x => x.OrderPlaced).Select(x => x);
                             break;
                         case "2":
-                            UserOrderHistory.OrderByDescending(x => x.OrderPlaced);
+                            SortedHistory = UserOrderHistory.OrderByDescending(x => x.OrderPlaced).Select(x => x);
                             break;
                         case "3":
-                            UserOrderHistory.OrderBy(x => x.cost);
+                            SortedHistory = UserOrderHistory.OrderBy(x => x.cost);
                             break;
                         case "4":
-                            UserOrderHistory.OrderByDescending(x => x.cost);
+                            SortedHistory = UserOrderHistory.OrderByDescending(x => x.cost);
                             break;
                         default:
                             break;
                     }
 
-                    foreach (var item in UserOrderHistory)
+                    foreach (var item in SortedHistory)
                     {
                         Console.WriteLine(item.OrderPlaced + " Total cost: $" + item.cost + ".00  Total pizzas:" + item.NumberOfPizzas + 
                                           " from our " + item.location + " location.");
