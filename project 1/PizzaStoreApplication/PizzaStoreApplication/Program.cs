@@ -183,10 +183,10 @@ namespace PizzaStoreApplication
         {
             logger.Info("Beginning application");
             User CurrentUser = new User();
-            Location Reston;
-            Location Herndon;
-            Location Dulles;
-            Location Hattontown;
+            Location Reston = new Location("Reston");
+            Location Herndon = new Location("Herndon");
+            Location Dulles = new Location("Dulles");
+            Location Hattontown = new Location("Hattontown");
             int NumPizzas;
 
             if (File.Exists("reston.xml"))
@@ -207,7 +207,7 @@ namespace PizzaStoreApplication
             {
                 Herndon = new Location("Herndon");
                 SerializeLocation("herndon.xml", Herndon);
-                Reston = DeserializeLocation("herndon.xml");
+                Herndon = DeserializeLocation("herndon.xml");
             }
             if (File.Exists("dulles.xml"))
             {
@@ -217,7 +217,7 @@ namespace PizzaStoreApplication
             {
                 Dulles = new Location("Dulles");
                 SerializeLocation("dulles.xml", Dulles);
-                Reston = DeserializeLocation("dulles.xml");
+                Dulles = DeserializeLocation("dulles.xml");
             }
             if (File.Exists("hattontown.xml"))
             {
@@ -227,7 +227,7 @@ namespace PizzaStoreApplication
             {
                 Hattontown = new Location("Hattontown");
                 SerializeLocation("hattontown.xml", Hattontown);
-                Reston = DeserializeLocation("hattontown.xml");
+                Hattontown = DeserializeLocation("hattontown.xml");
             }
 
             if (File.Exists("userlist.xml"))
@@ -356,8 +356,8 @@ namespace PizzaStoreApplication
                         if(Input == "y")
                         {
                             DeliveryLocation = CurrentUser.Favorite;
+                            DeliveryLocation.ToLower();
                         }
-                        DeliveryLocation = DeliveryLocation.ToLower();
 
                         Order CurrentOrder = new Order();
                         bool CanOrder = true;
@@ -449,7 +449,7 @@ namespace PizzaStoreApplication
                     switch (Sort)
                     {
                         case "1":
-                            UserOrderHistory.OrderBy(x => x.OrderPlaced).Select(x => x.OrderPlaced);
+                            UserOrderHistory.OrderBy(x => x).Select(x => x.OrderPlaced);
                             break;
                         case "2":
                             UserOrderHistory.OrderByDescending(x => x.OrderPlaced);
@@ -466,7 +466,8 @@ namespace PizzaStoreApplication
 
                     foreach (var item in UserOrderHistory)
                     {
-                        Console.WriteLine(item.OrderPlaced + " Total cost: $" + item.cost + ".00  Total pizzas:" + item.NumberOfPizzas );
+                        Console.WriteLine(item.OrderPlaced + " Total cost: $" + item.cost + ".00  Total pizzas:" + item.NumberOfPizzas + 
+                                          " from our " + item.location + " location.");
                         Console.WriteLine("You ordered:");
                         Console.WriteLine("");
                         for (int i = 0; i < item.NumberOfPizzas; i++)
