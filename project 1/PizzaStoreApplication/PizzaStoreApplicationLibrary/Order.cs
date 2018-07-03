@@ -10,7 +10,7 @@ namespace PizzaStoreApplicationLibrary
     public class Order
     {
         //fields
-        public DateTime OrderPlaced => DateTime.Now;
+        public DateTime OrderPlaced = new DateTime();
 
         public int NumberOfPizzas;
 
@@ -41,6 +41,7 @@ namespace PizzaStoreApplicationLibrary
             name = CurrentUser.FirstName;
             username = CurrentUser.Username;
             cost = Cost;
+            OrderPlaced = DateTime.Now;
         }
 
         public string PrintPizza(int size, int type)
