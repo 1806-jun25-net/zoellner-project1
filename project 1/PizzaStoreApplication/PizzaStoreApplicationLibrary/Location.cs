@@ -11,7 +11,7 @@ namespace PizzaStoreApplicationLibrary
     public class Location : IIngredients
     {
         //fields
-        public string Name { get; }
+        public string Name { get; set; }
 
         public double Dough { get; set; } = 1000;
         public double Cheese { get; set; } = 1000;
@@ -24,7 +24,7 @@ namespace PizzaStoreApplicationLibrary
 
         public Location()
         {
-            Name = "Close Store";
+
         }
 
         public Location(string name)

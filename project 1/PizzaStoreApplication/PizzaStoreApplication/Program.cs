@@ -192,42 +192,38 @@ namespace PizzaStoreApplication
             if (File.Exists("reston.xml"))
             {
                 Reston = DeserializeLocation("reston.xml");
+                Reston.Name = "Reston";
             }
             else
             {
                 Reston = new Location("Reston");
-                SerializeLocation("reston.xml", Reston);
-                Reston = DeserializeLocation("reston.xml");
             }
             if (File.Exists("herndon.xml"))
             {
                 Herndon = DeserializeLocation("herndon.xml");
+                Herndon.Name = "Herndon";
             }
             else
             {
                 Herndon = new Location("Herndon");
-                SerializeLocation("herndon.xml", Herndon);
-                Herndon = DeserializeLocation("herndon.xml");
             }
             if (File.Exists("dulles.xml"))
             {
                 Dulles = DeserializeLocation("dulles.xml");
+                Dulles.Name = "Dulles";
             }
             else
             {
                 Dulles = new Location("Dulles");
-                SerializeLocation("dulles.xml", Dulles);
-                Dulles = DeserializeLocation("dulles.xml");
             }
             if (File.Exists("hattontown.xml"))
             {
                 Hattontown = DeserializeLocation("hattontown.xml");
+                Hattontown.Name = "Hattontown";
             }
             else
             {
                 Hattontown = new Location("Hattontown");
-                SerializeLocation("hattontown.xml", Hattontown);
-                Hattontown = DeserializeLocation("hattontown.xml");
             }
 
             if (File.Exists("userlist.xml"))
