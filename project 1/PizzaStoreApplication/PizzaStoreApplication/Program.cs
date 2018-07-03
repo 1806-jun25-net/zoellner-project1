@@ -449,7 +449,7 @@ namespace PizzaStoreApplication
                     switch (Sort)
                     {
                         case "1":
-                            UserOrderHistory.OrderBy(x => x.OrderPlaced);
+                            UserOrderHistory.OrderBy(x => x.OrderPlaced).Select(x => x.OrderPlaced);
                             break;
                         case "2":
                             UserOrderHistory.OrderByDescending(x => x.OrderPlaced);
