@@ -511,5 +511,15 @@ namespace PizzaStoreApplicationLibrary
             List<Order> UserOrderHistory = OrderHistory.Where(x => x.username == Username).Select(x => x).ToList();
             return UserOrderHistory;
         }
+
+        public void Resupply()
+        {
+            Dough = 1000;
+            Sauce = 1000;
+            Cheese = 1000;
+            Pepperoni = 1000;
+            PeppersAndOnions = 1000;
+            HamAndMeatball = 1000;
+        }
     }
 }

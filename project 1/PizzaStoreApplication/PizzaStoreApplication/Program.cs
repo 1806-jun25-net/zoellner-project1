@@ -276,7 +276,7 @@ namespace PizzaStoreApplication
                 Input = Console.ReadLine();
                 Input = Input.ToLower();
 
-                if(!Input.Equals("order") && !Input.Equals("exit") && !Input.Equals("history"))
+                if (!Input.Equals("order") && !Input.Equals("exit") && !Input.Equals("history") && !Input.Equals("resupply"))
                 {
                     Console.WriteLine("Please input an accepted command");
                     Console.WriteLine("Order: place a new order; History : view your order history; Exit: exit the application");
@@ -298,18 +298,18 @@ namespace PizzaStoreApplication
                         continue;
                     }
 
-                    if(NumPizzas < 0)
+                    if (NumPizzas < 0)
                     {
                         Console.WriteLine("Error: Invalid input detected (we can't make negative pizzas)");
                         Console.WriteLine("Let's try this again from the top.");
                         continue;
                     }
-                    else if(NumPizzas == 0)
+                    else if (NumPizzas == 0)
                     {
                         Console.WriteLine("Wait...didn't you want to order at least one pizza? We have to start over...");
                         continue;
                     }
-                    else if(NumPizzas > 0 && NumPizzas <= 12)
+                    else if (NumPizzas > 0 && NumPizzas <= 12)
                     {
                         Console.WriteLine("Are we delivering from your favorite store? Y/N");
                         Console.WriteLine("Your favorite store is: " + CurrentUser.Favorite);
@@ -317,7 +317,7 @@ namespace PizzaStoreApplication
                         bool ValidLocation = false;
                         bool AcceptedInput = false;
                         string DeliveryLocation = "";
-                        if(Input != "y" && Input != "n")
+                        if (Input != "y" && Input != "n")
                         {
                             while (!AcceptedInput)
                             {
@@ -349,7 +349,7 @@ namespace PizzaStoreApplication
                                 }
                             }
                         }
-                        if(Input == "y")
+                        if (Input == "y")
                         {
                             DeliveryLocation = CurrentUser.Favorite;
                             DeliveryLocation.ToLower();
@@ -463,7 +463,7 @@ namespace PizzaStoreApplication
 
                     foreach (var item in SortedHistory)
                     {
-                        Console.WriteLine(item.OrderPlaced + " Total cost: $" + item.cost + ".00  Total pizzas:" + item.NumberOfPizzas + 
+                        Console.WriteLine(item.OrderPlaced + " Total cost: $" + item.cost + ".00  Total pizzas:" + item.NumberOfPizzas +
                                           " from our " + item.location + " location.");
                         Console.WriteLine("You ordered:");
                         Console.WriteLine("");
@@ -473,8 +473,35 @@ namespace PizzaStoreApplication
                         }
                         Console.WriteLine("");
                     }
-                    
+
                 }
+
+                else if (Input.Equals("resupply"))
+                {
+                    Console.Clear();
+                    Console.WriteLine("Which store shall we resupply?");
+                    Console.WriteLine("Enter 'Reston', 'Herndon', 'Dulles', or 'Hattontown'.");
+                    string ResupplyLoc = Console.ReadLine().ToLower();
+
+                    switch (ResupplyLoc)
+                    {
+                        case "reston":
+                            Reston.Resupply();
+                            break;
+                        case "herndon":
+                            Herndon.Resupply();
+                            break;
+                        case "dulles":
+                            Dulles.Resupply();
+                            break;
+                        case "hattontown":
+                            Hattontown.Resupply();
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
                 else if (Input.Equals("exit"))
                 {
                     KeepOpen = false;
