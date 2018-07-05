@@ -468,12 +468,102 @@ namespace PizzaStoreApplicationTest
             Assert.True(Overlimit);
         }
 
+        //LastOrderTwoHoursAgo tests
         [Fact]
         public void LastOrderTwoHoursAgoShouldNotAllowSomeoneToOrderTwiceInTwoHours()
         {
+            bool expected = false;
+
             Location TestLocation = new Location();
+
             Order CurrentOrder = new Order();
             CurrentOrder.OrderPlaced = DateTime.Now;
+
+            User NewUser = new User();
+            NewUser.Username = "Tester";
+            CurrentOrder.username = NewUser.Username;
+
+            TestLocation.OrderHistory.Add(CurrentOrder);
+            bool actual = TestLocation.LastOrderOverTwoHoursAgo(NewUser);
+
+            Assert.Equal(expected, actual);
+        }
+
+        public void LastOrderTwoHoursAgoShouldAllowSomeoneToOrderTwiceInMoreThanTwoHours()
+        {
+            bool expected = true;
+
+            Location TestLocation = new Location();
+
+            Order CurrentOrder = new Order();
+
+            DateTime CurrentDateTime = new DateTime();
+            CurrentDateTime = DateTime.Now;
+            DateTime TwoHoursAgo = new DateTime();
+            TwoHoursAgo = CurrentDateTime - TimeSpan.FromHours(2);
+            CurrentOrder.OrderPlaced = TwoHoursAgo;
+
+            User NewUser = new User();
+            NewUser.Username = "Tester";
+            CurrentOrder.username = NewUser.Username;
+
+            TestLocation.OrderHistory.Add(CurrentOrder);
+            bool actual = TestLocation.LastOrderOverTwoHoursAgo(NewUser);
+
+            Assert.Equal(expected, actual);
+        }
+
+        //RetrieveUserOrderHistory test
+        [Fact]
+        public void RetrieveUserOrderHistoryShouldReturnPreviousOrders()
+        {
+
+            User NewUser = new User();
+            NewUser.Username = "Tester";
+
+            Order NewOrder = new Order();
+            NewOrder.username = NewUser.Username;
+
+            Location TestLocation = new Location();
+            TestLocation.OrderHistory.Add(NewOrder);
+
+            List<Order> RetrievedList = new List<Order>();
+            RetrievedList = TestLocation.RetrieveUserOrderHistory(NewUser.Username);
+
+            List<Order> OrderList = new List<Order>();
+            OrderList.Add(NewOrder);
+            OrderList.AddRange(RetrievedList);
+
+            Assert.Equal(OrderList[0], OrderList[1]);
+        }
+
+        [Fact]
+        public void RetrieveUserOrderHistoryShouldNotReturnOrdersFromOtherUsers()
+        {
+            User NewUser = new User();
+            NewUser.Username = "Tester";
+
+            Order NewOrder = new Order();
+            NewOrder.username = NewUser.Username;
+
+            User SecondUser = new User();
+            SecondUser.Username = "Second";
+
+            Order SecondOrder = new Order();
+            SecondOrder.username = SecondUser.Username;
+
+            Location TestLocation = new Location();
+            TestLocation.OrderHistory.Add(NewOrder);
+            TestLocation.OrderHistory.Add(SecondOrder);
+
+            List<Order> RetrievedList = new List<Order>();
+            RetrievedList = TestLocation.RetrieveUserOrderHistory(NewUser.Username);
+
+            List<Order> OrderList = new List<Order>();
+            OrderList.Add(NewOrder);
+            OrderList.AddRange(RetrievedList);
+
+            Assert.NotEqual<Order>(OrderList[1], OrderList[0]);
         }
     }
 }
