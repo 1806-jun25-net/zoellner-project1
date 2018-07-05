@@ -40,7 +40,6 @@ namespace PizzaStoreApplicationLibrary
             List<int> PizzaType = new List<int>(NumPizzas);
             bool ConfirmedOrder = false;
             bool ContinueOrder = true;
-            bool OrderSubmitted = false;
             bool DidNotFinishOrder = false;
             while (!ConfirmedOrder)
             {
