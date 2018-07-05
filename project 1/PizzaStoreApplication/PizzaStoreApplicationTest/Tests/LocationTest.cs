@@ -467,5 +467,13 @@ namespace PizzaStoreApplicationTest
 
             Assert.True(Overlimit);
         }
+
+        [Fact]
+        public void LastOrderTwoHoursAgoShouldNotAllowSomeoneToOrderTwiceInTwoHours()
+        {
+            Location TestLocation = new Location();
+            Order CurrentOrder = new Order();
+            CurrentOrder.OrderPlaced = DateTime.Now;
+        }
     }
 }
