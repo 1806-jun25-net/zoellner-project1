@@ -368,7 +368,7 @@ namespace PizzaStoreApplicationLibrary
 
         public void DecreaseInventory(Order CurrentOrder)
         {
-            for(int i = 0; i < CurrentOrder.DesiredSizes.Capacity; i++)
+            for(int i = 0; i < CurrentOrder.DesiredSizes.Count; i++)
             {
                 Pizza CurrentPizza = new Pizza(CurrentOrder.DesiredSizes[i], CurrentOrder.DesiredTypes[i]);
                 Dough = Dough - CurrentPizza.DoughUsage;

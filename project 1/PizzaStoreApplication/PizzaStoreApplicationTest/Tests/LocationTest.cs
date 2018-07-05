@@ -226,23 +226,49 @@ namespace PizzaStoreApplicationTest
             Assert.False(actual);
         }
 
-        //DecreaseInventory tests
-        public static IEnumerable<object[]> GetTestDataForSmallPizza()
+        //SizeModifierSet test
+        public static IEnumerable<object[]> GetTestDataForSizeModifier()
         {
-            yield return new object[] { new Order() };
-            yield return new object[] { new Order() };
-            yield return new object[] { new Order() };
-            yield return new object[] { new Order() };
+            yield return new object[] { new int[] { 1, 2, 3 } };
+            yield return new object[] { new double[] { 1, 1.5, 2 } };
         }
 
-        [Fact]
-        public void DecreaseInventoryShouldDecreaseDoughSmallCheese()
+        [Theory]
+        [InlineData(1,1)]
+        [InlineData(2,1.5)]
+        [InlineData(3,2)]
+        public void SizeModifierShouldChangeForDifferentSizesPicked(int size, double modifier)
+        {
+            Pizza TestPizza = new Pizza(size, 1);//Type of pizza is irrelevant here, so we shall only use the cheese pizza
+
+            TestPizza.SizeModifierSet(size);
+            double actual = TestPizza.SizeModifier;
+
+            Assert.Equal(modifier, actual);
+        }
+
+        //DecreaseInventory tests
+
+        [Theory]
+        [InlineData(1,1)]
+        [InlineData(1,2)]
+        [InlineData(1,3)]
+        [InlineData(1,4)]
+        [InlineData(2,1)]
+        [InlineData(2,2)]
+        [InlineData(2,3)]
+        [InlineData(2,4)]
+        [InlineData(3,1)]
+        [InlineData(3,2)]
+        [InlineData(3,3)]
+        [InlineData(3,4)]
+        public void DecreaseInventoryShouldDecreaseDough(int size, int type)
         {
             Order TestOrder = new Order();
             TestOrder.DesiredSizes = new List<int>();
             TestOrder.DesiredTypes = new List<int>();
-            TestOrder.DesiredSizes.Add(1);
-            TestOrder.DesiredTypes.Add(1);
+            TestOrder.DesiredSizes.Add(size);
+            TestOrder.DesiredTypes.Add(type);
 
             Location TestLocation = new Location();
             TestLocation.DecreaseInventory(TestOrder);
@@ -250,7 +276,161 @@ namespace PizzaStoreApplicationTest
             double actual = TestLocation.Dough;
 
             bool smaller = false;
-            if(actual < 1000)
+            if (actual < 1000)
+            {
+                smaller = true;
+            }
+
+            Assert.True(smaller);
+        }
+
+        [Theory]
+        [InlineData(1, 1)]
+        [InlineData(1, 2)]
+        [InlineData(1, 3)]
+        [InlineData(1, 4)]
+        [InlineData(2, 1)]
+        [InlineData(2, 2)]
+        [InlineData(2, 3)]
+        [InlineData(2, 4)]
+        [InlineData(3, 1)]
+        [InlineData(3, 2)]
+        [InlineData(3, 3)]
+        [InlineData(3, 4)]
+        public void DecreaseInventoryShouldDecreaseSauce(int size, int type)
+        {
+            Order TestOrder = new Order();
+            TestOrder.DesiredSizes = new List<int>();
+            TestOrder.DesiredTypes = new List<int>();
+            TestOrder.DesiredSizes.Add(size);
+            TestOrder.DesiredTypes.Add(type);
+
+            Location TestLocation = new Location();
+            TestLocation.DecreaseInventory(TestOrder);
+
+            double actual = TestLocation.Sauce;
+
+            bool smaller = false;
+            if (actual < 1000)
+            {
+                smaller = true;
+            }
+
+            Assert.True(smaller);
+        }
+
+        [Theory]
+        [InlineData(1, 1)]
+        [InlineData(1, 2)]
+        [InlineData(1, 3)]
+        [InlineData(1, 4)]
+        [InlineData(2, 1)]
+        [InlineData(2, 2)]
+        [InlineData(2, 3)]
+        [InlineData(2, 4)]
+        [InlineData(3, 1)]
+        [InlineData(3, 2)]
+        [InlineData(3, 3)]
+        [InlineData(3, 4)]
+        public void DecreaseInventoryShouldDecreaseCheese(int size, int type)
+        {
+            Order TestOrder = new Order();
+            TestOrder.DesiredSizes = new List<int>();
+            TestOrder.DesiredTypes = new List<int>();
+            TestOrder.DesiredSizes.Add(size);
+            TestOrder.DesiredTypes.Add(type);
+
+            Location TestLocation = new Location();
+            TestLocation.DecreaseInventory(TestOrder);
+
+            double actual = TestLocation.Cheese;
+
+            bool smaller = false;
+            if (actual < 1000)
+            {
+                smaller = true;
+            }
+
+            Assert.True(smaller);
+        }
+
+        [Theory]
+        [InlineData(1, 2)]
+        [InlineData(1, 3)]
+        [InlineData(1, 4)]
+        [InlineData(2, 2)]
+        [InlineData(2, 3)]
+        [InlineData(2, 4)]
+        [InlineData(3, 2)]
+        [InlineData(3, 3)]
+        [InlineData(3, 4)]
+        public void DecreaseInventoryShouldDecreasePepperoni(int size, int type)
+        {
+            Order TestOrder = new Order();
+            TestOrder.DesiredSizes = new List<int>();
+            TestOrder.DesiredTypes = new List<int>();
+            TestOrder.DesiredSizes.Add(size);
+            TestOrder.DesiredTypes.Add(type);
+
+            Location TestLocation = new Location();
+            TestLocation.DecreaseInventory(TestOrder);
+
+            double actual = TestLocation.Pepperoni;
+
+            bool smaller = false;
+            if (actual < 1000)
+            {
+                smaller = true;
+            }
+
+            Assert.True(smaller);
+        }
+
+        [Theory]
+        [InlineData(1, 3)]
+        [InlineData(2, 3)]
+        [InlineData(3, 3)]
+        public void DecreaseInventoryShouldDecreaseHamAndMeatball(int size, int type)
+        {
+            Order TestOrder = new Order();
+            TestOrder.DesiredSizes = new List<int>();
+            TestOrder.DesiredTypes = new List<int>();
+            TestOrder.DesiredSizes.Add(size);
+            TestOrder.DesiredTypes.Add(type);
+
+            Location TestLocation = new Location();
+            TestLocation.DecreaseInventory(TestOrder);
+
+            double actual = TestLocation.HamAndMeatball;
+
+            bool smaller = false;
+            if (actual < 1000)
+            {
+                smaller = true;
+            }
+
+            Assert.True(smaller);
+        }
+
+        [Theory]
+        [InlineData(1, 4)]
+        [InlineData(2, 4)]
+        [InlineData(3, 4)]
+        public void DecreaseInventoryShouldDecreasePeppersAndOnions(int size, int type)
+        {
+            Order TestOrder = new Order();
+            TestOrder.DesiredSizes = new List<int>();
+            TestOrder.DesiredTypes = new List<int>();
+            TestOrder.DesiredSizes.Add(size);
+            TestOrder.DesiredTypes.Add(type);
+
+            Location TestLocation = new Location();
+            TestLocation.DecreaseInventory(TestOrder);
+
+            double actual = TestLocation.PeppersAndOnions;
+
+            bool smaller = false;
+            if (actual < 1000)
             {
                 smaller = true;
             }

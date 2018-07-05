@@ -9,7 +9,7 @@ namespace PizzaStoreApplicationLibrary
 {
     public class Pizza
     {
-        double SizeModifier = 1.0;
+        public double SizeModifier = 1.0;
         public double DoughUsage { get; set; } = 0;
         public double SauceUsage { get; set; } = 0;
         public double CheeseUsage { get; set; } = 0;
@@ -40,7 +40,7 @@ namespace PizzaStoreApplicationLibrary
             }
         }
 
-        private void SizeModifierSet(int PizzaSize)
+        public void SizeModifierSet(int PizzaSize)
         {
             int SwitchCase = PizzaSize;
             switch (SwitchCase)
