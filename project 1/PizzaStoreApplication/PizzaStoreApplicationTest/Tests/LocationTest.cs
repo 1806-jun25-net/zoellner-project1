@@ -226,27 +226,6 @@ namespace PizzaStoreApplicationTest
             Assert.False(actual);
         }
 
-        //SizeModifierSet test
-        public static IEnumerable<object[]> GetTestDataForSizeModifier()
-        {
-            yield return new object[] { new int[] { 1, 2, 3 } };
-            yield return new object[] { new double[] { 1, 1.5, 2 } };
-        }
-
-        [Theory]
-        [InlineData(1,1)]
-        [InlineData(2,1.5)]
-        [InlineData(3,2)]
-        public void SizeModifierShouldChangeForDifferentSizesPicked(int size, double modifier)
-        {
-            Pizza TestPizza = new Pizza(size, 1);//Type of pizza is irrelevant here, so we shall only use the cheese pizza
-
-            TestPizza.SizeModifierSet(size);
-            double actual = TestPizza.SizeModifier;
-
-            Assert.Equal(modifier, actual);
-        }
-
         //DecreaseInventory tests
 
         [Theory]
@@ -436,6 +415,57 @@ namespace PizzaStoreApplicationTest
             }
 
             Assert.True(smaller);
+        }
+
+        //CostCalculator Tests
+        [Theory]
+        [InlineData(1, 1)]
+        [InlineData(1, 2)]
+        [InlineData(1, 3)]
+        [InlineData(1, 4)]
+        [InlineData(2, 1)]
+        [InlineData(2, 2)]
+        [InlineData(2, 3)]
+        [InlineData(2, 4)]
+        [InlineData(3, 1)]
+        [InlineData(3, 2)]
+        [InlineData(3, 3)]
+        [InlineData(3, 4)]
+        public void CostCalculatorShouldAllowPeopleToAddIfNotInDangerOfGoingOverLimit(int size, int type)
+        {
+            double CurrentTotal = 0;
+
+            Location TestLocation = new Location();
+
+            bool Overlimit = false;
+            Overlimit = TestLocation.CostCalculator(size, type, CurrentTotal);
+
+            Assert.False(Overlimit);
+        }
+
+        [Theory]
+        [InlineData(1, 1)]
+        [InlineData(1, 2)]
+        [InlineData(1, 3)]
+        [InlineData(1, 4)]
+        [InlineData(2, 1)]
+        [InlineData(2, 2)]
+        [InlineData(2, 3)]
+        [InlineData(2, 4)]
+        [InlineData(3, 1)]
+        [InlineData(3, 2)]
+        [InlineData(3, 3)]
+        [InlineData(3, 4)]
+        public void CostCalculatorShouldNotAllowPeopleToAddToAnOrderIfInDangerOfGoingOverLimit(int size, int type)
+        {
+            double CurrentTotal = 499.00;
+
+            Location TestLocation = new Location();
+
+            bool Overlimit = false;
+            Overlimit = TestLocation.CostCalculator(size, type, CurrentTotal);
+
+            Assert.True(Overlimit);
         }
     }
 }
