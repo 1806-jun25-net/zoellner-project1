@@ -27,8 +27,25 @@ namespace PizzaStoreApplicationLibrary
                 CityName = location.Name,
                 DoughRemaining = location.Dough,
                 CheeseRemaining = location.Cheese,
+                SauceRemaining = location.Sauce,
+                PepperoniRemaining = location.Pepperoni,
+                MeatRemaining = location.HamAndMeatball,
+                VeggiesRemaining = location.PeppersAndOnions
+            };
+        }
 
-            }
+        public static User Map(Users user)
+        {
+            return new User
+            {
+                Username = user.Username,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                PhoneNumber = user.PhoneNumber,
+                Email = user.EmailAddress,
+                Favorite = user.DefaultLocation,
+                
+            };
         }
     }
 }

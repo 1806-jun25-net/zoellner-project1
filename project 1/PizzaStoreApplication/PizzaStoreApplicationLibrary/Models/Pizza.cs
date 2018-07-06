@@ -9,13 +9,13 @@ namespace PizzaStoreApplicationLibrary
 {
     public class Pizza
     {
-        public double SizeModifier = 1.0;
-        public double DoughUsage { get; set; } = 0;
-        public double SauceUsage { get; set; } = 0;
-        public double CheeseUsage { get; set; } = 0;
-        public double PepperoniUsage { get; set; } = 0;
-        public double HamAndMeatballUsage { get; set; } = 0;
-        public double PepperAndOnionUsage { get; set; } = 0;
+        public int SizeModifier = 1;
+        public int DoughUsage { get; set; } = 0;
+        public int SauceUsage { get; set; } = 0;
+        public int CheeseUsage { get; set; } = 0;
+        public int PepperoniUsage { get; set; } = 0;
+        public int HamAndMeatballUsage { get; set; } = 0;
+        public int PepperAndOnionUsage { get; set; } = 0;
 
 
         public Pizza(int size, int type)
@@ -59,14 +59,14 @@ namespace PizzaStoreApplicationLibrary
             }
         }
 
-        public void CheesePizza(double sizeModifier)
+        public void CheesePizza(int sizeModifier)
         {
             DoughUsage = sizeModifier * 1;
             SauceUsage = sizeModifier * 1;
             CheeseUsage = sizeModifier * 1;
         }
 
-        public void PepperoniPizza(double sizeModifier)
+        public void PepperoniPizza(int sizeModifier)
         {
             DoughUsage = sizeModifier * 1;
             SauceUsage = sizeModifier * 1;
@@ -74,7 +74,7 @@ namespace PizzaStoreApplicationLibrary
             PepperoniUsage = sizeModifier * 1;
         }
 
-        public void VeggieAndPepperoniPizza(double sizeModifier)
+        public void VeggieAndPepperoniPizza(int sizeModifier)
         {
             DoughUsage = sizeModifier * 1;
             SauceUsage = sizeModifier * 1;
@@ -83,7 +83,7 @@ namespace PizzaStoreApplicationLibrary
             PepperAndOnionUsage = sizeModifier * 1;
         }
 
-        public void MeatPizza(double sizeModifier)
+        public void MeatPizza(int sizeModifier)
         {
             DoughUsage = sizeModifier * 1;
             SauceUsage = sizeModifier * 1;

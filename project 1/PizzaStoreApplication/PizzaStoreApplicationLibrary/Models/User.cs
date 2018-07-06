@@ -7,7 +7,7 @@ using System.Text;
 
 namespace PizzaStoreApplicationLibrary
 {
-    public class User : Address
+    public class User
     {
         //fields
         public string Username { get; set; }
@@ -24,7 +24,7 @@ namespace PizzaStoreApplicationLibrary
 
         public Location DefaultLocation = new Location();
 
-        Address deliveryAddress;
+        public string Address { get; set; }
 
         public int CheeseOrdered { get; set; } = 0;
 
@@ -45,7 +45,7 @@ namespace PizzaStoreApplicationLibrary
             LastName = "Zoellner";
             PhoneNumber = "802-782-7550";
             Email = "ajzoellner@gmail.com";
-            deliveryAddress = new Address();
+            Address = "2212 Astoria Circle, Herndon, VA";
             Favorite = "Herndon";
         }
 
@@ -56,7 +56,7 @@ namespace PizzaStoreApplicationLibrary
             LastName = second;
             PhoneNumber = phone;
             Email = email;
-            deliveryAddress = new Address(address, city);
+            Address = address;
             Favorite = favorite;
         }
 
