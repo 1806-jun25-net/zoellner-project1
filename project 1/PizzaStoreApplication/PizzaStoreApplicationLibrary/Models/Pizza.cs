@@ -50,11 +50,11 @@ namespace PizzaStoreApplicationLibrary
                     break;
                 
                 case 2:
-                    SizeModifier = 1.5;
+                    SizeModifier = 2;
                     break;
 
                 case 3:
-                    SizeModifier = 2;
+                    SizeModifier = 3;
                     break;
             }
         }

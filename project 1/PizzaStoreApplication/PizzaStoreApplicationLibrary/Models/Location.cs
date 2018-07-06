@@ -13,12 +13,12 @@ namespace PizzaStoreApplicationLibrary
         //fields
         public string Name { get; set; }
 
-        public double Dough { get; set; } = 1000;
-        public double Cheese { get; set; } = 1000;
-        public double Sauce { get; set; } = 1000;
-        public double Pepperoni { get; set; } = 1000;
-        public double PeppersAndOnions { get; set; } = 1000;
-        public double HamAndMeatball { get; set; } = 1000;
+        public int Dough { get; set; } = 1000;
+        public int Cheese { get; set; } = 1000;
+        public int Sauce { get; set; } = 1000;
+        public int Pepperoni { get; set; } = 1000;
+        public int PeppersAndOnions { get; set; } = 1000;
+        public int HamAndMeatball { get; set; } = 1000;
 
         public List<Order> OrderHistory = new List<Order>();
 

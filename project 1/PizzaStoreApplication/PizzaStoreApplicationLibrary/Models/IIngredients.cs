@@ -6,16 +6,16 @@ namespace PizzaStoreApplicationLibrary
 {
     public interface IIngredients
     {
-        double Dough { get; set; }
+        int Dough { get; set; }
 
-        double Cheese { get; set; }
+        int Cheese { get; set; }
 
-        double Sauce { get; set; }
+        int Sauce { get; set; }
 
-        double Pepperoni { get; set; }
+        int Pepperoni { get; set; }
 
-        double PeppersAndOnions { get; set; }
+        int PeppersAndOnions { get; set; }
 
-        double HamAndMeatball { get; set; }
+        int HamAndMeatball { get; set; }
     }
 }

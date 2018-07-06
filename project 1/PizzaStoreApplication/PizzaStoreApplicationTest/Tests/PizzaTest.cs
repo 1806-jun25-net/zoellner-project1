@@ -17,8 +17,8 @@ namespace PizzaStoreApplicationTest
 
         [Theory]
         [InlineData(1, 1)]
-        [InlineData(2, 1.5)]
-        [InlineData(3, 2)]
+        [InlineData(2, 2)]
+        [InlineData(3, 3)]
         public void SizeModifierShouldChangeForDifferentSizesPicked(int size, double modifier)
         {
             Pizza TestPizza = new Pizza(size, 1);//Type of pizza is irrelevant here, so we shall only use the cheese pizza
