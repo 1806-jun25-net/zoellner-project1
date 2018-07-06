@@ -1,0 +1,149 @@
+CREATE DATABASE Project1PizzaApplication;
+GO
+
+CREATE SCHEMA PizzaApp;
+GO
+
+----------Table Creation----------
+--Users
+CREATE TABLE PizzaApp.Users
+(
+	Username NVARCHAR(100) PRIMARY KEY,
+	FirstName NVARCHAR(100) NOT NULL,
+	LastName NVARCHAR(100) NOT NULL,
+	PhoneNumber NVARCHAR(12) NOT NULL,
+	EmailAddress NVARCHAR(100) NOT NULL,
+	DefaultLocation NVARCHAR(50) NOT NULL,
+	PhysicalAddress NVARCHAR(100) NOT NULL
+)
+
+--Location
+CREATE TABLE PizzaApp.StoreLocation
+(
+	CityName NVARCHAR(50) PRIMARY KEY,
+	DoughRemaining int NOT NULL,
+	SauceRemaining int NOT NULL,
+	CheeseRemaining int NOT NULL,
+	PepperoniRemaining int NOT NULL,
+	VeggiesRemaining int NOT NULL,
+	MeatRemaining int NOT NULL
+)
+
+--Orders
+CREATE TABLE PizzaApp.Orders
+(
+	OrderId int PRIMARY KEY IDENTITY,
+	OrderTime DATETIME2 DEFAULT GETDATE(),
+	Username NVARCHAR(100) UNIQUE NOT NULL,
+	NumPizzas int NOT NULL,
+	StoreLocation NVARCHAR(50) NOT NULL,
+	PizzaNum1 int NOT NULL,
+	PizzaNum2 int NULL,
+	PizzaNum3 int NULL,
+	PizzaNum4 int NULL,
+	PizzaNum5 int NULL,
+	PizzaNum6 int NULL,
+	PizzaNum7 int NULL,
+	PizzaNum8 int NULL,
+	PizzaNum9 int NULL,
+	PizzaNum10 int NULL,
+	PizzaNum11 int NULL,
+	PizzaNum12 int NULL,
+)
+GO
+
+--Pizza Variation
+CREATE TABLE PizzaApp.PizzaVariation
+(
+	PizzaID int PRIMARY KEY IDENTITY,
+	PizzaSize NVARCHAR(6) NOT NULL,
+	PizzaType NVARCHAR(9) NOT NULL
+)
+
+----------Foreign Key Assignments----------
+ALTER TABLE PizzaApp.Users
+ADD CONSTRAINT FK_DefaultLocation FOREIGN KEY (DefaultLocation) REFERENCES PizzaApp.StoreLocation(CityName);
+
+ALTER TABLE PizzaApp.Orders
+ADD CONSTRAINT FK_Username FOREIGN KEY (Username) REFERENCES PizzaApp.Users(Username);
+
+ALTER TABLE PizzaApp.Orders
+ADD CONSTRAINT FK_Store_Location FOREIGN KEY (StoreLocation) REFERENCES PizzaApp.StoreLocation(CityName);
+
+-----Pizza Variation Foreign Key Alterations-----------
+ALTER TABLE PizzaApp.Orders
+ADD CONSTRAINT FK_Pizza_ID_Num FOREIGN KEY (PizzaNum1) REFERENCES PizzaApp.PizzaVariation(PizzaID);
+
+ALTER TABLE PizzaApp.Orders
+ADD CONSTRAINT FK_Pizza_ID_Num2 FOREIGN KEY (PizzaNum2) REFERENCES PizzaApp.PizzaVariation(PizzaID);
+
+ALTER TABLE PizzaApp.Orders
+ADD CONSTRAINT FK_Pizza_ID_Num3 FOREIGN KEY (PizzaNum3) REFERENCES PizzaApp.PizzaVariation(PizzaID);
+
+ALTER TABLE PizzaApp.Orders
+ADD CONSTRAINT FK_Pizza_ID_Num4 FOREIGN KEY (PizzaNum4) REFERENCES PizzaApp.PizzaVariation(PizzaID);
+
+ALTER TABLE PizzaApp.Orders
+ADD CONSTRAINT FK_Pizza_ID_Num5 FOREIGN KEY (PizzaNum5) REFERENCES PizzaApp.PizzaVariation(PizzaID);
+
+ALTER TABLE PizzaApp.Orders
+ADD CONSTRAINT FK_Pizza_ID_Num6 FOREIGN KEY (PizzaNum6) REFERENCES PizzaApp.PizzaVariation(PizzaID);
+
+ALTER TABLE PizzaApp.Orders
+ADD CONSTRAINT FK_Pizza_ID_Num7 FOREIGN KEY (PizzaNum7) REFERENCES PizzaApp.PizzaVariation(PizzaID);
+
+ALTER TABLE PizzaApp.Orders
+ADD CONSTRAINT FK_Pizza_ID_Num8 FOREIGN KEY (PizzaNum8) REFERENCES PizzaApp.PizzaVariation(PizzaID);
+
+ALTER TABLE PizzaApp.Orders
+ADD CONSTRAINT FK_Pizza_ID_Num9 FOREIGN KEY (PizzaNum9) REFERENCES PizzaApp.PizzaVariation(PizzaID);
+
+ALTER TABLE PizzaApp.Orders
+ADD CONSTRAINT FK_Pizza_ID_Num10 FOREIGN KEY (PizzaNum10) REFERENCES PizzaApp.PizzaVariation(PizzaID);
+
+ALTER TABLE PizzaApp.Orders
+ADD CONSTRAINT FK_Pizza_ID_Num11 FOREIGN KEY (PizzaNum11) REFERENCES PizzaApp.PizzaVariation(PizzaID);
+
+ALTER TABLE PizzaApp.Orders
+ADD CONSTRAINT FK_Pizza_ID_Num12 FOREIGN KEY (PizzaNum12) REFERENCES PizzaApp.PizzaVariation(PizzaID);
+GO
+
+----------Populating Database with Necessary Locations----------
+
+INSERT INTO PizzaApp.StoreLocation VALUES ('Reston', 1000, 1000, 1000, 1000, 1000, 1000);
+
+INSERT INTO PizzaApp.StoreLocation VALUES ('Herndon', 1000, 1000, 1000, 1000, 1000, 1000);
+
+INSERT INTO PizzaApp.StoreLocation VALUES ('Dulles', 1000, 1000, 1000, 1000, 1000, 1000);
+
+INSERT INTO PizzaApp.StoreLocation VALUES ('Hattontown', 1000, 1000, 1000, 1000, 1000, 1000);
+
+SELECT * FROM PizzaApp.StoreLocation --inserted to check that values were properly added
+
+----------Adding different pizza variations for later use in Order table----------
+
+INSERT INTO PizzaApp.PizzaVariation VALUES ('small', 'cheese');
+
+INSERT INTO PizzaApp.PizzaVariation VALUES ('medium', 'cheese');
+
+INSERT INTO PizzaApp.PizzaVariation VALUES ('large', 'cheese');
+
+INSERT INTO PizzaApp.PizzaVariation VALUES ('small', 'pepperoni');
+
+INSERT INTO PizzaApp.PizzaVariation VALUES ('medium', 'pepperoni');
+
+INSERT INTO PizzaApp.PizzaVariation VALUES ('large', 'pepperoni');
+
+INSERT INTO PizzaApp.PizzaVariation VALUES ('small', 'meat');
+
+INSERT INTO PizzaApp.PizzaVariation VALUES ('medium', 'meat');
+
+INSERT INTO PizzaApp.PizzaVariation VALUES ('large', 'meat');
+
+INSERT INTO PizzaApp.PizzaVariation VALUES ('small', 'veggie');
+
+INSERT INTO PizzaApp.PizzaVariation VALUES ('medium', 'veggie');
+
+INSERT INTO PizzaApp.PizzaVariation VALUES ('large', 'veggie');
+
+SELECT * FROM PizzaApp.PizzaVariation;  --added for verification that all type variations were added properly
