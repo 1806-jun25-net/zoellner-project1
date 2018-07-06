@@ -61,5 +61,20 @@ namespace PizzaStoreApplicationLibrary
                 PhysicalAddress = user.Address
             };
         }
+
+        public static Order Map(Orders order)
+        {
+            return new Order
+            {
+                OrderPlaced = (DateTime)order.OrderTime,
+                NumberOfPizzas = order.NumPizzas,
+
+            };
+        }
+
+        public static List<int> GetDesiredSizes(Orders order)
+        {
+            
+        }
     }
 }
