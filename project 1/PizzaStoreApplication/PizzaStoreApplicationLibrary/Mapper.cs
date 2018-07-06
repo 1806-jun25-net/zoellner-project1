@@ -44,7 +44,21 @@ namespace PizzaStoreApplicationLibrary
                 PhoneNumber = user.PhoneNumber,
                 Email = user.EmailAddress,
                 Favorite = user.DefaultLocation,
-                
+                Address = user.PhysicalAddress
+            };
+        }
+
+        public static Users Map(User user)
+        {
+            return new Users
+            {
+                Username = user.Username,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                PhoneNumber = user.PhoneNumber,
+                EmailAddress = user.Email,
+                DefaultLocation = user.Favorite,
+                PhysicalAddress = user.Address
             };
         }
     }
