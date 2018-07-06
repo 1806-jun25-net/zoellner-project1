@@ -1,6 +1,7 @@
 ﻿//Anthony Zoellner
 //Project 1
 
+using Microsoft.Extensions.Configuration;
 using NLog;
 using PizzaStoreApplicationLibrary;
 using System;
@@ -181,6 +182,12 @@ namespace PizzaStoreApplication
 
         static void Main(string[] args)
         {
+            var configBuilder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+
+            IConfigurationRoot configuration = configBuilder.Build();
+
             logger.Info("Beginning application");
             User CurrentUser = new User();
             Location Reston = new Location("Reston");
