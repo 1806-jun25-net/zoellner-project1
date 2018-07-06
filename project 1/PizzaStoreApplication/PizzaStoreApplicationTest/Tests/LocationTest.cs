@@ -560,10 +560,16 @@ namespace PizzaStoreApplicationTest
             RetrievedList = TestLocation.RetrieveUserOrderHistory(NewUser.Username);
 
             List<Order> OrderList = new List<Order>();
-            OrderList.Add(NewOrder);
+            OrderList.Add(SecondOrder);
             OrderList.AddRange(RetrievedList);
 
-            Assert.NotEqual<Order>(OrderList[1], OrderList[0]);
+            bool SameString = false;
+            if (OrderList[0].username.Equals(OrderList[1].username))
+            {
+                SameString = true;
+            }
+
+            Assert.False(SameString);
         }
     }
 }
