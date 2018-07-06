@@ -60,6 +60,10 @@ CREATE TABLE PizzaApp.PizzaVariation
 	PizzaType NVARCHAR(9) NOT NULL
 )
 
+----------Initially forgot to add cost column to the Orders table-----------
+ALTER TABLE PizzaApp.Orders
+ADD TotalCost SMALLMONEY DEFAULT 0.00;
+
 ----------Foreign Key Assignments----------
 ALTER TABLE PizzaApp.Users
 ADD CONSTRAINT FK_DefaultLocation FOREIGN KEY (DefaultLocation) REFERENCES PizzaApp.StoreLocation(CityName);
@@ -147,3 +151,49 @@ INSERT INTO PizzaApp.PizzaVariation VALUES ('medium', 'veggie');
 INSERT INTO PizzaApp.PizzaVariation VALUES ('large', 'veggie');
 
 SELECT * FROM PizzaApp.PizzaVariation;  --added for verification that all type variations were added properly
+GO
+
+----------Triggers----------
+--cannot delete orders
+CREATE TRIGGER PizzaApp.TR_Order_ReplaceDelete
+ON PizzaApp.Orders
+INSTEAD OF DELETE
+AS
+	PRINT 'Unable to delete or replace orders';
+
+DELETE FROM PizzaApp.Orders --test query
+GO
+
+--cannot delete locations
+CREATE TRIGGER PizzaApp.TR_Location_ReplaceDelete
+ON PizzaApp.StoreLocation
+INSTEAD OF DELETE
+AS
+	Print 'Unable to delete or replace locations';
+
+DELETE FROM PizzaApp.StoreLocation; --test query
+SELECT * FROM PizzaApp.StoreLocation; --test query
+GO
+
+--cannot delete users
+CREATE TRIGGER PizzaApp.TR_Users_ReplaceDelete
+ON PizzaApp.Users
+INSTEAD OF DELETE
+AS
+	Print 'Unable to delete or replace users';
+
+DELETE FROM PizzaApp.Users; --test query
+GO
+
+--cannot update users (should still be able to insert new user)
+CREATE TRIGGER PizzaApp.TR_Users_ReplaceUpdate
+ON PizzaApp.Users
+INSTEAD OF UPDATE
+AS
+	Print 'Unable to update users. Please make new user.';
+
+UPDATE PizzaApp.Users
+SET Username = 'Test'
+WHERE Username = 'OtherTest'; --test query
+GO
+
