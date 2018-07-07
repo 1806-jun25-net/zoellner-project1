@@ -89,25 +89,25 @@ namespace PizzaStoreApplicationLibrary
             if(CheeseOrdered > PepperoniOrdered && CheeseOrdered > MeatOrdered
                 && CheeseOrdered > VeggieOrdered)
             {
-                FavoritePizza = "Cheese Pizza";
+                FavoritePizza = "Cheese";
             }
 
             else if (PepperoniOrdered > CheeseOrdered && PepperoniOrdered > MeatOrdered
                 && PepperoniOrdered > VeggieOrdered)
             {
-                FavoritePizza = "Pepperoni Pizza";
+                FavoritePizza = "Pepperoni";
             }
 
             else if (MeatOrdered > CheeseOrdered && MeatOrdered > PepperoniOrdered
                 && MeatOrdered > VeggieOrdered)
             {
-                FavoritePizza = "Meat Pizza";
+                FavoritePizza = "Meat";
             }
 
             else if (VeggieOrdered > CheeseOrdered && VeggieOrdered > MeatOrdered
                 && VeggieOrdered > PepperoniOrdered)
             {
-                FavoritePizza = "Veggie Pizza";
+                FavoritePizza = "Veggie";
             }
         }
     }

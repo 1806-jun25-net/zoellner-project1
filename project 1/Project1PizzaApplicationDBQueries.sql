@@ -34,7 +34,7 @@ CREATE TABLE PizzaApp.Orders
 (
 	OrderId int PRIMARY KEY IDENTITY,
 	OrderTime DATETIME2 DEFAULT GETDATE(),
-	Username NVARCHAR(100) UNIQUE NOT NULL,
+	Username NVARCHAR(100) NOT NULL,
 	NumPizzas int NOT NULL,
 	StoreLocation NVARCHAR(50) NOT NULL,
 	PizzaNum1 int NOT NULL,
@@ -72,13 +72,21 @@ ADD FirstName NVARCHAR(100) NOT NULL;
 ALTER TABLE PizzaApp.Users
 ADD CONSTRAINT FK_DefaultLocation FOREIGN KEY (DefaultLocation) REFERENCES PizzaApp.StoreLocation(CityName);
 
+--had to remove this foreign key
 ALTER TABLE PizzaApp.Orders
 ADD CONSTRAINT FK_Username FOREIGN KEY (Username) REFERENCES PizzaApp.Users(Username);
 
 ALTER TABLE PizzaApp.Orders
+DROP CONSTRAINT FK_Username
+
+ALTER TABLE PizzaApp.Orders
 ADD CONSTRAINT FK_Store_Location FOREIGN KEY (StoreLocation) REFERENCES PizzaApp.StoreLocation(CityName);
 
+ALTER TABLE PizzaApp.Orders
+DROP CONSTRAINT FK_Store_Location
+
 -----Pizza Variation Foreign Key Alterations-----------
+--had to drop all of these to allow repeats in the columns
 ALTER TABLE PizzaApp.Orders
 ADD CONSTRAINT FK_Pizza_ID_Num FOREIGN KEY (PizzaNum1) REFERENCES PizzaApp.PizzaVariation(PizzaID);
 
@@ -226,3 +234,52 @@ where CityName = 'Dulles';
 
 SELECT * FROM PizzaApp.Users;
 
+SELECT * FROM PizzaApp.Orders;
+
+--Had to alter primary key in the Users table
+SELECT * 
+FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS 
+WHERE TABLE_NAME = 'Users'
+
+ALTER TABLE PizzaApp.Users DROP CONSTRAINT PK__Users__536C85E5EBA59E62
+
+ALTER TABLE PizzaApp.Users ADD CONSTRAINT PK_Email PRIMARY KEY (EmailAddress)
+
+--Dropping pizza variation foreign keys
+ALTER TABLE PizzaApp.Orders
+DROP CONSTRAINT FK_Pizza_ID_Num
+
+ALTER TABLE PizzaApp.Orders
+DROP CONSTRAINT FK_Pizza_ID_Num2
+
+ALTER TABLE PizzaApp.Orders
+DROP CONSTRAINT FK_Pizza_ID_Num3
+
+ALTER TABLE PizzaApp.Orders
+DROP CONSTRAINT FK_Pizza_ID_Num4
+
+ALTER TABLE PizzaApp.Orders
+DROP CONSTRAINT FK_Pizza_ID_Num5
+
+ALTER TABLE PizzaApp.Orders
+DROP CONSTRAINT FK_Pizza_ID_Num6
+
+ALTER TABLE PizzaApp.Orders
+DROP CONSTRAINT FK_Pizza_ID_Num7
+
+ALTER TABLE PizzaApp.Orders
+DROP CONSTRAINT FK_Pizza_ID_Num8
+
+ALTER TABLE PizzaApp.Orders
+DROP CONSTRAINT FK_Pizza_ID_Num9
+
+ALTER TABLE PizzaApp.Orders
+DROP CONSTRAINT FK_Pizza_ID_Num10
+
+ALTER TABLE PizzaApp.Orders
+DROP CONSTRAINT FK_Pizza_ID_Num11
+
+ALTER TABLE PizzaApp.Orders
+DROP CONSTRAINT FK_Pizza_ID_Num12
+
+DROP TABLE PizzaApp.Orders

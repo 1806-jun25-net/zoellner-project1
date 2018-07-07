@@ -489,6 +489,7 @@ namespace PizzaStoreApplicationTest
             Assert.Equal(expected, actual);
         }
 
+        [Fact]
         public void LastOrderTwoHoursAgoShouldAllowSomeoneToOrderTwiceInMoreThanTwoHours()
         {
             bool expected = true;

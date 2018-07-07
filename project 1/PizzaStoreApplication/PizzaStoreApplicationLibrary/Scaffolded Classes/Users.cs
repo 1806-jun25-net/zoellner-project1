@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PizzaStoreApplicationLibrary
+namespace PizzaStoreApplication
 {
     public partial class Users
     {
@@ -15,6 +15,5 @@ namespace PizzaStoreApplicationLibrary
         public string RecommendedPizza { get; set; }
 
         public StoreLocation DefaultLocationNavigation { get; set; }
-        public Orders Orders { get; set; }
     }
 }

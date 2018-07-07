@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PizzaStoreApplication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -98,6 +99,7 @@ namespace PizzaStoreApplicationLibrary.Repos_and_Mapper
                 FirstName = NewOrder.name,
                 OrderTime = NewOrder.OrderPlaced,
                 NumPizzas = NewOrder.NumberOfPizzas,
+                StoreLocation = NewOrder.location,
                 PizzaNum1 = id1,
                 PizzaNum2 = id2,
                 PizzaNum3 = id3,
@@ -111,6 +113,8 @@ namespace PizzaStoreApplicationLibrary.Repos_and_Mapper
                 PizzaNum11 = id11,
                 PizzaNum12 = id12
             };
+            _db.Add(dbOrder);
+            _db.SaveChanges();
         }
 
         public int OrderRepoPizzaIDReturn(int size, int type)

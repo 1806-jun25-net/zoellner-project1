@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace PizzaStoreApplicationLibrary
+namespace PizzaStoreApplication
 {
     public partial class Project1PizzaApplicationContext : DbContext
     {
@@ -24,7 +24,7 @@ namespace PizzaStoreApplicationLibrary
         {
             if (!optionsBuilder.IsConfigured)
             {
-                
+
             }
         }
 
@@ -36,10 +36,6 @@ namespace PizzaStoreApplicationLibrary
 
                 entity.ToTable("Orders", "PizzaApp");
 
-                entity.HasIndex(e => e.Username)
-                    .HasName("UQ__Orders__536C85E49A68269D")
-                    .IsUnique();
-
                 entity.Property(e => e.FirstName)
                     .IsRequired()
                     .HasMaxLength(100);
@@ -49,6 +45,10 @@ namespace PizzaStoreApplicationLibrary
                 entity.Property(e => e.StoreLocation)
                     .IsRequired()
                     .HasMaxLength(50);
+
+                entity.Property(e => e.TotalCost)
+                    .HasColumnType("smallmoney")
+                    .HasDefaultValueSql("((0.00))");
 
                 entity.Property(e => e.Username)
                     .IsRequired()
@@ -120,12 +120,6 @@ namespace PizzaStoreApplicationLibrary
                     .HasForeignKey(d => d.StoreLocation)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Store_Location");
-
-                entity.HasOne(d => d.UsernameNavigation)
-                    .WithOne(p => p.Orders)
-                    .HasForeignKey<Orders>(d => d.Username)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Username");
             });
 
             modelBuilder.Entity<PizzaVariation>(entity =>
@@ -158,21 +152,17 @@ namespace PizzaStoreApplicationLibrary
 
             modelBuilder.Entity<Users>(entity =>
             {
-                entity.HasKey(e => e.Username);
+                entity.HasKey(e => e.EmailAddress);
 
                 entity.ToTable("Users", "PizzaApp");
 
-                entity.Property(e => e.Username)
+                entity.Property(e => e.EmailAddress)
                     .HasMaxLength(100)
                     .ValueGeneratedNever();
 
                 entity.Property(e => e.DefaultLocation)
                     .IsRequired()
                     .HasMaxLength(50);
-
-                entity.Property(e => e.EmailAddress)
-                    .IsRequired()
-                    .HasMaxLength(100);
 
                 entity.Property(e => e.FirstName)
                     .IsRequired()
@@ -190,15 +180,20 @@ namespace PizzaStoreApplicationLibrary
                     .IsRequired()
                     .HasMaxLength(100);
 
+                entity.Property(e => e.RecommendedPizza)
+                    .IsRequired()
+                    .HasMaxLength(9)
+                    .HasDefaultValueSql("('Cheese')");
+
+                entity.Property(e => e.Username)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
                 entity.HasOne(d => d.DefaultLocationNavigation)
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.DefaultLocation)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_DefaultLocation");
-
-                entity.Property(e => e.RecommendedPizza)
-                    .IsRequired()
-                    .HasMaxLength(9);
             });
         }
     }
