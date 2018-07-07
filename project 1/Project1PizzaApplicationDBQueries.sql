@@ -197,26 +197,3 @@ SET Username = 'Test'
 WHERE Username = 'OtherTest'; --test query
 GO
 
-----------During coding, I thought of a better way to format the Orders table----------
-DROP TABLE PizzaApp.Orders;
-CREATE TABLE PizzaApp.Orders
-(
-	OrderId int PRIMARY KEY IDENTITY,
-	OrderTime DATETIME2 DEFAULT GETDATE(),
-	Username NVARCHAR(100) UNIQUE NOT NULL,
-	NumPizzas int NOT NULL,
-	StoreLocation NVARCHAR(50) NOT NULL,
-	SmallCheese int DEFAULT 0,
-	MediumCheese int DEFAULT 0,
-	LargeCheese int DEFAULT 0,
-	SmallPepperoni int DEFAULT 0,
-	MediumPepperoni int DEFAULT 0,
-	LargePepperoni int DEFAULT 0,
-	SmallMeat int DEFAULT 0,
-	MediumMeat int DEFAULT 0,
-	LargeMeat int DEFAULT 0,
-	SmallVeggie int DEFAULT 0,
-	MediumVeggie int DEFAULT 0,
-	LargeVeggie int DEFAULT 0,
-)
-

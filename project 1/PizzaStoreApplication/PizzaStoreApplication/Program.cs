@@ -1,6 +1,7 @@
 ﻿//Anthony Zoellner
 //Project 1
 
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using NLog;
 using PizzaStoreApplicationLibrary;
@@ -188,6 +189,10 @@ namespace PizzaStoreApplication
 
             IConfigurationRoot configuration = configBuilder.Build();
 
+            var optionsBuilder = new DbContextOptionsBuilder<Project1PizzaApplicationContext>();
+            optionsBuilder.UseSqlServer(configuration.GetConnectionString("Project1PizzaApplication"));
+            var options = optionsBuilder.Options;
+
             logger.Info("Beginning application");
             User CurrentUser = new User();
             Location Reston = new Location("Reston");
@@ -196,42 +201,42 @@ namespace PizzaStoreApplication
             Location Hattontown = new Location("Hattontown");
             int NumPizzas;
 
-            if (File.Exists("reston.xml"))
-            {
-                Reston = DeserializeLocation("reston.xml");
-                Reston.Name = "Reston";
-            }
-            else
-            {
-                Reston = new Location("Reston");
-            }
-            if (File.Exists("herndon.xml"))
-            {
-                Herndon = DeserializeLocation("herndon.xml");
-                Herndon.Name = "Herndon";
-            }
-            else
-            {
-                Herndon = new Location("Herndon");
-            }
-            if (File.Exists("dulles.xml"))
-            {
-                Dulles = DeserializeLocation("dulles.xml");
-                Dulles.Name = "Dulles";
-            }
-            else
-            {
-                Dulles = new Location("Dulles");
-            }
-            if (File.Exists("hattontown.xml"))
-            {
-                Hattontown = DeserializeLocation("hattontown.xml");
-                Hattontown.Name = "Hattontown";
-            }
-            else
-            {
-                Hattontown = new Location("Hattontown");
-            }
+            //if (File.Exists("reston.xml"))
+            //{
+            //    Reston = DeserializeLocation("reston.xml");
+            //    Reston.Name = "Reston";
+            //}
+            //else
+            //{
+            //    Reston = new Location("Reston");
+            //}
+            //if (File.Exists("herndon.xml"))
+            //{
+            //    Herndon = DeserializeLocation("herndon.xml");
+            //    Herndon.Name = "Herndon";
+            //}
+            //else
+            //{
+            //    Herndon = new Location("Herndon");
+            //}
+            //if (File.Exists("dulles.xml"))
+            //{
+            //    Dulles = DeserializeLocation("dulles.xml");
+            //    Dulles.Name = "Dulles";
+            //}
+            //else
+            //{
+            //    Dulles = new Location("Dulles");
+            //}
+            //if (File.Exists("hattontown.xml"))
+            //{
+            //    Hattontown = DeserializeLocation("hattontown.xml");
+            //    Hattontown.Name = "Hattontown";
+            //}
+            //else
+            //{
+            //    Hattontown = new Location("Hattontown");
+            //}
 
             if (File.Exists("userlist.xml"))
             {
