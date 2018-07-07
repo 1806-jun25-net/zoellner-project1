@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+
+
 
 namespace PizzaStoreApplicationLibrary.Repos_and_Mapper
 {
@@ -13,13 +17,27 @@ namespace PizzaStoreApplicationLibrary.Repos_and_Mapper
             _db = db ?? throw new ArgumentNullException(nameof(db));
         }
 
-        public User GetUser(string username)
+        public IEnumerable<Users> GetUsers()
         {
-            User CurrentUser = new User();
+            List<Users> UserList = _db.Users.AsNoTracking().ToList();
+            return UserList;
+        }
 
-            CurrentUser = _db.Find(, username)
+        public void AddUser(string username, string First, string Last, string Phone, string email, string FavoriteLocation, string Address)
+        {
+            var NewUser = new Users
+            {
+                Username = username,
+                FirstName = First,
+                LastName = Last,
+                PhoneNumber = Phone,
+                EmailAddress = email,
+                DefaultLocation = FavoriteLocation,
+                PhysicalAddress = Address
+            };
 
-            return CurrentUser;
+            _db.Add(NewUser);
+            _db.SaveChanges();
         }
     }
 }
