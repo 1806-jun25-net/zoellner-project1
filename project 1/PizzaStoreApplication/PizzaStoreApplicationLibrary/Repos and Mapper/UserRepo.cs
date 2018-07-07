@@ -33,7 +33,8 @@ namespace PizzaStoreApplicationLibrary.Repos_and_Mapper
                 PhoneNumber = Phone,
                 EmailAddress = email,
                 DefaultLocation = FavoriteLocation,
-                PhysicalAddress = Address
+                PhysicalAddress = Address,
+                RecommendedPizza = "Cheese"
             };
 
             _db.Add(NewUser);

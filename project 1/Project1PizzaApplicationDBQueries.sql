@@ -60,7 +60,6 @@ CREATE TABLE PizzaApp.PizzaVariation
 	PizzaType NVARCHAR(9) NOT NULL
 )
 
-DROP TABLE PizzaApp.PizzaVariation
 
 ----------Initially forgot to add cost column to the Orders table and FirstName column as well-----------
 ALTER TABLE PizzaApp.Orders
@@ -204,6 +203,10 @@ SET Username = 'Test'
 WHERE Username = 'OtherTest'; --test query
 GO
 
+----------Forgot to add Recommended Pizza column to Users table----------
+ALTER TABLE PizzaApp.Users
+ADD RecommendedPizza NVARCHAR(9) DEFAULT 'Cheese'
+
 ----------Test Queries----------
 Update PizzaApp.StoreLocation
 Set DoughRemaining = 1000
@@ -220,4 +223,6 @@ where CityName = 'Hattontown';
 Update PizzaApp.StoreLocation
 Set DoughRemaining = 1000
 where CityName = 'Dulles';
+
+SELECT * FROM PizzaApp.Users;
 
