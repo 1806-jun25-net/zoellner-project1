@@ -60,6 +60,8 @@ CREATE TABLE PizzaApp.PizzaVariation
 	PizzaType NVARCHAR(9) NOT NULL
 )
 
+DROP TABLE PizzaApp.PizzaVariation
+
 ----------Initially forgot to add cost column to the Orders table-----------
 ALTER TABLE PizzaApp.Orders
 ADD TotalCost SMALLMONEY DEFAULT 0.00;
@@ -125,6 +127,8 @@ INSERT INTO PizzaApp.StoreLocation VALUES ('Hattontown', 1000, 1000, 1000, 1000,
 SELECT * FROM PizzaApp.StoreLocation --inserted to check that values were properly added
 
 ----------Adding different pizza variations for later use in Order table----------
+
+INSERT INTO PizzaApp.PizzaVariation VALUES ('none', 'none');
 
 INSERT INTO PizzaApp.PizzaVariation VALUES ('small', 'cheese');
 

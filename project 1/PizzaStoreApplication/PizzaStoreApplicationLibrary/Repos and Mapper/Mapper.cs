@@ -334,29 +334,10 @@ namespace PizzaStoreApplicationLibrary
 
         public static int PizzaIDReturn(int size, int type)
         {
-            int PizzaID = 0;
+            int PizzaID = 1;
             switch (size)
             {
                 case 1:
-                    switch (type)
-                    {
-                        case 1:
-                            PizzaID = 1;
-                            break;
-                        case 2:
-                            PizzaID = 4;
-                            break;
-                        case 3:
-                            PizzaID = 7;
-                            break;
-                        case 4:
-                            PizzaID = 10;
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                case 2:
                     switch (type)
                     {
                         case 1:
@@ -375,7 +356,7 @@ namespace PizzaStoreApplicationLibrary
                             break;
                     }
                     break;
-                case 3:
+                case 2:
                     switch (type)
                     {
                         case 1:
@@ -389,6 +370,25 @@ namespace PizzaStoreApplicationLibrary
                             break;
                         case 4:
                             PizzaID = 12;
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case 3:
+                    switch (type)
+                    {
+                        case 1:
+                            PizzaID = 4;
+                            break;
+                        case 2:
+                            PizzaID = 7;
+                            break;
+                        case 3:
+                            PizzaID = 10;
+                            break;
+                        case 4:
+                            PizzaID = 13;
                             break;
                         default:
                             break;
