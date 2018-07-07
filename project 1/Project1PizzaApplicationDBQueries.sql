@@ -62,9 +62,12 @@ CREATE TABLE PizzaApp.PizzaVariation
 
 DROP TABLE PizzaApp.PizzaVariation
 
-----------Initially forgot to add cost column to the Orders table-----------
+----------Initially forgot to add cost column to the Orders table and FirstName column as well-----------
 ALTER TABLE PizzaApp.Orders
 ADD TotalCost SMALLMONEY DEFAULT 0.00;
+
+ALTER TABLE PizzaApp.Orders
+ADD FirstName NVARCHAR(100) NOT NULL;
 
 ----------Foreign Key Assignments----------
 ALTER TABLE PizzaApp.Users
@@ -200,4 +203,21 @@ UPDATE PizzaApp.Users
 SET Username = 'Test'
 WHERE Username = 'OtherTest'; --test query
 GO
+
+----------Test Queries----------
+Update PizzaApp.StoreLocation
+Set DoughRemaining = 1000
+where CityName = 'Reston';
+
+Update PizzaApp.StoreLocation
+Set DoughRemaining = 1000
+where CityName = 'Herndon';
+
+Update PizzaApp.StoreLocation
+Set DoughRemaining = 1000
+where CityName = 'Hattontown';
+
+Update PizzaApp.StoreLocation
+Set DoughRemaining = 1000
+where CityName = 'Dulles';
 

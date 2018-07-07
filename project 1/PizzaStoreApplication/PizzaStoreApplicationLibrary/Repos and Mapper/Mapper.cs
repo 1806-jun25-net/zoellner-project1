@@ -148,6 +148,8 @@ namespace PizzaStoreApplicationLibrary
             return new Orders
             {
                 OrderTime = order.OrderPlaced,
+                Username = order.username,
+                FirstName = order.name,
                 NumPizzas = order.NumberOfPizzas,
                 PizzaNum1 = id1,
                 PizzaNum2 = id2,

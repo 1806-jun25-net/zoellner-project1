@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using NLog;
 using PizzaStoreApplicationLibrary;
+using PizzaStoreApplicationLibrary.Repos_and_Mapper;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -80,7 +81,7 @@ namespace PizzaStoreApplication
 
 
             User NewUser = new User(Username, First, Last, Phone, Email, Address, City, Favorite);
-            logger.Info("Object Created");
+            logger.Info("New User Created");
 
             UserList.Add(NewUser);
             
@@ -193,6 +194,10 @@ namespace PizzaStoreApplication
             optionsBuilder.UseSqlServer(configuration.GetConnectionString("Project1PizzaApplication"));
             var options = optionsBuilder.Options;
 
+            var userRepo = new UserRepo(new Project1PizzaApplicationContext(optionsBuilder.Options));
+            var locationRepo = new LocationRepo(new Project1PizzaApplicationContext(optionsBuilder.Options));
+            var orderRepo = new OrderRepo(new Project1PizzaApplicationContext(optionsBuilder.Options));
+
             logger.Info("Beginning application");
             User CurrentUser = new User();
             Location Reston = new Location("Reston");
@@ -201,6 +206,101 @@ namespace PizzaStoreApplication
             Location Hattontown = new Location("Hattontown");
             int NumPizzas;
 
+            var UserList = userRepo.GetUsers();
+            var LocationList = locationRepo.GetLocations();
+            var OrderList = orderRepo.GetOrders();
+
+            foreach (var item in LocationList)
+            {
+                if(item.CityName.ToLower() == "reston")
+                {
+                    Reston = Mapper.Map(item);
+                }
+                if (item.CityName.ToLower() == "herndon")
+                {
+                    Herndon = Mapper.Map(item);
+                }
+                if (item.CityName.ToLower() == "hattontown")
+                {
+                    Hattontown = Mapper.Map(item);
+                }
+                if (item.CityName.ToLower() == "dulles")
+                {
+                    Dulles = Mapper.Map(item);
+                }
+            }
+
+            foreach (var item in OrderList)
+            {
+                if(item.StoreLocation.ToLower() == "reston")
+                {
+                    Reston.OrderHistory.Add(Mapper.Map(item));
+                }
+                if (item.StoreLocation.ToLower() == "herndon")
+                {
+                    Herndon.OrderHistory.Add(Mapper.Map(item));
+                }
+                if (item.StoreLocation.ToLower() == "hattontown")
+                {
+                    Hattontown.OrderHistory.Add(Mapper.Map(item));
+                }
+                if (item.StoreLocation.ToLower() == "dulles")
+                {
+                    Dulles.OrderHistory.Add(Mapper.Map(item));
+                }
+            }
+
+            Console.WriteLine("Welcome to our new pizza application!");
+            string Input;
+            bool UsernameEntered = false;
+            while (!UsernameEntered)
+            {
+                Console.WriteLine("Please enter a valid username, type 'users' to see all current users, or enter 'new'");
+                Input = Console.ReadLine();
+                Input = Input.ToLower();
+                if (Input.Equals("new"))
+                {
+                    logger.Info("Creating New User");
+                    CurrentUser = CreateNewUser();
+                    logger.Info("New User Created");
+                    UsernameEntered = true;
+                    Console.Clear();
+
+                }
+                else if (UserList.Any(u => u.Username.ToLower() == Input))
+                {
+                    logger.Info("Retrieving user information");
+                    foreach (var item in UserList)
+                    {
+                        if(item.Username.ToLower() == Input)
+                        {
+                            CurrentUser = Mapper.Map(item);
+                        }
+                    }
+                    logger.Info("User information retrieved");
+                    UsernameEntered = true;
+                    Console.Clear();
+                }
+                else if (Input.Equals("users"))
+                {
+                    ViewCurrentUsers();
+                }
+                else
+                {
+                    Console.WriteLine("Username not detected.");
+                }
+            }
+        }
+
+        public static void OldCode()
+        {
+            logger.Info("Beginning application");
+            User CurrentUser = new User();
+            Location Reston = new Location("Reston");
+            Location Herndon = new Location("Herndon");
+            Location Dulles = new Location("Dulles");
+            Location Hattontown = new Location("Hattontown");
+            int NumPizzas;
             //if (File.Exists("reston.xml"))
             //{
             //    Reston = DeserializeLocation("reston.xml");
@@ -262,7 +362,7 @@ namespace PizzaStoreApplication
                 }
                 else if (File.Exists(Input + ".xml"))
                 {
-                    logger.Info("Retrieving user information"); 
+                    logger.Info("Retrieving user information");
                     string path = Input + ".xml";
                     CurrentUser = DeserializeUser(path);
                     logger.Info("User information retrieved");

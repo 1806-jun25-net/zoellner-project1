@@ -94,6 +94,8 @@ namespace PizzaStoreApplicationLibrary.Repos_and_Mapper
             }
             var dbOrder = new Orders
             {
+                Username = NewOrder.username,
+                FirstName = NewOrder.name,
                 OrderTime = NewOrder.OrderPlaced,
                 NumPizzas = NewOrder.NumberOfPizzas,
                 PizzaNum1 = id1,
