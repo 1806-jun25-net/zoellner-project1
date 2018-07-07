@@ -21,7 +21,7 @@ namespace PizzaStoreApplicationLibrary.Repos_and_Mapper
             return orders;
         }
 
-        public void AddOrder(Order NewOrder)
+        public static void AddOrder(Order NewOrder)
         {
             NewOrder.DesiredSizes.TrimExcess();
             NewOrder.DesiredTypes.TrimExcess();

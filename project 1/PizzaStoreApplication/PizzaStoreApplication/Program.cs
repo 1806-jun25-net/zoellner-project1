@@ -290,6 +290,250 @@ namespace PizzaStoreApplication
                     Console.WriteLine("Username not detected.");
                 }
             }
+
+            bool KeepOpen = true;
+            while (KeepOpen)
+            {
+                Console.WriteLine("Welcome! Let's get started!");
+                Console.WriteLine("Please input one of the following:");
+                Console.WriteLine("Order: place a new order; History: view your order history; Exit: exit the application");
+                Input = Console.ReadLine();
+                Input = Input.ToLower();
+
+                if (!Input.Equals("order") && !Input.Equals("exit") && !Input.Equals("history") && !Input.Equals("resupply"))
+                {
+                    Console.WriteLine("Please input an accepted command");
+                    Console.WriteLine("Order: place a new order; History : view your order history; Exit: exit the application");
+                    Input = Console.ReadLine();
+                    Input = Input.ToLower();
+                }
+                else if (Input.Equals("order"))
+                {
+                    Console.Clear();
+                    Console.WriteLine("How many pizzas would you like to order (max of 12)? Please input a number.");
+                    Input = Console.ReadLine();
+                    try
+                    {
+                        NumPizzas = int.Parse(Input);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error: Input was not an integer. Please input a number.");
+                        continue;
+                    }
+
+                    if (NumPizzas < 0)
+                    {
+                        Console.WriteLine("Error: Invalid input detected (we can't make negative pizzas)");
+                        Console.WriteLine("Let's try this again from the top.");
+                        continue;
+                    }
+                    else if (NumPizzas == 0)
+                    {
+                        Console.WriteLine("Wait...didn't you want to order at least one pizza? We have to start over...");
+                        continue;
+                    }
+                    else if (NumPizzas > 0 && NumPizzas <= 12)
+                    {
+                        Console.WriteLine("Are we delivering from your favorite store? Y/N");
+                        Console.WriteLine("Your favorite store is: " + CurrentUser.Favorite);
+                        Input = Console.ReadLine().ToLower();
+                        bool ValidLocation = false;
+                        bool AcceptedInput = false;
+                        string DeliveryLocation = "";
+                        if (Input != "y" && Input != "n")
+                        {
+                            while (!AcceptedInput)
+                            {
+                                Console.WriteLine("Please input either 'y' for yes or 'n' for no.");
+                                Input = Console.ReadLine().ToLower();
+                                if (Input != "y" && Input != "n")
+                                {
+                                    continue;
+                                }
+                                else
+                                {
+                                    AcceptedInput = true;
+                                }
+                            }
+                        }
+                        if (Input == "n")
+                        {
+                            while (!ValidLocation)
+                            {
+                                Console.WriteLine("Which location shall we send the order to?");
+                                DeliveryLocation = Console.ReadLine().ToLower();
+                                if (DeliveryLocation != "reston" && DeliveryLocation != "herndon" && DeliveryLocation != "dulles" && DeliveryLocation != "hattontown")
+                                {
+                                    Console.WriteLine("Please input a valid favorite location.");
+                                }
+                                else
+                                {
+                                    ValidLocation = true;
+                                }
+                            }
+                        }
+                        if (Input == "y")
+                        {
+                            DeliveryLocation = CurrentUser.Favorite;
+                            DeliveryLocation.ToLower();
+                        }
+
+                        Order CurrentOrder = new Order();
+                        bool CanOrder = true;
+                        switch (DeliveryLocation)
+                        {
+                            case "reston":
+                                if (File.Exists("reston.xml"))
+                                {
+                                    CanOrder = Reston.LastOrderOverTwoHoursAgo(CurrentUser);
+                                }
+                                if (CanOrder)
+                                {
+                                    CurrentOrder = Reston.CreateOrder(CurrentUser, NumPizzas);
+                                }
+                                break;
+                            case "herndon":
+                                if (File.Exists("herndon.xml") && Herndon.OrderHistory.Capacity > 0)
+                                {
+                                    CanOrder = Herndon.LastOrderOverTwoHoursAgo(CurrentUser);
+                                }
+                                if (CanOrder)
+                                {
+                                    CurrentOrder = Herndon.CreateOrder(CurrentUser, NumPizzas);
+                                }
+                                break;
+                            case "dulles":
+                                if (File.Exists("dulles.xml"))
+                                {
+                                    CanOrder = Dulles.LastOrderOverTwoHoursAgo(CurrentUser);
+                                }
+                                if (CanOrder)
+                                {
+                                    CurrentOrder = Dulles.CreateOrder(CurrentUser, NumPizzas);
+                                }
+                                break;
+                            case "hattontown":
+                                if (File.Exists("hattontown.xml"))
+                                {
+                                    CanOrder = Hattontown.LastOrderOverTwoHoursAgo(CurrentUser);
+                                }
+                                if (CanOrder)
+                                {
+                                    CurrentOrder = Hattontown.CreateOrder(CurrentUser, NumPizzas);
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                        if (CanOrder)
+                        {
+                            CurrentUser.UserFavoritePizza(CurrentOrder);
+                            OrderRepo.AddOrder(CurrentOrder);
+
+                            Console.Clear();
+                            Console.WriteLine("Your order has been placed!");
+                            Console.WriteLine("");
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            Console.WriteLine("We're sorry, but you have already placed an order at this location within the past two hours.");
+                            Console.WriteLine("Please begin the order again selecting another location or wait two hours");
+                            Console.WriteLine("");
+                        }
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("Error: There is a 12 pizza maximum. Please input a lower number of pizzas.");
+                        Console.WriteLine("We're going to have to start over...");
+                        continue;
+                    }
+                }
+                else if (Input.Equals("history"))
+                {
+                    string username = CurrentUser.Username;
+                    Console.Clear();
+                    Console.WriteLine("How would you like the information displayed?");
+                    Console.WriteLine("We can sort by: earliest, latest, cheapest, most expensive.");
+                    Console.WriteLine("Type '1' for earliest, '2' for latest, '3' for cheapest, or '4' for most expensive.");
+                    string Sort = Console.ReadLine();
+                    Console.WriteLine("");
+
+                    List<Order> UserOrderHistory = new List<Order>();
+                    dynamic SortedHistory = "";
+                    UserOrderHistory.AddRange(DisplayUserOrderHistory(CurrentUser, Sort, Reston));
+                    UserOrderHistory.AddRange(DisplayUserOrderHistory(CurrentUser, Sort, Herndon));
+                    UserOrderHistory.AddRange(DisplayUserOrderHistory(CurrentUser, Sort, Dulles));
+                    UserOrderHistory.AddRange(DisplayUserOrderHistory(CurrentUser, Sort, Hattontown));
+
+                    switch (Sort)
+                    {
+                        case "1":
+                            SortedHistory = UserOrderHistory.OrderBy(x => x.OrderPlaced).Select(x => x);
+                            break;
+                        case "2":
+                            SortedHistory = UserOrderHistory.OrderByDescending(x => x.OrderPlaced).Select(x => x);
+                            break;
+                        case "3":
+                            SortedHistory = UserOrderHistory.OrderBy(x => x.cost);
+                            break;
+                        case "4":
+                            SortedHistory = UserOrderHistory.OrderByDescending(x => x.cost);
+                            break;
+                        default:
+                            break;
+                    }
+
+                    foreach (var item in SortedHistory)
+                    {
+                        Console.WriteLine(item.OrderPlaced + " Total cost: $" + item.cost + ".00  Total pizzas:" + item.NumberOfPizzas +
+                                          " from our " + item.location + " location.");
+                        Console.WriteLine("You ordered:");
+                        Console.WriteLine("");
+                        for (int i = 0; i < item.NumberOfPizzas; i++)
+                        {
+                            Console.WriteLine("     " + item.PrintPizza(item.DesiredSizes[i], item.DesiredTypes[i]));
+                        }
+                        Console.WriteLine("");
+                    }
+
+                }
+
+                else if (Input.Equals("resupply"))
+                {
+                    Console.Clear();
+                    Console.WriteLine("Which store shall we resupply?");
+                    Console.WriteLine("Enter 'Reston', 'Herndon', 'Dulles', or 'Hattontown'.");
+                    string ResupplyLoc = Console.ReadLine().ToLower();
+
+                    switch (ResupplyLoc)
+                    {
+                        case "reston":
+                            Reston.Resupply();
+                            break;
+                        case "herndon":
+                            Herndon.Resupply();
+                            break;
+                        case "dulles":
+                            Dulles.Resupply();
+                            break;
+                        case "hattontown":
+                            Hattontown.Resupply();
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+                else if (Input.Equals("exit"))
+                {
+                    KeepOpen = false;
+                }
+            }
+            
+            Environment.Exit(0);
         }
 
         public static void OldCode()
