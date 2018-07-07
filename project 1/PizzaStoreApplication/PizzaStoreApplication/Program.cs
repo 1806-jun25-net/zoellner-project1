@@ -184,6 +184,8 @@ namespace PizzaStoreApplication
 
         static void Main(string[] args)
         {
+            logger.Info("Beginning data retrieval");
+
             var configBuilder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
@@ -194,9 +196,11 @@ namespace PizzaStoreApplication
             optionsBuilder.UseSqlServer(configuration.GetConnectionString("Project1PizzaApplication"));
             var options = optionsBuilder.Options;
 
+            logger.Info("Creating repo objects");
             var userRepo = new UserRepo(new Project1PizzaApplicationContext(optionsBuilder.Options));
             var locationRepo = new LocationRepo(new Project1PizzaApplicationContext(optionsBuilder.Options));
             var orderRepo = new OrderRepo(new Project1PizzaApplicationContext(optionsBuilder.Options));
+            logger.Info("Repo objects created");
 
             logger.Info("Beginning application");
             User CurrentUser = new User();
@@ -206,10 +210,13 @@ namespace PizzaStoreApplication
             Location Hattontown = new Location("Hattontown");
             int NumPizzas;
 
+            logger.Info("Obtaining information from database");
             var UserList = userRepo.GetUsers();
             var LocationList = locationRepo.GetLocations();
             var OrderList = orderRepo.GetOrders();
+            logger.Info("Information obtained");
 
+            logger.Info("Setting location information");
             foreach (var item in LocationList)
             {
                 if(item.CityName.ToLower() == "reston")
@@ -230,6 +237,7 @@ namespace PizzaStoreApplication
                 }
             }
 
+            logger.Info("Setting location order history");
             foreach (var item in OrderList)
             {
                 if(item.StoreLocation.ToLower() == "reston")
@@ -249,6 +257,7 @@ namespace PizzaStoreApplication
                     Dulles.OrderHistory.Add(Mapper.Map(item));
                 }
             }
+            logger.Info("All information obtained and set");
 
             Console.WriteLine("Welcome to our new pizza application!");
             string Input;
@@ -256,6 +265,7 @@ namespace PizzaStoreApplication
             while (!UsernameEntered)
             {
                 Console.WriteLine("Please enter a valid username, type 'users' to see all current users, or enter 'new'");
+                logger.Info("Obtaining username");
                 Input = Console.ReadLine();
                 Input = Input.ToLower();
                 if (Input.Equals("new"))
@@ -283,7 +293,9 @@ namespace PizzaStoreApplication
                 }
                 else if (Input.Equals("users"))
                 {
+                    logger.Info("Listing current users");
                     ViewCurrentUsers();
+                    logger.Info("Users listed");
                 }
                 else
                 {
@@ -297,6 +309,7 @@ namespace PizzaStoreApplication
                 Console.WriteLine("Welcome! Let's get started!");
                 Console.WriteLine("Please input one of the following:");
                 Console.WriteLine("Order: place a new order; History: view your order history; Exit: exit the application");
+                logger.Info("Recieving use input");
                 Input = Console.ReadLine();
                 Input = Input.ToLower();
 
@@ -309,6 +322,7 @@ namespace PizzaStoreApplication
                 }
                 else if (Input.Equals("order"))
                 {
+                    logger.Info("Order selected");
                     Console.Clear();
                     Console.WriteLine("How many pizzas would you like to order (max of 12)? Please input a number.");
                     Input = Console.ReadLine();
@@ -335,6 +349,7 @@ namespace PizzaStoreApplication
                     }
                     else if (NumPizzas > 0 && NumPizzas <= 12)
                     {
+                        logger.Info("Beginning order creation");
                         Console.WriteLine("Are we delivering from your favorite store? Y/N");
                         Console.WriteLine("Your favorite store is: " + CurrentUser.Favorite);
                         Input = Console.ReadLine().ToLower();
@@ -365,7 +380,7 @@ namespace PizzaStoreApplication
                                 DeliveryLocation = Console.ReadLine().ToLower();
                                 if (DeliveryLocation != "reston" && DeliveryLocation != "herndon" && DeliveryLocation != "dulles" && DeliveryLocation != "hattontown")
                                 {
-                                    Console.WriteLine("Please input a valid favorite location.");
+                                    Console.WriteLine("Please input a valid location.");
                                 }
                                 else
                                 {
@@ -381,6 +396,7 @@ namespace PizzaStoreApplication
 
                         Order CurrentOrder = new Order();
                         bool CanOrder = true;
+                        logger.Info("Checking if user ordered more than 2 hours ago");
                         switch (DeliveryLocation)
                         {
                             case "reston":
@@ -426,14 +442,17 @@ namespace PizzaStoreApplication
                             default:
                                 break;
                         }
+                        logger.Info("Check complete");
                         if (CanOrder)
                         {
+                            logger.Info("Creating order");
                             CurrentUser.UserFavoritePizza(CurrentOrder);
-                            OrderRepo.AddOrder(CurrentOrder);
+                            orderRepo.AddOrder(CurrentOrder);
 
                             Console.Clear();
                             Console.WriteLine("Your order has been placed!");
                             Console.WriteLine("");
+                            logger.Info("Order placed");
                         }
                         else
                         {
@@ -441,6 +460,7 @@ namespace PizzaStoreApplication
                             Console.WriteLine("We're sorry, but you have already placed an order at this location within the past two hours.");
                             Console.WriteLine("Please begin the order again selecting another location or wait two hours");
                             Console.WriteLine("");
+                            logger.Info("User unable to order from chosen location");
                         }
 
                     }
@@ -448,6 +468,7 @@ namespace PizzaStoreApplication
                     {
                         Console.WriteLine("Error: There is a 12 pizza maximum. Please input a lower number of pizzas.");
                         Console.WriteLine("We're going to have to start over...");
+                        logger.Info("User attempted to go over pizza limit");
                         continue;
                     }
                 }
@@ -461,6 +482,7 @@ namespace PizzaStoreApplication
                     string Sort = Console.ReadLine();
                     Console.WriteLine("");
 
+                    logger.Info("Displaying order history for user");
                     List<Order> UserOrderHistory = new List<Order>();
                     dynamic SortedHistory = "";
                     UserOrderHistory.AddRange(DisplayUserOrderHistory(CurrentUser, Sort, Reston));
@@ -498,11 +520,12 @@ namespace PizzaStoreApplication
                         }
                         Console.WriteLine("");
                     }
-
+                    logger.Info("History displayed");
                 }
 
                 else if (Input.Equals("resupply"))
                 {
+                    logger.Info("Resupplying location");
                     Console.Clear();
                     Console.WriteLine("Which store shall we resupply?");
                     Console.WriteLine("Enter 'Reston', 'Herndon', 'Dulles', or 'Hattontown'.");
@@ -532,6 +555,8 @@ namespace PizzaStoreApplication
                     KeepOpen = false;
                 }
             }
+
+            logger.Info("Updating user favorite pizza");
             foreach (var item in UserList)
             {
                 if(item.Username == CurrentUser.Username)
@@ -540,6 +565,53 @@ namespace PizzaStoreApplication
                     userRepo.UpdateUser(item);
                 }
             }
+            logger.Info("Update complete");
+
+            logger.Info("Updating location inventories");
+            foreach (var item in LocationList)
+            {
+                if(item.CityName.ToLower() == "reston")
+                {
+                    item.DoughRemaining = Reston.Dough;
+                    item.SauceRemaining = Reston.Sauce;
+                    item.CheeseRemaining = Reston.Cheese;
+                    item.PepperoniRemaining = Reston.Pepperoni;
+                    item.MeatRemaining = Reston.HamAndMeatball;
+                    item.VeggiesRemaining = Reston.PeppersAndOnions;
+                    locationRepo.EditLocation(item);
+                }
+                if (item.CityName.ToLower() == "herndon")
+                {
+                    item.DoughRemaining = Herndon.Dough;
+                    item.SauceRemaining = Herndon.Sauce;
+                    item.CheeseRemaining = Herndon.Cheese;
+                    item.PepperoniRemaining = Herndon.Pepperoni;
+                    item.MeatRemaining = Herndon.HamAndMeatball;
+                    item.VeggiesRemaining = Herndon.PeppersAndOnions;
+                    locationRepo.EditLocation(item);
+                }
+                if (item.CityName.ToLower() == "hattontown")
+                {
+                    item.DoughRemaining = Hattontown.Dough;
+                    item.SauceRemaining = Hattontown.Sauce;
+                    item.CheeseRemaining = Hattontown.Cheese;
+                    item.PepperoniRemaining = Hattontown.Pepperoni;
+                    item.MeatRemaining = Hattontown.HamAndMeatball;
+                    item.VeggiesRemaining = Hattontown.PeppersAndOnions;
+                    locationRepo.EditLocation(item);
+                }
+                if (item.CityName.ToLower() == "dulles")
+                {
+                    item.DoughRemaining = Dulles.Dough;
+                    item.SauceRemaining = Dulles.Sauce;
+                    item.CheeseRemaining = Dulles.Cheese;
+                    item.PepperoniRemaining = Dulles.Pepperoni;
+                    item.MeatRemaining = Dulles.HamAndMeatball;
+                    item.VeggiesRemaining = Dulles.PeppersAndOnions;
+                    locationRepo.EditLocation(item);
+                }
+            }
+            logger.Info("update complete, closing application");
 
             Environment.Exit(0);
         }

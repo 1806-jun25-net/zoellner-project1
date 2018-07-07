@@ -199,7 +199,7 @@ namespace PizzaStoreApplicationTest
         [Theory]
         [InlineData (false, new int[] {1,3})]
         [InlineData (false, new int[] {2,3})]
-        [InlineData (false, new int[] {2,3})]
+        [InlineData (false, new int[] {3,3})]
         public void CanMakePizzaShouldNotMakePizzaWithLowMeat(bool expected, int[] data)
         {
             Location TestLocation = new Location("Test");

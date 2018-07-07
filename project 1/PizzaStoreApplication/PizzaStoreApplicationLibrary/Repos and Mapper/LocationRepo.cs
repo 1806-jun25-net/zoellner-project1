@@ -21,7 +21,7 @@ namespace PizzaStoreApplicationLibrary.Repos_and_Mapper
             return locations;
         }
 
-        public void EditLocation(Location location)
+        public void EditLocation(StoreLocation location)
         {
             _db.Update(location);
             _db.SaveChanges();

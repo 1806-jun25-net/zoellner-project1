@@ -21,7 +21,7 @@ namespace PizzaStoreApplicationLibrary.Repos_and_Mapper
             return orders;
         }
 
-        public static void AddOrder(Order NewOrder)
+        public void AddOrder(Order NewOrder)
         {
             NewOrder.DesiredSizes.TrimExcess();
             NewOrder.DesiredTypes.TrimExcess();
@@ -113,7 +113,7 @@ namespace PizzaStoreApplicationLibrary.Repos_and_Mapper
             };
         }
 
-        public static int OrderRepoPizzaIDReturn(int size, int type)
+        public int OrderRepoPizzaIDReturn(int size, int type)
         {
             int PizzaID = 1;
             switch (size)
