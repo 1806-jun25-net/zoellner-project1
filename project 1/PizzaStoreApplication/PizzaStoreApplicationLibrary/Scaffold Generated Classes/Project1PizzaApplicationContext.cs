@@ -195,6 +195,10 @@ namespace PizzaStoreApplicationLibrary
                     .HasForeignKey(d => d.DefaultLocation)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_DefaultLocation");
+
+                entity.Property(e => e.RecommendedPizza)
+                    .IsRequired()
+                    .HasMaxLength(9);
             });
         }
     }

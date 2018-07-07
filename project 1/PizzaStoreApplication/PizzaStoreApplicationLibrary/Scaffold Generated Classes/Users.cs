@@ -12,6 +12,7 @@ namespace PizzaStoreApplicationLibrary
         public string EmailAddress { get; set; }
         public string DefaultLocation { get; set; }
         public string PhysicalAddress { get; set; }
+        public string RecommendedPizza { get; set; }
 
         public StoreLocation DefaultLocationNavigation { get; set; }
         public Orders Orders { get; set; }

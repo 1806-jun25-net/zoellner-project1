@@ -44,7 +44,8 @@ namespace PizzaStoreApplicationLibrary
                 PhoneNumber = user.PhoneNumber,
                 Email = user.EmailAddress,
                 Favorite = user.DefaultLocation,
-                Address = user.PhysicalAddress
+                Address = user.PhysicalAddress,
+                FavoritePizza = user.RecommendedPizza
             };
         }
 
@@ -58,7 +59,8 @@ namespace PizzaStoreApplicationLibrary
                 PhoneNumber = user.PhoneNumber,
                 EmailAddress = user.Email,
                 DefaultLocation = user.Favorite,
-                PhysicalAddress = user.Address
+                PhysicalAddress = user.Address,
+                RecommendedPizza = user.FavoritePizza
             };
         }
 

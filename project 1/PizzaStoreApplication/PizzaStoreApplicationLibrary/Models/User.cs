@@ -34,7 +34,7 @@ namespace PizzaStoreApplicationLibrary
 
         public int VeggieOrdered { get; set; } = 0;
 
-        public string FavoritePizza { get; set; } = "Pepperoni Pizza";
+        public string FavoritePizza { get; set; } = "Pepperoni";
 
         public bool OrderedRecently = false;
 

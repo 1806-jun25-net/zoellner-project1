@@ -532,7 +532,15 @@ namespace PizzaStoreApplication
                     KeepOpen = false;
                 }
             }
-            
+            foreach (var item in UserList)
+            {
+                if(item.Username == CurrentUser.Username)
+                {
+                    item.RecommendedPizza = CurrentUser.FavoritePizza;
+                    userRepo.UpdateUser(item);
+                }
+            }
+
             Environment.Exit(0);
         }
 
