@@ -75,8 +75,6 @@ namespace PizzaStoreApplicationLibrary
 
         public static Order Map(Orders order)
         {
-            double Cost = (double)order.TotalCost;
-            Console.WriteLine(Cost);
             return new Order
             {
                 OrderPlaced = (DateTime)order.OrderTime,
