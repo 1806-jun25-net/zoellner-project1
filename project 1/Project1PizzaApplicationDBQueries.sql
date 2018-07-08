@@ -268,3 +268,5 @@ ALTER TABLE PizzaApp.Users
 ADD UNIQUE (Username);
 
 SELECT * FROM PizzaApp.Users
+
+TRUNCATE TABLE PizzaApp.Users

@@ -568,6 +568,10 @@ namespace PizzaStoreApplication
                 if(item.Username == CurrentUser.Username)
                 {
                     item.RecommendedPizza = CurrentUser.FavoritePizza;
+                    item.NumCheeseOrdered = CurrentUser.CheeseOrdered;
+                    item.NumPepperoniOrdered = CurrentUser.PepperoniOrdered;
+                    item.NumMeatOrdered = CurrentUser.MeatOrdered;
+                    item.NumVeggieOrdered = CurrentUser.VeggieOrdered;
                     userRepo.UpdateUser(item);
                 }
             }

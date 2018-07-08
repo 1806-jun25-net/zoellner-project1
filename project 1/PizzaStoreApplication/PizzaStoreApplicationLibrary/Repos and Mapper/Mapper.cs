@@ -91,9 +91,6 @@ namespace PizzaStoreApplicationLibrary
 
         public static Orders Map(Order order)
         {
-            decimal Cost = (decimal)order.cost;
-            Console.WriteLine(Cost);
-
             order.DesiredSizes.TrimExcess();
             order.DesiredTypes.TrimExcess();
             int id1 = 0;
