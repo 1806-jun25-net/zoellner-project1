@@ -13,6 +13,10 @@ namespace PizzaStoreApplicationLibrary
         public string DefaultLocation { get; set; }
         public string PhysicalAddress { get; set; }
         public string RecommendedPizza { get; set; }
+        public int? NumCheeseOrdered { get; set; }
+        public int? NumPepperoniOrdered { get; set; }
+        public int? NumMeatOrdered { get; set; }
+        public int? NumVeggieOrdered { get; set; }
 
         public StoreLocation DefaultLocationNavigation { get; set; }
     }

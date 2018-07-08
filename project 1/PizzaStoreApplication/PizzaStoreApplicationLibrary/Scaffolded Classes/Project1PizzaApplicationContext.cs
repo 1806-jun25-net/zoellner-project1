@@ -156,6 +156,10 @@ namespace PizzaStoreApplicationLibrary
 
                 entity.ToTable("Users", "PizzaApp");
 
+                entity.HasIndex(e => e.Username)
+                    .HasName("UQ__Users__536C85E4FBA269BB")
+                    .IsUnique();
+
                 entity.Property(e => e.EmailAddress)
                     .HasMaxLength(100)
                     .ValueGeneratedNever();
@@ -171,6 +175,14 @@ namespace PizzaStoreApplicationLibrary
                 entity.Property(e => e.LastName)
                     .IsRequired()
                     .HasMaxLength(100);
+
+                entity.Property(e => e.NumCheeseOrdered).HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.NumMeatOrdered).HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.NumPepperoniOrdered).HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.NumVeggieOrdered).HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.PhoneNumber)
                     .IsRequired()
