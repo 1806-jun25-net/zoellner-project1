@@ -282,25 +282,25 @@ namespace PizzaStoreApplicationLibrary
 
         public static int Sizes(int ID)
         {
-            int CurrentSize = 0;
+            int CurrentSize = 1;
             switch (ID)
             {
-                case 1:
-                case 4:
-                case 7:
-                case 10:
-                    CurrentSize = 1;
-                    break;
                 case 2:
                 case 5:
                 case 8:
                 case 11:
-                    CurrentSize = 2;
+                    CurrentSize = 1;
                     break;
                 case 3:
                 case 6:
                 case 9:
                 case 12:
+                    CurrentSize = 2;
+                    break;
+                case 4:
+                case 7:
+                case 10:
+                case 13:
                     CurrentSize = 3;
                     break;
                 default:
@@ -311,27 +311,27 @@ namespace PizzaStoreApplicationLibrary
 
         public static int Types(int ID)
         {
-            int CurrentType = 0;
+            int CurrentType = 1;
             switch (ID)
             {
-                case 1:
                 case 2:
                 case 3:
+                case 4:
                     CurrentType = 1;
                     break;
-                case 4:
                 case 5:
                 case 6:
+                case 7:
                     CurrentType = 2;
                     break;
-                case 7:
                 case 8:
                 case 9:
+                case 10:
                     CurrentType = 3;
                     break;
-                case 10:
                 case 11:
                 case 12:
+                case 13:
                     CurrentType = 4;
                     break;
                 default:
