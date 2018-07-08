@@ -70,10 +70,12 @@ namespace PizzaStoreApplicationLibrary
             return new Order
             {
                 OrderPlaced = (DateTime)order.OrderTime,
+                username = order.Username,
+                location = order.StoreLocation,
                 NumberOfPizzas = order.NumPizzas,
                 DesiredSizes = GetDesiredSizes(order),
                 DesiredTypes = GetDesiredTypes(order),
-                //cost = order.TotalCost
+                cost = (double)order.TotalCost
             };
         }
 
@@ -166,6 +168,7 @@ namespace PizzaStoreApplicationLibrary
                 PizzaNum10 = id10,
                 PizzaNum11 = id11,
                 PizzaNum12 = id12,
+                TotalCost = (decimal?)order.cost
             };
         }
 
