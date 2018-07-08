@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace PizzaStoreApplication
+namespace PizzaStoreApplicationLibrary
 {
     public partial class Project1PizzaApplicationContext : DbContext
     {
@@ -47,7 +47,7 @@ namespace PizzaStoreApplication
                     .HasMaxLength(50);
 
                 entity.Property(e => e.TotalCost)
-                    .HasColumnType("smallmoney")
+                    .HasColumnType("decimal(18, 0)")
                     .HasDefaultValueSql("((0.00))");
 
                 entity.Property(e => e.Username)

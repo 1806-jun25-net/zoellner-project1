@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PizzaStoreApplication
+namespace PizzaStoreApplicationLibrary
 {
     public partial class Users
     {

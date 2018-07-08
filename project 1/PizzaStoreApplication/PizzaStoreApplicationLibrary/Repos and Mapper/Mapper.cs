@@ -1,4 +1,4 @@
-﻿using PizzaStoreApplication;
+﻿using PizzaStoreApplicationLibrary;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -67,6 +67,8 @@ namespace PizzaStoreApplicationLibrary
 
         public static Order Map(Orders order)
         {
+            double Cost = (double)order.TotalCost;
+            Console.WriteLine(Cost);
             return new Order
             {
                 OrderPlaced = (DateTime)order.OrderTime,
@@ -75,12 +77,15 @@ namespace PizzaStoreApplicationLibrary
                 NumberOfPizzas = order.NumPizzas,
                 DesiredSizes = GetDesiredSizes(order),
                 DesiredTypes = GetDesiredTypes(order),
-                cost = (double)order.TotalCost
+                cost = Convert.ToDouble(order.TotalCost)
             };
         }
 
         public static Orders Map(Order order)
         {
+            decimal Cost = (decimal)order.cost;
+            Console.WriteLine(Cost);
+
             order.DesiredSizes.TrimExcess();
             order.DesiredTypes.TrimExcess();
             int id1 = 0;
@@ -168,7 +173,7 @@ namespace PizzaStoreApplicationLibrary
                 PizzaNum10 = id10,
                 PizzaNum11 = id11,
                 PizzaNum12 = id12,
-                TotalCost = (decimal?)order.cost
+                TotalCost = (decimal)order.cost
             };
         }
 

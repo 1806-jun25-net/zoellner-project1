@@ -63,7 +63,7 @@ CREATE TABLE PizzaApp.PizzaVariation
 
 ----------Initially forgot to add cost column to the Orders table and FirstName column as well-----------
 ALTER TABLE PizzaApp.Orders
-ADD TotalCost SMALLMONEY DEFAULT 0.00;
+ADD TotalCost decimal DEFAULT 0.00;
 
 ALTER TABLE PizzaApp.Orders
 ADD FirstName NVARCHAR(100) NOT NULL;
@@ -248,3 +248,6 @@ ALTER TABLE PizzaApp.Users ADD CONSTRAINT PK_Email PRIMARY KEY (EmailAddress)
 TRUNCATE TABLE PizzaApp.Orders
 
 SELECT * FROM PizzaApp.Orders
+
+SELECT * FROM PizzaApp.PizzaVariation
+DROP TABLE PizzaApp.Orders
