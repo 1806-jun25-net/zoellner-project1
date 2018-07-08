@@ -251,3 +251,20 @@ SELECT * FROM PizzaApp.Orders
 
 SELECT * FROM PizzaApp.PizzaVariation
 DROP TABLE PizzaApp.Orders
+
+ALTER TABLE  PizzaApp.Users
+ADD NumCheeseOrdered int DEFAULT 0;
+
+ALTER TABLE  PizzaApp.Users
+ADD NumPepperoniOrdered int DEFAULT 0;
+
+ALTER TABLE  PizzaApp.Users
+ADD NumMeatOrdered int DEFAULT 0;
+
+ALTER TABLE  PizzaApp.Users
+ADD NumVeggieOrdered int DEFAULT 0;
+
+ALTER TABLE PizzaApp.Users
+ADD UNIQUE (Username);
+
+SELECT * FROM PizzaApp.Users

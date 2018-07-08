@@ -46,7 +46,11 @@ namespace PizzaStoreApplicationLibrary
                 Email = user.EmailAddress,
                 Favorite = user.DefaultLocation,
                 Address = user.PhysicalAddress,
-                FavoritePizza = user.RecommendedPizza
+                FavoritePizza = user.RecommendedPizza,
+                CheeseOrdered = (int)user.NumCheeseOrdered,
+                PepperoniOrdered = (int)user.NumPepperoniOrdered,
+                MeatOrdered = (int)user.NumMeatOrdered,
+                VeggieOrdered = (int)user.NumVeggieOrdered
             };
         }
 
@@ -61,7 +65,11 @@ namespace PizzaStoreApplicationLibrary
                 EmailAddress = user.Email,
                 DefaultLocation = user.Favorite,
                 PhysicalAddress = user.Address,
-                RecommendedPizza = user.FavoritePizza
+                RecommendedPizza = user.FavoritePizza,
+                NumCheeseOrdered = user.CheeseOrdered,
+                NumPepperoniOrdered = user.PepperoniOrdered,
+                NumMeatOrdered = user.MeatOrdered,
+                NumVeggieOrdered = user.VeggieOrdered
             };
         }
 
