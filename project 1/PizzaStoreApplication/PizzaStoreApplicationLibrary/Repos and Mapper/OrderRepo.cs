@@ -111,7 +111,8 @@ namespace PizzaStoreApplicationLibrary.Repos_and_Mapper
                 PizzaNum9 = id9,
                 PizzaNum10 = id10,
                 PizzaNum11 = id11,
-                PizzaNum12 = id12
+                PizzaNum12 = id12,
+                TotalCost = (decimal)NewOrder.cost
             };
             _db.Add(dbOrder);
             _db.SaveChanges();
