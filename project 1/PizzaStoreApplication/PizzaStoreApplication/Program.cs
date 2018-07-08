@@ -406,40 +406,32 @@ namespace PizzaStoreApplication
                         switch (DeliveryLocation)
                         {
                             case "reston":
-                                if (File.Exists("reston.xml"))
-                                {
-                                    CanOrder = Reston.LastOrderOverTwoHoursAgo(CurrentUser);
-                                }
+                                CanOrder = Reston.LastOrderOverTwoHoursAgo(CurrentUser);
+
                                 if (CanOrder)
                                 {
                                     CurrentOrder = Reston.CreateOrder(CurrentUser, NumPizzas);
                                 }
                                 break;
                             case "herndon":
-                                if (File.Exists("herndon.xml") && Herndon.OrderHistory.Capacity > 0)
-                                {
-                                    CanOrder = Herndon.LastOrderOverTwoHoursAgo(CurrentUser);
-                                }
+                                CanOrder = Herndon.LastOrderOverTwoHoursAgo(CurrentUser);
+
                                 if (CanOrder)
                                 {
                                     CurrentOrder = Herndon.CreateOrder(CurrentUser, NumPizzas);
                                 }
                                 break;
                             case "dulles":
-                                if (File.Exists("dulles.xml"))
-                                {
-                                    CanOrder = Dulles.LastOrderOverTwoHoursAgo(CurrentUser);
-                                }
+                                CanOrder = Dulles.LastOrderOverTwoHoursAgo(CurrentUser);
+
                                 if (CanOrder)
                                 {
                                     CurrentOrder = Dulles.CreateOrder(CurrentUser, NumPizzas);
                                 }
                                 break;
                             case "hattontown":
-                                if (File.Exists("hattontown.xml"))
-                                {
-                                    CanOrder = Hattontown.LastOrderOverTwoHoursAgo(CurrentUser);
-                                }
+                                CanOrder = Hattontown.LastOrderOverTwoHoursAgo(CurrentUser);
+
                                 if (CanOrder)
                                 {
                                     CurrentOrder = Hattontown.CreateOrder(CurrentUser, NumPizzas);
