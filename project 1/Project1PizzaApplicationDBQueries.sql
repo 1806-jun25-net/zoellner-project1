@@ -206,6 +206,8 @@ INSTEAD OF UPDATE
 AS
 	Print 'Unable to update users. Please make new user.';
 
+DROP TRIGGER PizzaApp.TR_Users_ReplaceUpdate;
+
 UPDATE PizzaApp.Users
 SET Username = 'Test'
 WHERE Username = 'OtherTest'; --test query
