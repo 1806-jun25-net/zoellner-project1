@@ -164,6 +164,7 @@ namespace PizzaStoreApplicationLibrary
                 Username = order.username,
                 FirstName = order.name,
                 NumPizzas = order.NumberOfPizzas,
+                StoreLocation = order.location,
                 PizzaNum1 = id1,
                 PizzaNum2 = id2,
                 PizzaNum3 = id3,
