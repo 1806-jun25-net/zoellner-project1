@@ -272,3 +272,51 @@ ADD UNIQUE (Username);
 SELECT * FROM PizzaApp.Users
 
 TRUNCATE TABLE PizzaApp.Users
+
+----------Creat table for keeping track of what ingredients each pizza uses----------
+CREATE TABLE PizzaApp.IngredientUsages
+(
+	PizzaID int IDENTITY PRIMARY KEY,
+	DoughUsed int DEFAULT 0 NOT NULL,
+	SauceUsed int DEFAULT 0 NOT NULL,
+	CheeseUsed int DEFAULT 0 NOT NULL,
+	PepperoniUsed int DEFAULT 0 NOT NULL,
+	HamUsed int DEFAULT 0 NOT NULL,
+	MeatballUsed int DEFAULT 0 NOT NULL,
+	GreenPeppersUsed int DEFAULT 0 NOT NULL,
+	OnionUsed int DEFAULT 0 NOT NULL,
+
+);
+GO
+
+ALTER TABLE PizzaApp.IngredientUsages
+ADD CONSTRAINT FK_PizzaID FOREIGN KEY (PizzaID) REFERENCES PizzaApp.PizzaVariation;
+GO
+
+SELECT * FROM PizzaApp.IngredientUsages
+
+SELECT * FROM PizzaApp.PizzaVariation
+
+----------Inserting rows into IngredientUsages Table----------
+--no pizza
+INSERT INTO PizzaApp.IngredientUsages VALUES(0,0,0,0,0,0,0,0)
+
+--Cheese Pizzas
+INSERT INTO PizzaApp.IngredientUsages VALUES(1,1,1,0,0,0,0,0)
+INSERT INTO PizzaApp.IngredientUsages VALUES(2,2,2,0,0,0,0,0)
+INSERT INTO PizzaApp.IngredientUsages VALUES(3,3,3,0,0,0,0,0)
+
+--Pepperoni Pizzas
+INSERT INTO PizzaApp.IngredientUsages VALUES(1,1,1,1,0,0,0,0)
+INSERT INTO PizzaApp.IngredientUsages VALUES(2,2,2,2,0,0,0,0)
+INSERT INTO PizzaApp.IngredientUsages VALUES(3,3,3,3,0,0,0,0)
+
+--Meat Pizzas
+INSERT INTO PizzaApp.IngredientUsages VALUES(1,1,1,1,1,1,0,0)
+INSERT INTO PizzaApp.IngredientUsages VALUES(2,2,2,2,2,2,0,0)
+INSERT INTO PizzaApp.IngredientUsages VALUES(3,3,3,3,3,3,0,0)
+
+--Veggie Pizzas
+INSERT INTO PizzaApp.IngredientUsages VALUES(1,1,1,1,0,0,1,1)
+INSERT INTO PizzaApp.IngredientUsages VALUES(2,2,2,2,0,0,2,2)
+INSERT INTO PizzaApp.IngredientUsages VALUES(3,3,3,3,0,0,3,3)
