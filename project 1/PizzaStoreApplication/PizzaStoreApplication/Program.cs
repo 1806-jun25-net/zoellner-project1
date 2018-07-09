@@ -89,7 +89,7 @@ namespace PizzaStoreApplication
             User NewUser = new User(Username, First, Last, Phone, Email, Address, City, Favorite);
             logger.Info("New User Created");
 
-            userRepo.AddUser(NewUser.Username, NewUser.FirstName, NewUser.LastName, NewUser.PhoneNumber, NewUser.Email, NewUser.Favorite, NewUser.Address);
+            userRepo.AddUser(NewUser);
             
             return NewUser;
         }

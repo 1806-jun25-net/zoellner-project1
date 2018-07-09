@@ -22,20 +22,9 @@ namespace PizzaStoreApplicationLibrary.Repos_and_Mapper
             return UserList;
         }
 
-        public void AddUser(string username, string First, string Last, string Phone, string email, string FavoriteLocation, string Address)
+        public void AddUser(User user)
         {
-            var NewUser = new Users
-            {
-                Username = username,
-                FirstName = First,
-                LastName = Last,
-                PhoneNumber = Phone,
-                EmailAddress = email,
-                DefaultLocation = FavoriteLocation,
-                PhysicalAddress = Address,
-                RecommendedPizza = "Cheese"
-            };
-
+            var NewUser = Mapper.Map(user);
             _db.Add(NewUser);
             _db.SaveChanges();
         }
