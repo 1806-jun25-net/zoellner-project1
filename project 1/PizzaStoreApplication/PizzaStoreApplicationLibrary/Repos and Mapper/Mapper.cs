@@ -91,18 +91,18 @@ namespace PizzaStoreApplicationLibrary
         {
             order.DesiredSizes.TrimExcess();
             order.DesiredTypes.TrimExcess();
-            int id1 = 0;
-            int id2 = 0;
-            int id3 = 0;
-            int id4 = 0;
-            int id5 = 0;
-            int id6 = 0;
-            int id7 = 0;
-            int id8 = 0;
-            int id9 = 0;
-            int id10 = 0;
-            int id11 = 0;
-            int id12 = 0;
+            int id1 = 1;
+            int id2 = 1;
+            int id3 = 1;
+            int id4 = 1;
+            int id5 = 1;
+            int id6 = 1;
+            int id7 = 1;
+            int id8 = 1;
+            int id9 = 1;
+            int id10 = 1;
+            int id11 = 1;
+            int id12 = 1;
             id1 = PizzaIDReturn(order.DesiredSizes[0], order.DesiredTypes[0]);
             if(order.DesiredSizes.Capacity > 1)
             {
