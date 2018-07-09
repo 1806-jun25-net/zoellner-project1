@@ -58,11 +58,8 @@ namespace PizzaStoreApplication
             Console.WriteLine("Please enter an email address we can contact:");
             string Email = Console.ReadLine();
 
-            Console.WriteLine("We only deliver within Virginia! Please enter your street address:");
+            Console.WriteLine("We only deliver within Virginia! Please enter your full address (city included):");
             string Address = Console.ReadLine();
-
-            Console.WriteLine("Please enter your city:");
-            string City = Console.ReadLine();
 
             bool ValidFavorite = false;
             string Favorite = "";
@@ -86,7 +83,7 @@ namespace PizzaStoreApplication
             logger.Info("Creating User object");
 
 
-            User NewUser = new User(Username, First, Last, Phone, Email, Address, City, Favorite);
+            User NewUser = new User(Username, First, Last, Phone, Email, Address, Favorite);
             logger.Info("New User Created");
 
             userRepo.AddUser(NewUser);

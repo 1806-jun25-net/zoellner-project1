@@ -49,7 +49,7 @@ namespace PizzaStoreApplicationLibrary
             Favorite = "Herndon";
         }
 
-        public User(string username, string first, string second, string phone, string email, string address, string city, string favorite)
+        public User(string username, string first, string second, string phone, string email, string address, string favorite)
         {
             Username = username;
             FirstName = first;
