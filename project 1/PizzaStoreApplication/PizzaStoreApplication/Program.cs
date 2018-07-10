@@ -380,6 +380,7 @@ namespace PizzaStoreApplication
                             while (!ValidLocation)
                             {
                                 Console.WriteLine("Which location shall we send the order to?");
+                                Console.WriteLine("Valid locations: Reston, Herndon, Dulles, Hattontown");
                                 DeliveryLocation = Console.ReadLine().ToLower();
                                 if (DeliveryLocation != "reston" && DeliveryLocation != "herndon" && DeliveryLocation != "dulles" && DeliveryLocation != "hattontown")
                                 {
