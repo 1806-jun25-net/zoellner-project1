@@ -320,3 +320,8 @@ INSERT INTO PizzaApp.IngredientUsages VALUES(3,3,3,3,3,3,0,0)
 INSERT INTO PizzaApp.IngredientUsages VALUES(1,1,1,1,0,0,1,1)
 INSERT INTO PizzaApp.IngredientUsages VALUES(2,2,2,2,0,0,2,2)
 INSERT INTO PizzaApp.IngredientUsages VALUES(3,3,3,3,0,0,3,3)
+
+----------------------------------------------------------------------------------------------------------------
+SELECT * FROM PizzaApp.Users;
+
+SELECT * FROM PizzaApp.Users WHERE Username = 'QualityControl';

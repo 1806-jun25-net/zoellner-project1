@@ -261,6 +261,7 @@ namespace PizzaStoreApplicationLibrary
                 {
                     Console.Clear();
                     Console.WriteLine("Does this look good to you?");
+                    Console.WriteLine("Total is: $" + TotalCost);
                     Console.WriteLine("");
                 }
 
