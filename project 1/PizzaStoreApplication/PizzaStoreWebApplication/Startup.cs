@@ -29,13 +29,13 @@ namespace PizzaStoreWebApplication
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
+                options.CheckConsentNeeded = context => false;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
             services.AddScoped<LocationRepo>();
             services.AddScoped<OrderRepo>();
             services.AddScoped<UserRepo>();
-            services.AddDbContext<Project1PizzaApplicationContext>(options => options.UsingSqlServer(Configuration.GetConnectionString("Project1PizzaApplicationContext")));
+            services.AddDbContext<Project1PizzaApplicationContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Project1PizzaApplication")));
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

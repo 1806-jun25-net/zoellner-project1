@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaStoreApplicationLibrar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaStoreApplicationTest", "PizzaStoreApplicationTest\PizzaStoreApplicationTest.csproj", "{5E0A7918-461F-49F4-B48F-504EBD6A17EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaStoreWebApplication", "PizzaStoreWebApplication\PizzaStoreWebApplication.csproj", "{BDB419CA-37E0-43D0-A06F-CE61B0E795CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaStoreWebApplication", "PizzaStoreWebApplication\PizzaStoreWebApplication.csproj", "{BDB419CA-37E0-43D0-A06F-CE61B0E795CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -35,9 +35,7 @@ namespace PizzaStoreApplicationLibrary
             };
         }
 
-        public static User Map(Users user)
-        {
-            return new User
+        public static User Map(Users user) => new User
             {
                 Username = user.Username,
                 FirstName = user.FirstName,
@@ -52,11 +50,8 @@ namespace PizzaStoreApplicationLibrary
                 MeatOrdered = (int)user.NumMeatOrdered,
                 VeggieOrdered = (int)user.NumVeggieOrdered
             };
-        }
 
-        public static Users Map(User user)
-        {
-            return new Users
+        public static Users Map(User user) => new Users
             {
                 Username = user.Username,
                 FirstName = user.FirstName,
@@ -71,7 +66,6 @@ namespace PizzaStoreApplicationLibrary
                 NumMeatOrdered = user.MeatOrdered,
                 NumVeggieOrdered = user.VeggieOrdered
             };
-        }
 
         public static Order Map(Orders order)
         {
