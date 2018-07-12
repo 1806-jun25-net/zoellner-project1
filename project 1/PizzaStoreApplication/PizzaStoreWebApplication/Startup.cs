@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PizzaStoreApplicationLibrary;
+using PizzaStoreApplicationLibrary.Repos_and_Mapper;
 
 namespace PizzaStoreWebApplication
 {
@@ -31,6 +32,9 @@ namespace PizzaStoreWebApplication
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+            services.AddScoped<LocationRepo>();
+            services.AddScoped<OrderRepo>();
+            services.AddScoped<UserRepo>();
             services.AddDbContext<Project1PizzaApplicationContext>(options => options.UsingSqlServer(Configuration.GetConnectionString("Project1PizzaApplicationContext")));
 
 
