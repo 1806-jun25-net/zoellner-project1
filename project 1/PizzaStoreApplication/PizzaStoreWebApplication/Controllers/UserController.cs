@@ -7,11 +7,14 @@ using Microsoft.AspNetCore.Mvc;
 using lib = PizzaStoreApplicationLibrary;
 using PizzaStoreApplicationLibrary.Repos_and_Mapper;
 using PizzaStoreWebApplication.Models;
+using Lib = PizzaStoreApplicationLibrary;
+using System.Data.SqlClient;
 
 namespace PizzaStoreWebApplication.Controllers
 {
     public class UserController : Controller
     {
+        private readonly lib.Project1PizzaApplicationContext _context;
         public UserRepo Repo { get; }
 
         public UserController(UserRepo repo)
@@ -22,7 +25,7 @@ namespace PizzaStoreWebApplication.Controllers
         public ActionResult Index()
         {
             var libUsers = Repo.GetUsers();
-            var webUsers = libUsers.Select(x => new User
+            var webUsers = libUsers.Select(x => new Models.User
             {
                 Username = x.Username,
                 FirstName = x.FirstName,
@@ -59,22 +62,28 @@ namespace PizzaStoreWebApplication.Controllers
         {
             try
             {
-                User user;
+                lib.User user;
                 if (ModelState.IsValid)
                 {
-                    user = new User();
-                    user.Username = collection["Username"];
-                    user.FirstName = collection["FirstName"];
-                    user.LastName = collection["LastName"];
-                    user.Email = collection["Email"];
-                    user.PhoneNumber = collection["PhoneNumber"];
+                    user = new lib.User
+                    {
+                        Username = collection["Username"],
+                        FirstName = collection["FirstName"],
+                        LastName = collection["LastName"],
+                        Email = collection["Email"],
+                        PhoneNumber = collection["PhoneNumber"],
+                        Address = collection["Address"],
+                        Favorite = collection["Favorite"]
+                    };
+
+                    Repo.AddUser(user);
                     return RedirectToAction(nameof(Index));
                 }
                 return View();
-                return RedirectToAction(nameof(Index));
             }
             catch
             {
+                ModelState.AddModelError("Username", "Username is already taken. Please select another username.");
                 return View();
             }
         }
