@@ -55,7 +55,7 @@ namespace PizzaStoreWebApplication.Controllers
         // POST: User/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(User NewUser)
+        public ActionResult Create(IFormCollection collection)
         {
             try
             {
@@ -63,7 +63,11 @@ namespace PizzaStoreWebApplication.Controllers
                 if (ModelState.IsValid)
                 {
                     user = new User();
-                    user.Username
+                    user.Username = collection["Username"];
+                    user.FirstName = collection["FirstName"];
+                    user.LastName = collection["LastName"];
+                    user.Email = collection["Email"];
+                    user.PhoneNumber = collection["PhoneNumber"];
                     return RedirectToAction(nameof(Index));
                 }
                 return View();
