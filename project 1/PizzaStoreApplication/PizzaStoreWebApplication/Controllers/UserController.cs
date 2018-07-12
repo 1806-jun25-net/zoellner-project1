@@ -44,9 +44,25 @@ namespace PizzaStoreWebApplication.Controllers
         }
 
         // GET: User/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(string username)
         {
-            return View();
+            var libUser = Repo.GetUserByUsername(username);
+            var webUser = new User
+            {
+                Username = libUser.Username,
+                FirstName = libUser.FirstName,
+                LastName = libUser.LastName,
+                Email = libUser.Email,
+                PhoneNumber = libUser.PhoneNumber,
+                Address = libUser.Address,
+                Favorite = libUser.Favorite,
+                FavoritePizza = libUser.FavoritePizza,
+                CheeseOrdered = libUser.CheeseOrdered,
+                PepperoniOrdered = libUser.PepperoniOrdered,
+                MeatOrdered = libUser.MeatOrdered,
+                VeggieOrdered = libUser.VeggieOrdered
+            };
+            return View(webUser);
         }
 
         // GET: User/Create

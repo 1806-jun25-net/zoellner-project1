@@ -29,6 +29,11 @@ namespace PizzaStoreApplicationLibrary.Repos_and_Mapper
             _db.SaveChanges();
         }
 
+        public User GetUserByUsername(string username)
+        {
+            return Mapper.Map(_db.Users.AsNoTracking().First(u => u.Username.ToLower().Equals(username.ToLower())));
+        }
+
         public void UpdateUser(Users user)
         {
             _db.Update(user);

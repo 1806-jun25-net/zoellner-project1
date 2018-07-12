@@ -1,0 +1,89 @@
+﻿@model PizzaStoreWebApplication.Models.User
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Username)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Favorite)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Favorite)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CheeseOrdered)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CheeseOrdered)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PepperoniOrdered)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PepperoniOrdered)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MeatOrdered)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MeatOrdered)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.VeggieOrdered)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.VeggieOrdered)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FavoritePizza)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FavoritePizza)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
