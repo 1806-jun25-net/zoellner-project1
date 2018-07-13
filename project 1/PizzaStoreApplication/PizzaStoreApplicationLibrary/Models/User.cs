@@ -110,5 +110,55 @@ namespace PizzaStoreApplicationLibrary
                 FavoritePizza = "Veggie";
             }
         }
+
+        public void UserFavoritePizza(Orders order)
+        {
+            Order CurrentOrder = Mapper.Map(order);
+            List<int> PizzasOrdered = CurrentOrder.DesiredTypes;
+            foreach (var item in PizzasOrdered)
+            {
+                switch (item)
+                {
+                    case 2:
+                        CheeseOrdered++;
+                        break;
+                    case 3:
+                        PepperoniOrdered++;
+                        break;
+                    case 4:
+                        MeatOrdered++;
+                        break;
+                    case 5:
+                        VeggieOrdered++;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            if (CheeseOrdered > PepperoniOrdered && CheeseOrdered > MeatOrdered
+                && CheeseOrdered > VeggieOrdered)
+            {
+                FavoritePizza = "Cheese";
+            }
+
+            else if (PepperoniOrdered > CheeseOrdered && PepperoniOrdered > MeatOrdered
+                && PepperoniOrdered > VeggieOrdered)
+            {
+                FavoritePizza = "Pepperoni";
+            }
+
+            else if (MeatOrdered > CheeseOrdered && MeatOrdered > PepperoniOrdered
+                && MeatOrdered > VeggieOrdered)
+            {
+                FavoritePizza = "Meat";
+            }
+
+            else if (VeggieOrdered > CheeseOrdered && VeggieOrdered > MeatOrdered
+                && VeggieOrdered > PepperoniOrdered)
+            {
+                FavoritePizza = "Veggie";
+            }
+        }
     }
 }

@@ -318,25 +318,27 @@ namespace PizzaStoreApplicationLibrary
             int CurrentType = 1;
             switch (ID)
             {
+                case 1:
+                    break;
                 case 2:
                 case 3:
                 case 4:
-                    CurrentType = 1;
+                    CurrentType = 2;
                     break;
                 case 5:
                 case 6:
                 case 7:
-                    CurrentType = 2;
+                    CurrentType = 3;
                     break;
                 case 8:
                 case 9:
                 case 10:
-                    CurrentType = 3;
+                    CurrentType = 4;
                     break;
                 case 11:
                 case 12:
                 case 13:
-                    CurrentType = 4;
+                    CurrentType = 5;
                     break;
                 default:
                     break;

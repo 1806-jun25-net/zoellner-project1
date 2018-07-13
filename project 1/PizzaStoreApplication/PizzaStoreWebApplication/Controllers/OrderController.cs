@@ -73,6 +73,7 @@ namespace PizzaStoreWebApplication.Controllers
         public ActionResult Create(string user)
         {
             lib.User newUser = UserRepo.GetUserByUsername(user);
+            TempData["Recommend"] = "We recommend ordering " + newUser.FavoritePizza;
             return View(new Order { Username = user, FirstName = newUser.FirstName});
         }
 
@@ -83,6 +84,7 @@ namespace PizzaStoreWebApplication.Controllers
         {
             try
             {
+                lib.User CurrentUser = UserRepo.GetUserByUsername(webOrder.Username);
                 lib.Orders order;
                 if (ModelState.IsValid)
                 {
@@ -183,7 +185,11 @@ namespace PizzaStoreWebApplication.Controllers
                                             + (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum12))),
                                 StoreLocation = loc
                             };
+                            CurrentUser.UserFavoritePizza(order);
+                            UserRepo.UpdateUser(lib.Mapper.Map(CurrentUser));
+
                             LocRepo.EditLocation(lib.Mapper.Map(location));
+
                             Repo.AddOrder(order);
                             TempData["SuccessMessage"] = "Order successfully placed!";
                             return RedirectToAction("Index", "User");
@@ -283,7 +289,11 @@ namespace PizzaStoreWebApplication.Controllers
                                                 + (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum12))),
                                     StoreLocation = loc
                                 };
+                                CurrentUser.UserFavoritePizza(order);
+                                UserRepo.UpdateUser(lib.Mapper.Map(CurrentUser));
+
                                 LocRepo.EditLocation(lib.Mapper.Map(location));
+
                                 Repo.AddOrder(order);
                                 TempData["SuccessMessage"] = "Order successfully placed!";
                                 return RedirectToAction("Index", "User");
