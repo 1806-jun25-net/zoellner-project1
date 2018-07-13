@@ -185,6 +185,7 @@ namespace PizzaStoreWebApplication.Controllers
                             };
                             LocRepo.EditLocation(lib.Mapper.Map(location));
                             Repo.AddOrder(order);
+                            TempData["SuccessMessage"] = "Order successfully placed!";
                             return RedirectToAction("Index", "User");
                         }
                         else { 
@@ -284,6 +285,7 @@ namespace PizzaStoreWebApplication.Controllers
                                 };
                                 LocRepo.EditLocation(lib.Mapper.Map(location));
                                 Repo.AddOrder(order);
+                                TempData["SuccessMessage"] = "Order successfully placed!";
                                 return RedirectToAction("Index", "User");
                             }
                             else
@@ -298,7 +300,6 @@ namespace PizzaStoreWebApplication.Controllers
                     return View();
 
                 }
-                TempData["SuccessMessage"] = "Order successfully placed!";
                 return RedirectToAction(nameof(Index));
             }
             catch(Exception ex)
