@@ -4,15 +4,40 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PizzaStoreApplicationLibrary.Repos_and_Mapper;
+using lib = PizzaStoreApplicationLibrary;
 
 namespace PizzaStoreWebApplication.Controllers
 {
     public class OrderController : Controller
     {
+        private readonly lib.Project1PizzaApplicationContext _context;
+        public OrderRepo Repo { get; }
+
+        public OrderController(OrderRepo repo)
+        {
+            Repo = repo;
+        }
         // GET: Order
         public ActionResult Index()
         {
-            return View();
+            var libOrders = Repo.GetOrders();
+            var webUsers = libUsers.Select(x => new Models.User
+            {
+                Username = x.Username,
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                PhoneNumber = x.PhoneNumber,
+                Email = x.EmailAddress,
+                Address = x.PhysicalAddress,
+                PepperoniOrdered = x.NumPepperoniOrdered,
+                CheeseOrdered = x.NumCheeseOrdered,
+                MeatOrdered = x.NumMeatOrdered,
+                VeggieOrdered = x.NumVeggieOrdered,
+                FavoritePizza = x.RecommendedPizza,
+                Favorite = x.DefaultLocation
+            });
+            return View(webUsers);
         }
 
         // GET: Order/Details/5

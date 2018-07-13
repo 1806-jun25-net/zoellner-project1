@@ -29,6 +29,12 @@ namespace PizzaStoreApplicationLibrary.Repos_and_Mapper
             _db.SaveChanges();
         }
 
+        public IEnumerable<Orders> GetOrdersByUser(User user)
+        {
+            List<Orders>
+            return 
+        }
+
         public int OrderRepoPizzaIDReturn(int size, int type)
         {
             int PizzaID = 1;
