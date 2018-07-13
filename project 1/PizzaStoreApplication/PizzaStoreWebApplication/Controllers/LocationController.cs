@@ -22,20 +22,63 @@ namespace PizzaStoreWebApplication.Controllers
             Repo = repo;
         }
         // GET: Location
-        public ActionResult Index()
+        public ActionResult Index(string name)
         {
-            var libLoc = Repo.GetLocations();
-            var webLoc = libLoc.Select(x => new Models.Location
+            if (name == null)
             {
-                Name = x.CityName,
-                DoughRemaining = x.DoughRemaining,
-                SauceRemaining = x.SauceRemaining,
-                CheeseRemaining = x.CheeseRemaining,
-                PepperoniRemaining = x.PepperoniRemaining,
-                MeatRemaining = x.MeatRemaining,
-                VeggiesRemaining = x.VeggiesRemaining
-            });
-            return View(webLoc);
+                var libLoc = Repo.GetLocations();
+                var webLoc = libLoc.Select(x => new Models.Location
+                {
+                    Name = x.CityName,
+                    DoughRemaining = x.DoughRemaining,
+                    SauceRemaining = x.SauceRemaining,
+                    CheeseRemaining = x.CheeseRemaining,
+                    PepperoniRemaining = x.PepperoniRemaining,
+                    MeatRemaining = x.MeatRemaining,
+                    VeggiesRemaining = x.VeggiesRemaining
+                });
+
+                return View(webLoc);
+            }
+            else
+            {
+                //var Reston = Repo.GetLocationByCityname(name);
+                //var Herndon = Repo.GetLocationByCityname(name);
+                //var Dulles = Repo.GetLocationByCityname(name);
+                //var Hattontown = Repo.GetLocationByCityname(name);
+
+                var location = Repo.GetLocationByCityname(name);
+
+                location.Resupply();
+                Repo.EditLocation(Mapper.Map(location));
+
+
+                //switch (name.ToLower())
+                //{
+                //    case "reston":
+                //        Reston.Resupply();
+                //        Repo.EditLocation(Mapper.Map(Reston));
+                //        break;
+                //    case "herndon":
+                //        Herndon.Resupply();
+                //        Repo.EditLocation(Mapper.Map(Herndon));
+                //        break;
+                //    case "dulles":
+                //        Dulles.Resupply();
+                //        Repo.EditLocation(Mapper.Map(Dulles));
+                //        break;
+                //    case "hattontown":
+                //        Hattontown.Resupply();
+                //        Repo.EditLocation(Mapper.Map(Hattontown));
+                //        break;
+                //    default:
+                //        break;
+                //}
+
+                TempData["msg"] = "<script>alert('Changed successfully');</script>";
+                name = null;
+                return RedirectToAction(nameof(Index));
+            }
         }
 
         // GET: Location/Details/5
