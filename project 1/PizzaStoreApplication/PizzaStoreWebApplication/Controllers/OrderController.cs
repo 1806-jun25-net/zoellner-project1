@@ -108,70 +108,7 @@ namespace PizzaStoreWebApplication.Controllers
                             location.DecreaseInventory(webOrder.PizzaNum11);
                             location.DecreaseInventory(webOrder.PizzaNum12);
 
-                            int TotalPizzas = 1;
-                            if (webOrder.PizzaNum2 > 1)
-                            {
-                                TotalPizzas++;
-                            }
-                            if (webOrder.PizzaNum3 > 1)
-                            {
-                                TotalPizzas++;
-                            }
-                            if (webOrder.PizzaNum4 > 1)
-                            {
-                                TotalPizzas++;
-                            }
-                            if (webOrder.PizzaNum5 > 1)
-                            {
-                                TotalPizzas++;
-                            }
-                            if (webOrder.PizzaNum6 > 1)
-                            {
-                                TotalPizzas++;
-                            }
-                            if (webOrder.PizzaNum7 > 1)
-                            {
-                                TotalPizzas++;
-                            }
-                            if (webOrder.PizzaNum8 > 1)
-                            {
-                                TotalPizzas++;
-                            }
-                            if (webOrder.PizzaNum9 > 1)
-                            {
-                                TotalPizzas++;
-                            }
-                            if (webOrder.PizzaNum10 > 1)
-                            {
-                                TotalPizzas++;
-                            }
-                            if (webOrder.PizzaNum11 > 1)
-                            {
-                                TotalPizzas++;
-                            }
-                            if (webOrder.PizzaNum12 > 1)
-                            {
-                                TotalPizzas++;
-                            }
-                            order = new lib.Orders
-                            {
-                                NumPizzas = TotalPizzas,
-                                OrderTime = DateTime.Now,
-                                Username = webOrder.Username,
-                                FirstName = webOrder.FirstName,
-                                PizzaNum1 = webOrder.PizzaNum1,
-                                PizzaNum2 = webOrder.PizzaNum2,
-                                PizzaNum3 = webOrder.PizzaNum3,
-                                PizzaNum4 = webOrder.PizzaNum4,
-                                PizzaNum5 = webOrder.PizzaNum5,
-                                PizzaNum6 = webOrder.PizzaNum6,
-                                PizzaNum7 = webOrder.PizzaNum7,
-                                PizzaNum8 = webOrder.PizzaNum8,
-                                PizzaNum9 = webOrder.PizzaNum9,
-                                PizzaNum10 = webOrder.PizzaNum10,
-                                PizzaNum11 = webOrder.PizzaNum11,
-                                PizzaNum12 = webOrder.PizzaNum12,
-                                TotalCost = (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum1)
+                            decimal total = (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum1)
                                             + (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum2))
                                             + (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum3))
                                             + (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum4))
@@ -182,36 +119,9 @@ namespace PizzaStoreWebApplication.Controllers
                                             + (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum9))
                                             + (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum10))
                                             + (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum11))
-                                            + (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum12))),
-                                StoreLocation = loc
-                            };
-                            CurrentUser.UserFavoritePizza(order);
-                            UserRepo.UpdateUser(lib.Mapper.Map(CurrentUser));
-
-                            LocRepo.EditLocation(lib.Mapper.Map(location));
-
-                            Repo.AddOrder(order);
-                            TempData["SuccessMessage"] = "Order successfully placed!";
-                            return RedirectToAction("Index", "User");
-                        }
-                        else { 
-                            lib.Order OrderToCheck = lib.Mapper.Map(Repo.GetOrdersByUser(webOrder.Username).LastOrDefault(o => o.StoreLocation.ToLower().Equals(loc.ToLower())));
-                            DateTime CurrentTime = DateTime.Now;
-                            if ((CurrentTime - OrderToCheck.OrderPlaced) >= TimeSpan.FromHours(2))
+                                            + (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum12)));
+                            if (total < 500)
                             {
-                                location.DecreaseInventory(webOrder.PizzaNum1);
-                                location.DecreaseInventory(webOrder.PizzaNum2);
-                                location.DecreaseInventory(webOrder.PizzaNum3);
-                                location.DecreaseInventory(webOrder.PizzaNum4);
-                                location.DecreaseInventory(webOrder.PizzaNum5);
-                                location.DecreaseInventory(webOrder.PizzaNum6);
-                                location.DecreaseInventory(webOrder.PizzaNum7);
-                                location.DecreaseInventory(webOrder.PizzaNum8);
-                                location.DecreaseInventory(webOrder.PizzaNum9);
-                                location.DecreaseInventory(webOrder.PizzaNum10);
-                                location.DecreaseInventory(webOrder.PizzaNum11);
-                                location.DecreaseInventory(webOrder.PizzaNum12);
-
                                 int TotalPizzas = 1;
                                 if (webOrder.PizzaNum2 > 1)
                                 {
@@ -275,18 +185,7 @@ namespace PizzaStoreWebApplication.Controllers
                                     PizzaNum10 = webOrder.PizzaNum10,
                                     PizzaNum11 = webOrder.PizzaNum11,
                                     PizzaNum12 = webOrder.PizzaNum12,
-                                    TotalCost = (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum1)
-                                                + (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum2))
-                                                + (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum3))
-                                                + (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum4))
-                                                + (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum5))
-                                                + (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum6))
-                                                + (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum7))
-                                                + (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum8))
-                                                + (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum9))
-                                                + (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum10))
-                                                + (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum11))
-                                                + (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum12))),
+                                    TotalCost = total,
                                     StoreLocation = loc
                                 };
                                 CurrentUser.UserFavoritePizza(order);
@@ -297,6 +196,125 @@ namespace PizzaStoreWebApplication.Controllers
                                 Repo.AddOrder(order);
                                 TempData["SuccessMessage"] = "Order successfully placed!";
                                 return RedirectToAction("Index", "User");
+                            }
+                            else
+                            {
+                                TempData["ErrorMessage"] = "Error: Cost is over the $500 limit. Please adjust order to meet limit.";
+                                View();
+                            }
+                        }
+                        else { 
+                            lib.Order OrderToCheck = lib.Mapper.Map(Repo.GetOrdersByUser(webOrder.Username).LastOrDefault(o => o.StoreLocation.ToLower().Equals(loc.ToLower())));
+                            DateTime CurrentTime = DateTime.Now;
+                            if ((CurrentTime - OrderToCheck.OrderPlaced) >= TimeSpan.FromHours(2))
+                            {
+                                location.DecreaseInventory(webOrder.PizzaNum1);
+                                location.DecreaseInventory(webOrder.PizzaNum2);
+                                location.DecreaseInventory(webOrder.PizzaNum3);
+                                location.DecreaseInventory(webOrder.PizzaNum4);
+                                location.DecreaseInventory(webOrder.PizzaNum5);
+                                location.DecreaseInventory(webOrder.PizzaNum6);
+                                location.DecreaseInventory(webOrder.PizzaNum7);
+                                location.DecreaseInventory(webOrder.PizzaNum8);
+                                location.DecreaseInventory(webOrder.PizzaNum9);
+                                location.DecreaseInventory(webOrder.PizzaNum10);
+                                location.DecreaseInventory(webOrder.PizzaNum11);
+                                location.DecreaseInventory(webOrder.PizzaNum12);
+
+                                decimal total = (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum1)
+                                                + (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum2))
+                                                + (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum3))
+                                                + (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum4))
+                                                + (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum5))
+                                                + (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum6))
+                                                + (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum7))
+                                                + (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum8))
+                                                + (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum9))
+                                                + (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum10))
+                                                + (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum11))
+                                                + (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum12)));
+                                if (total < 500)
+                                {
+                                    int TotalPizzas = 1;
+                                    if (webOrder.PizzaNum2 > 1)
+                                    {
+                                        TotalPizzas++;
+                                    }
+                                    if (webOrder.PizzaNum3 > 1)
+                                    {
+                                        TotalPizzas++;
+                                    }
+                                    if (webOrder.PizzaNum4 > 1)
+                                    {
+                                        TotalPizzas++;
+                                    }
+                                    if (webOrder.PizzaNum5 > 1)
+                                    {
+                                        TotalPizzas++;
+                                    }
+                                    if (webOrder.PizzaNum6 > 1)
+                                    {
+                                        TotalPizzas++;
+                                    }
+                                    if (webOrder.PizzaNum7 > 1)
+                                    {
+                                        TotalPizzas++;
+                                    }
+                                    if (webOrder.PizzaNum8 > 1)
+                                    {
+                                        TotalPizzas++;
+                                    }
+                                    if (webOrder.PizzaNum9 > 1)
+                                    {
+                                        TotalPizzas++;
+                                    }
+                                    if (webOrder.PizzaNum10 > 1)
+                                    {
+                                        TotalPizzas++;
+                                    }
+                                    if (webOrder.PizzaNum11 > 1)
+                                    {
+                                        TotalPizzas++;
+                                    }
+                                    if (webOrder.PizzaNum12 > 1)
+                                    {
+                                        TotalPizzas++;
+                                    }
+                                    order = new lib.Orders
+                                    {
+                                        NumPizzas = TotalPizzas,
+                                        OrderTime = DateTime.Now,
+                                        Username = webOrder.Username,
+                                        FirstName = webOrder.FirstName,
+                                        PizzaNum1 = webOrder.PizzaNum1,
+                                        PizzaNum2 = webOrder.PizzaNum2,
+                                        PizzaNum3 = webOrder.PizzaNum3,
+                                        PizzaNum4 = webOrder.PizzaNum4,
+                                        PizzaNum5 = webOrder.PizzaNum5,
+                                        PizzaNum6 = webOrder.PizzaNum6,
+                                        PizzaNum7 = webOrder.PizzaNum7,
+                                        PizzaNum8 = webOrder.PizzaNum8,
+                                        PizzaNum9 = webOrder.PizzaNum9,
+                                        PizzaNum10 = webOrder.PizzaNum10,
+                                        PizzaNum11 = webOrder.PizzaNum11,
+                                        PizzaNum12 = webOrder.PizzaNum12,
+                                        TotalCost = total,
+                                        StoreLocation = loc
+                                    };
+                                    CurrentUser.UserFavoritePizza(order);
+                                    UserRepo.UpdateUser(lib.Mapper.Map(CurrentUser));
+
+                                    LocRepo.EditLocation(lib.Mapper.Map(location));
+
+                                    Repo.AddOrder(order);
+                                    TempData["SuccessMessage"] = "Order successfully placed!";
+                                    return RedirectToAction("Index", "User");
+                                }
+                                else
+                                {
+                                    TempData["ErrorMessage"] = "Error: Cost is over the $500 limit. Please adjust order to meet limit.";
+                                    View();
+                                }
                             }
                             else
                             {
