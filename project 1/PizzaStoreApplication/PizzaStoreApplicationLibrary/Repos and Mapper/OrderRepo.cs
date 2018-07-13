@@ -37,7 +37,7 @@ namespace PizzaStoreApplicationLibrary.Repos_and_Mapper
 
         public Orders GetSingleOrderById(int id)
         {
-            Orders order = (Orders)_db.Orders.AsNoTracking().Where(o => o.OrderId == id).Select(o => o);
+            Orders order = _db.Orders.AsNoTracking().First(o => o.OrderId == id);
             return order;
         }
 
