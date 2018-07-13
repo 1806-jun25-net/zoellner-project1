@@ -86,15 +86,15 @@ namespace PizzaStoreWebApplication.Controllers
                 if (ModelState.IsValid)
                 {
                     string loc = webOrder.StoreLocation;
-                    if(loc.ToLower().Equals("reston") || loc.ToLower().Equals("herndon") || 
+                    if (loc.ToLower().Equals("reston") || loc.ToLower().Equals("herndon") ||
                         loc.ToLower().Equals("hattontown") || loc.ToLower().Equals("dulles"))
                     {
                         lib.Order OrderToCheck = lib.Mapper.Map(Repo.GetOrdersByUser(webOrder.Username).Last(o => o.StoreLocation.ToLower().Equals(loc.ToLower())));
                         DateTime CurrentTime = DateTime.Now;
-                        if((CurrentTime - OrderToCheck.OrderPlaced) >= TimeSpan.FromHours(2))
+                        if ((CurrentTime - OrderToCheck.OrderPlaced) >= TimeSpan.FromHours(2))
                         {
                             int TotalPizzas = 1;
-                            if(webOrder.PizzaNum2 > 1)
+                            if (webOrder.PizzaNum2 > 1)
                             {
                                 TotalPizzas++;
                             }
@@ -171,7 +171,7 @@ namespace PizzaStoreWebApplication.Controllers
                                 StoreLocation = loc
                             };
                             Repo.AddOrder(order);
-                            return RedirectToAction(nameof(Index));
+                            return RedirectToAction("Index", "User");
                         }
                         else
                         {
@@ -184,7 +184,7 @@ namespace PizzaStoreWebApplication.Controllers
                     return View();
 
                 }
-
+                TempData["SuccessMessage"] = "Order successfully placed!";
                 return RedirectToAction(nameof(Index));
             }
             catch(Exception ex)
