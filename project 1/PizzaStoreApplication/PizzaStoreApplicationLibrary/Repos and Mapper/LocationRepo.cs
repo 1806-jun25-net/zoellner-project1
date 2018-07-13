@@ -32,5 +32,10 @@ namespace PizzaStoreApplicationLibrary.Repos_and_Mapper
             _db.Update(location);
             _db.SaveChanges();
         }
+
+        public void Save()
+        {
+            _db.SaveChanges();
+        }
     }
 }

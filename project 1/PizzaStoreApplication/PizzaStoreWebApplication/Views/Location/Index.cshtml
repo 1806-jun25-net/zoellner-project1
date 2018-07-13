@@ -25,7 +25,9 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new { name=item.Name }) 
+                @Html.ActionLink("Details", "Details", new { name = item.Name })
+                @Html.ActionLink("Resupply", "Resupply", new { name = item.Name })
+                @Html.Raw(TempData["msg"])
             </td>
         </tr>
 }

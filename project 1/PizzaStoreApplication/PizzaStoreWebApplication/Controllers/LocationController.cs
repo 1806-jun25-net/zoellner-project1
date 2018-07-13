@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PizzaStoreApplicationLibrary;
 using PizzaStoreApplicationLibrary.Repos_and_Mapper;
 using PizzaStoreWebApplication.Models;
 using Lib = PizzaStoreApplicationLibrary;
@@ -41,7 +42,7 @@ namespace PizzaStoreWebApplication.Controllers
         public ActionResult Details(string name)
         {
             var libLoc = Repo.GetLocationByCityname(name);
-            var webLoc = new Location
+            var webLoc = new Models.Location
             {
                 Name = libLoc.Name,
                 DoughRemaining = libLoc.Dough,
@@ -122,6 +123,41 @@ namespace PizzaStoreWebApplication.Controllers
             {
                 return View();
             }
+        }
+
+        [HttpPost]
+        public ActionResult Resupply(string name)
+        {
+            var Reston = Repo.GetLocationByCityname(name);
+            var Herndon = Repo.GetLocationByCityname(name);
+            var Dulles = Repo.GetLocationByCityname(name);
+            var Hattontown = Repo.GetLocationByCityname(name);
+
+
+            switch (name.ToLower())
+            {
+                case "reston":
+                    Reston.Resupply();
+                    Repo.EditLocation(Mapper.Map(Reston));
+                    break;
+                case "herndon":
+                    Herndon.Resupply();
+                    Repo.EditLocation(Mapper.Map(Herndon));
+                    break;
+                case "dulles":
+                    Dulles.Resupply();
+                    Repo.EditLocation(Mapper.Map(Dulles));
+                    break;
+                case "hattontown":
+                    Hattontown.Resupply();
+                    Repo.EditLocation(Mapper.Map(Hattontown));
+                    break;
+                default:
+                    break;
+            }
+
+            TempData["msg"] = "<script>alert('Change succesfully');</script>";
+            return RedirectToAction(nameof(Index));
         }
     }
 }
