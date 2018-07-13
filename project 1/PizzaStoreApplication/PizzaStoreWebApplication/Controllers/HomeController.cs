@@ -17,14 +17,14 @@ namespace PizzaStoreWebApplication.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = "About our new Pizzeria Application:";
 
             return View();
         }
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
+            ViewData["Message"] = "Contact information";
 
             return View();
         }
