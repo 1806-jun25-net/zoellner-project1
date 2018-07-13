@@ -25,6 +25,7 @@ namespace PizzaStoreWebApplication.Controllers
             var libOrders = Repo.GetOrdersByUser(user);
             var webOrders = libOrders.Select(x => new Models.Order
             {
+                OrderId = x.OrderId,
                 OrderTime = x.OrderTime,
                 Username = x.Username,
                 FirstName = x.FirstName,
