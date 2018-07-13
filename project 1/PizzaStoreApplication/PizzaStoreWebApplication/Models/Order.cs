@@ -19,37 +19,37 @@ namespace PizzaStoreWebApplication.Models
         public int PizzaNum1 { get; set; }
 
         [Range(1, 13)]
-        public int? PizzaNum2 { get; set; }
+        public int PizzaNum2 { get; set; }
 
         [Range(1, 13)]
-        public int? PizzaNum3 { get; set; }
+        public int PizzaNum3 { get; set; }
 
         [Range(1, 13)]
-        public int? PizzaNum4 { get; set; }
+        public int PizzaNum4 { get; set; }
 
         [Range(1, 13)]
-        public int? PizzaNum5 { get; set; }
+        public int PizzaNum5 { get; set; }
 
         [Range(1, 13)]
-        public int? PizzaNum6 { get; set; }
+        public int PizzaNum6 { get; set; }
 
         [Range(1, 13)]
-        public int? PizzaNum7 { get; set; }
+        public int PizzaNum7 { get; set; }
 
         [Range(1, 13)]
-        public int? PizzaNum8 { get; set; }
+        public int PizzaNum8 { get; set; }
 
         [Range(1, 13)]
-        public int? PizzaNum9 { get; set; }
+        public int PizzaNum9 { get; set; }
 
         [Range(1, 13)]
-        public int? PizzaNum10 { get; set; }
+        public int PizzaNum10 { get; set; }
 
         [Range(1, 13)]
-        public int? PizzaNum11 { get; set; }
+        public int PizzaNum11 { get; set; }
 
         [Range(1, 13)]
-        public int? PizzaNum12 { get; set; }
+        public int PizzaNum12 { get; set; }
 
         [Range(1, 500)]
         public decimal? TotalCost { get; set; }

@@ -521,5 +521,18 @@ namespace PizzaStoreApplicationLibrary
             PeppersAndOnions = 1000;
             HamAndMeatball = 1000;
         }
+
+        public void DecreaseInventory(int id)
+        {
+
+            Pizza CurrentPizza = new Pizza(id);
+            Dough = Dough - CurrentPizza.DoughUsage;
+            Sauce = Sauce - CurrentPizza.SauceUsage;
+            Cheese = Cheese - CurrentPizza.CheeseUsage;
+            Pepperoni = Pepperoni - CurrentPizza.PepperoniUsage;
+            HamAndMeatball = HamAndMeatball - CurrentPizza.HamAndMeatballUsage;
+            PeppersAndOnions = PeppersAndOnions - CurrentPizza.PepperAndOnionUsage;
+
+        }
     }
 }

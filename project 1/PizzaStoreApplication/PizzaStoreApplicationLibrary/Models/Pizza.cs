@@ -18,6 +18,53 @@ namespace PizzaStoreApplicationLibrary
         public int PepperAndOnionUsage { get; set; } = 0;
 
 
+        public Pizza(int id)
+        {
+            switch (id)
+            {
+                case 1:
+                    break;
+                case 2:
+                    CheesePizza(1);
+                    break;
+                case 3:
+                    CheesePizza(2);
+                    break;
+                case 4:
+                    CheesePizza(3);
+                    break;
+                case 5:
+                    PepperoniPizza(1);
+                    break;
+                case 6:
+                    PepperoniPizza(2);
+                    break;
+                case 7:
+                    PepperoniPizza(3);
+                    break;
+                case 8:
+                    MeatPizza(1);
+                    break;
+                case 9:
+                    MeatPizza(2);
+                    break;
+                case 10:
+                    MeatPizza(3);
+                    break;
+                case 11:
+                    VeggieAndPepperoniPizza(1);
+                    break;
+                case 12:
+                    VeggieAndPepperoniPizza(2);
+                    break;
+                case 13:
+                    VeggieAndPepperoniPizza(3);
+                    break;
+                default:
+                    break;
+            }
+        }
+
         public Pizza(int size, int type)
         {
             SizeModifierSet(size);
