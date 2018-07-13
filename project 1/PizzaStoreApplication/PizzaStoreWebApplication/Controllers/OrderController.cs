@@ -39,7 +39,30 @@ namespace PizzaStoreWebApplication.Controllers
         // GET: Order/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var libOrder = Repo.GetSingleOrderById(id);
+            var webOrder = new Models.Order
+            {
+                OrderId = libOrder.OrderId,
+                OrderTime = libOrder.OrderTime,
+                Username = libOrder.Username,
+                FirstName = libOrder.FirstName,
+                TotalCost = libOrder.TotalCost,
+                StoreLocation = libOrder.StoreLocation,
+                NumPizzas = libOrder.NumPizzas,
+                Pizza1 = Repo.GetPizzaSizeAndTypeFromPizzaId(libOrder.PizzaNum1),
+                Pizza2 = Repo.GetPizzaSizeAndTypeFromPizzaId(libOrder.PizzaNum2),
+                Pizza3 = Repo.GetPizzaSizeAndTypeFromPizzaId(libOrder.PizzaNum3),
+                Pizza4 = Repo.GetPizzaSizeAndTypeFromPizzaId(libOrder.PizzaNum4),
+                Pizza5 = Repo.GetPizzaSizeAndTypeFromPizzaId(libOrder.PizzaNum5),
+                Pizza6 = Repo.GetPizzaSizeAndTypeFromPizzaId(libOrder.PizzaNum6),
+                Pizza7 = Repo.GetPizzaSizeAndTypeFromPizzaId(libOrder.PizzaNum7),
+                Pizza8 = Repo.GetPizzaSizeAndTypeFromPizzaId(libOrder.PizzaNum8),
+                Pizza9 = Repo.GetPizzaSizeAndTypeFromPizzaId(libOrder.PizzaNum9),
+                Pizza10 = Repo.GetPizzaSizeAndTypeFromPizzaId(libOrder.PizzaNum10),
+                Pizza11 = Repo.GetPizzaSizeAndTypeFromPizzaId(libOrder.PizzaNum11),
+                Pizza12 = Repo.GetPizzaSizeAndTypeFromPizzaId(libOrder.PizzaNum12)
+            };
+            return View(webOrder);
         }
 
         // GET: Order/Create

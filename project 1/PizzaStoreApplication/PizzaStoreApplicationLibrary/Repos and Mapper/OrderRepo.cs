@@ -35,6 +35,12 @@ namespace PizzaStoreApplicationLibrary.Repos_and_Mapper
             return Orders;
         }
 
+        public Orders GetSingleOrderById(int id)
+        {
+            Orders order = (Orders)_db.Orders.AsNoTracking().Where(o => o.OrderId == id).Select(o => o);
+            return order;
+        }
+
         public int OrderRepoPizzaIDReturn(int size, int type)
         {
             int PizzaID = 1;
@@ -102,6 +108,58 @@ namespace PizzaStoreApplicationLibrary.Repos_and_Mapper
             }
 
             return PizzaID;
+        }
+
+        public string GetPizzaSizeAndTypeFromPizzaId(int? id)
+        {
+            string pizza = "";
+
+            switch (id)
+            {
+                case 1:
+                    pizza = "none";
+                    break;
+                case 2:
+                    pizza = "Small Cheese - $8.00";
+                    break;
+                case 3:
+                    pizza = "Medium Cheese - $11.00";
+                    break;
+                case 4:
+                    pizza = "Large Cheese - $14.00";
+                    break;
+                case 5:
+                    pizza = "Small Pepperoni - $9.00";
+                    break;
+                case 6:
+                    pizza = "Medium Pepperoni - $12.00";
+                    break;
+                case 7:
+                    pizza = "Large Pepperoni - $15.00";
+                    break;
+                case 8:
+                    pizza = "Small Meat - $11.00";
+                    break;
+                case 9:
+                    pizza = "Medium Meat - $14.00";
+                    break;
+                case 10:
+                    pizza = "Large Meat - $17.00";
+                    break;
+                case 11:
+                    pizza = "Small Veggie - $11.00";
+                    break;
+                case 12:
+                    pizza = "Medium Veggie - $14.00";
+                    break;
+                case 13:
+                    pizza = "Large Veggie - $17.00";
+                    break;
+                default:
+                    break;
+            }
+
+            return pizza;
         }
     }
 }

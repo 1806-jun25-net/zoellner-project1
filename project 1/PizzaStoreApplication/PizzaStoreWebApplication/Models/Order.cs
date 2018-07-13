@@ -26,5 +26,18 @@ namespace PizzaStoreWebApplication.Models
         public int? PizzaNum12 { get; set; }
         public decimal? TotalCost { get; set; }
         public string FirstName { get; set; }
+
+        public string Pizza1 { get; set; }
+        public string Pizza2 { get; set; }
+        public string Pizza3 { get; set; }
+        public string Pizza4 { get; set; }
+        public string Pizza5 { get; set; }
+        public string Pizza6 { get; set; }
+        public string Pizza7 { get; set; }
+        public string Pizza8 { get; set; }
+        public string Pizza9 { get; set; }
+        public string Pizza10 { get; set; }
+        public string Pizza11 { get; set; }
+        public string Pizza12 { get; set; }
     }
 }
