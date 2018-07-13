@@ -29,10 +29,10 @@ namespace PizzaStoreApplicationLibrary.Repos_and_Mapper
             _db.SaveChanges();
         }
 
-        public IEnumerable<Orders> GetOrdersByUser(User user)
+        public IEnumerable<Orders> GetOrdersByUser(string user)
         {
-            List<Orders>
-            return 
+            List<Orders> Orders = _db.Orders.AsNoTracking().Where(o => o.Username == user).Select(o => o).ToList();
+            return Orders;
         }
 
         public int OrderRepoPizzaIDReturn(int size, int type)

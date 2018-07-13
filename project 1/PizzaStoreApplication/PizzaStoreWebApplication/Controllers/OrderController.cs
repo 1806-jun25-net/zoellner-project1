@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PizzaStoreApplicationLibrary.Repos_and_Mapper;
+using PizzaStoreWebApplication.Models;
 using lib = PizzaStoreApplicationLibrary;
 
 namespace PizzaStoreWebApplication.Controllers
@@ -19,25 +20,19 @@ namespace PizzaStoreWebApplication.Controllers
             Repo = repo;
         }
         // GET: Order
-        public ActionResult Index()
+        public ActionResult Index(string user)
         {
-            var libOrders = Repo.GetOrders();
-            var webUsers = libUsers.Select(x => new Models.User
+            var libOrders = Repo.GetOrdersByUser(user);
+            var webOrders = libOrders.Select(x => new Models.Order
             {
+                OrderTime = x.OrderTime,
                 Username = x.Username,
                 FirstName = x.FirstName,
-                LastName = x.LastName,
-                PhoneNumber = x.PhoneNumber,
-                Email = x.EmailAddress,
-                Address = x.PhysicalAddress,
-                PepperoniOrdered = x.NumPepperoniOrdered,
-                CheeseOrdered = x.NumCheeseOrdered,
-                MeatOrdered = x.NumMeatOrdered,
-                VeggieOrdered = x.NumVeggieOrdered,
-                FavoritePizza = x.RecommendedPizza,
-                Favorite = x.DefaultLocation
+                TotalCost = x.TotalCost,
+                StoreLocation = x.StoreLocation,
+                NumPizzas = x.NumPizzas
             });
-            return View(webUsers);
+            return View(webOrders);
         }
 
         // GET: Order/Details/5

@@ -26,7 +26,8 @@
             </td>
             
             <td>
-                @Html.ActionLink("Details", "Details", new { username=item.Username }) 
+                @Html.ActionLink("Details", "Details", new { username=item.Username })
+                @Html.ActionLink("Orders", "Index", "Order", new { user=item.Username})
             </td>
         </tr>
 }
