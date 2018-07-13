@@ -24,8 +24,11 @@ namespace PizzaStoreWebApplication.Controllers
             LocRepo = locationRepo;
         }
         // GET: Order
-        public ActionResult Index(string user)
+        public ActionResult Index(string user, string sortOrder)
         {
+            ViewBag.TimeSortParm = String.IsNullOrEmpty(sortOrder) ? "time_desc" : "";
+            ViewBag.CostSortParm = sortOrder == "Cost" ? "cost_desc" : "Cost";
+
             var libOrders = Repo.GetOrdersByUser(user);
             var webOrders = libOrders.Select(x => new Models.Order
             {
@@ -37,6 +40,13 @@ namespace PizzaStoreWebApplication.Controllers
                 StoreLocation = x.StoreLocation,
                 NumPizzas = x.NumPizzas
             });
+
+            switch (sortOrder)
+            {
+                case "time_desc":
+                    webOrders = webOrders.OrderByDescending(o => o.OrderTime);
+                    break;
+            }
             return View(webOrders);
         }
 
