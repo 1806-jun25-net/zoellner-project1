@@ -12,21 +12,46 @@ namespace PizzaStoreWebApplication.Models
         public DateTime? OrderTime { get; set; }
         public string Username { get; set; }
 
-        [Range(1,12)]
         public int NumPizzas { get; set; }
         public string StoreLocation { get; set; }
+
+        [Range(2, 13)]
         public int PizzaNum1 { get; set; }
+
+        [Range(1, 13)]
         public int? PizzaNum2 { get; set; }
+
+        [Range(1, 13)]
         public int? PizzaNum3 { get; set; }
+
+        [Range(1, 13)]
         public int? PizzaNum4 { get; set; }
+
+        [Range(1, 13)]
         public int? PizzaNum5 { get; set; }
+
+        [Range(1, 13)]
         public int? PizzaNum6 { get; set; }
+
+        [Range(1, 13)]
         public int? PizzaNum7 { get; set; }
+
+        [Range(1, 13)]
         public int? PizzaNum8 { get; set; }
+
+        [Range(1, 13)]
         public int? PizzaNum9 { get; set; }
+
+        [Range(1, 13)]
         public int? PizzaNum10 { get; set; }
+
+        [Range(1, 13)]
         public int? PizzaNum11 { get; set; }
+
+        [Range(1, 13)]
         public int? PizzaNum12 { get; set; }
+
+        [Range(1, 500)]
         public decimal? TotalCost { get; set; }
         public string FirstName { get; set; }
 

@@ -73,6 +73,7 @@ namespace PizzaStoreApplicationLibrary
             {
                 OrderPlaced = (DateTime)order.OrderTime,
                 username = order.Username,
+                name = order.FirstName,
                 location = order.StoreLocation,
                 NumberOfPizzas = order.NumPizzas,
                 DesiredSizes = GetDesiredSizes(order),

@@ -29,6 +29,12 @@ namespace PizzaStoreApplicationLibrary.Repos_and_Mapper
             _db.SaveChanges();
         }
 
+        public void AddOrder(Orders NewOrder)
+        {
+            _db.Add(NewOrder);
+            _db.SaveChanges();
+        }
+
         public IEnumerable<Orders> GetOrdersByUser(string user)
         {
             List<Orders> Orders = _db.Orders.AsNoTracking().Where(o => o.Username == user).Select(o => o).ToList();
@@ -160,6 +166,57 @@ namespace PizzaStoreApplicationLibrary.Repos_and_Mapper
             }
 
             return pizza;
+        }
+
+        public decimal GetPriceOfPizzaFromId(int id)
+        {
+            int price = 0;
+
+            switch (id)
+            {
+                case 1:
+                    price = 0;
+                    break;
+                case 2:
+                    price = 8;
+                    break;
+                case 3:
+                    price = 11;
+                    break;
+                case 4:
+                    price = 14;
+                    break;
+                case 5:
+                    price = 9;
+                    break;
+                case 6:
+                    price = 12;
+                    break;
+                case 7:
+                    price = 15;
+                    break;
+                case 8:
+                    price = 11;
+                    break;
+                case 9:
+                    price = 14;
+                    break;
+                case 10:
+                    price = 17;
+                    break;
+                case 11:
+                    price = 11;
+                    break;
+                case 12:
+                    price = 14;
+                    break;
+                case 13:
+                    price = 17;
+                    break;
+                default:
+                    break;
+            }
+            return price;
         }
     }
 }

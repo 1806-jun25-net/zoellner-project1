@@ -15,11 +15,12 @@ namespace PizzaStoreWebApplication.Controllers
         private readonly lib.Project1PizzaApplicationContext _context;
         public OrderRepo Repo { get; }
         public LocationRepo locRepo { get; }
-        public UserRepo userRepo { get; }
+        public UserRepo UserRepo { get; }
 
-        public OrderController(OrderRepo repo)
+        public OrderController(OrderRepo repo, UserRepo userRepo)
         {
             Repo = repo;
+            UserRepo = userRepo;
         }
         // GET: Order
         public ActionResult Index(string user)
@@ -70,44 +71,123 @@ namespace PizzaStoreWebApplication.Controllers
         // GET: Order/Create
         public ActionResult Create(string user)
         {
-            return View();
+            lib.User newUser = UserRepo.GetUserByUsername(user);
+            return View(new Order { Username = user, FirstName = newUser.FirstName});
         }
 
         // POST: Order/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection, string user)
+        public ActionResult Create(Order webOrder)
         {
             try
             {
-                lib.Order order;
-                List<lib.Order> OrderHistory;
-                lib.User CurrentUser = userRepo.GetUserByUsername(user);
+                lib.Orders order;
                 if (ModelState.IsValid)
                 {
-                    lib.Location location;
-                    string loc = collection["Location"];
+                    string loc = webOrder.StoreLocation;
                     if(loc.ToLower().Equals("reston") || loc.ToLower().Equals("herndon") || 
                         loc.ToLower().Equals("hattontown") || loc.ToLower().Equals("dulles"))
                     {
-                        lib.Order OrderToCheck = lib.Mapper.Map(Repo.GetOrdersByUser(user).First(o => o.StoreLocation.ToLower().Equals(loc.ToLower())));
+                        lib.Order OrderToCheck = lib.Mapper.Map(Repo.GetOrdersByUser(webOrder.Username).Last(o => o.StoreLocation.ToLower().Equals(loc.ToLower())));
                         DateTime CurrentTime = DateTime.Now;
-                        if(OrderToCheck.OrderPlaced - CurrentTime >= TimeSpan.FromHours(2))
+                        if((CurrentTime - OrderToCheck.OrderPlaced) >= TimeSpan.FromHours(2))
                         {
-                            order = new lib.Order
+                            int TotalPizzas = 1;
+                            if(webOrder.PizzaNum2 > 1)
                             {
-                                OrderPlaced = DateTime.Now,
-                                username = user,
-                                name = CurrentUser.FirstName,
-
+                                TotalPizzas++;
+                            }
+                            if (webOrder.PizzaNum3 > 1)
+                            {
+                                TotalPizzas++;
+                            }
+                            if (webOrder.PizzaNum4 > 1)
+                            {
+                                TotalPizzas++;
+                            }
+                            if (webOrder.PizzaNum5 > 1)
+                            {
+                                TotalPizzas++;
+                            }
+                            if (webOrder.PizzaNum6 > 1)
+                            {
+                                TotalPizzas++;
+                            }
+                            if (webOrder.PizzaNum7 > 1)
+                            {
+                                TotalPizzas++;
+                            }
+                            if (webOrder.PizzaNum8 > 1)
+                            {
+                                TotalPizzas++;
+                            }
+                            if (webOrder.PizzaNum9 > 1)
+                            {
+                                TotalPizzas++;
+                            }
+                            if (webOrder.PizzaNum10 > 1)
+                            {
+                                TotalPizzas++;
+                            }
+                            if (webOrder.PizzaNum11 > 1)
+                            {
+                                TotalPizzas++;
+                            }
+                            if (webOrder.PizzaNum12 > 1)
+                            {
+                                TotalPizzas++;
+                            }
+                            order = new lib.Orders
+                            {
+                                NumPizzas = TotalPizzas,
+                                OrderTime = DateTime.Now,
+                                Username = webOrder.Username,
+                                FirstName = webOrder.FirstName,
+                                PizzaNum1 = webOrder.PizzaNum1,
+                                PizzaNum2 = webOrder.PizzaNum2,
+                                PizzaNum3 = webOrder.PizzaNum3,
+                                PizzaNum4 = webOrder.PizzaNum4,
+                                PizzaNum5 = webOrder.PizzaNum5,
+                                PizzaNum6 = webOrder.PizzaNum6,
+                                PizzaNum7 = webOrder.PizzaNum7,
+                                PizzaNum8 = webOrder.PizzaNum8,
+                                PizzaNum9 = webOrder.PizzaNum9,
+                                PizzaNum10 = webOrder.PizzaNum10,
+                                PizzaNum11 = webOrder.PizzaNum11,
+                                PizzaNum12 = webOrder.PizzaNum12,
+                                TotalCost = (Repo.GetPriceOfPizzaFromId(webOrder.PizzaNum1)
+                                            + (Repo.GetPriceOfPizzaFromId((int)webOrder.PizzaNum2))
+                                            + (Repo.GetPriceOfPizzaFromId((int)webOrder.PizzaNum3))
+                                            + (Repo.GetPriceOfPizzaFromId((int)webOrder.PizzaNum4))
+                                            + (Repo.GetPriceOfPizzaFromId((int)webOrder.PizzaNum5))
+                                            + (Repo.GetPriceOfPizzaFromId((int)webOrder.PizzaNum6))
+                                            + (Repo.GetPriceOfPizzaFromId((int)webOrder.PizzaNum7))
+                                            + (Repo.GetPriceOfPizzaFromId((int)webOrder.PizzaNum8))
+                                            + (Repo.GetPriceOfPizzaFromId((int)webOrder.PizzaNum9))
+                                            + (Repo.GetPriceOfPizzaFromId((int)webOrder.PizzaNum10))
+                                            + (Repo.GetPriceOfPizzaFromId((int)webOrder.PizzaNum11))
+                                            + (Repo.GetPriceOfPizzaFromId((int)webOrder.PizzaNum12))),
+                                StoreLocation = loc
                             };
+                            Repo.AddOrder(order);
+                            return RedirectToAction(nameof(Index));
+                        }
+                        else
+                        {
+                            TempData["ErrorMessage"] = "Error: You have ordered from " + OrderToCheck.location + " less than 2 hours ago." +
+                                "Either select a new location or wait 2 hours.";
+                            return View();
                         }
                     }
+                    TempData["ErrorMessage"] = "Please select a valid location: Reston, Herndon, Hattontown, or Dulles.";
+                    return View();
+
                 }
 
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch(Exception ex)
             {
                 return View();
             }
