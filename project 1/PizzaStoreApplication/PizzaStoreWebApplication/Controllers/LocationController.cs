@@ -75,7 +75,7 @@ namespace PizzaStoreWebApplication.Controllers
                 //        break;
                 //}
 
-                TempData["msg"] = "<script>alert('Changed successfully');</script>";
+                TempData["CreateMessage"] = "Location successfully resupplied!";
                 name = null;
                 return RedirectToAction(nameof(Index));
             }
