@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PizzaStoreApplicationLibrary.Repos_and_Mapper;
+using PizzaStoreWebApplication.Models;
 using Lib = PizzaStoreApplicationLibrary;
 
 
@@ -37,9 +38,21 @@ namespace PizzaStoreWebApplication.Controllers
         }
 
         // GET: Location/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(string name)
         {
-            return View();
+            var libLoc = Repo.GetLocationByCityname(name);
+            var webLoc = new Location
+            {
+                Name = libLoc.Name,
+                DoughRemaining = libLoc.Dough,
+                SauceRemaining = libLoc.Sauce,
+                CheeseRemaining = libLoc.Cheese,
+                PepperoniRemaining = libLoc.Pepperoni,
+                MeatRemaining = libLoc.HamAndMeatball,
+                VeggiesRemaining = libLoc.PeppersAndOnions
+            };
+
+            return View(webLoc);
         }
 
         // GET: Location/Create

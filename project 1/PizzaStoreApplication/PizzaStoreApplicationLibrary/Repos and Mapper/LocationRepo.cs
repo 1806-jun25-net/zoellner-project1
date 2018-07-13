@@ -22,6 +22,11 @@ namespace PizzaStoreApplicationLibrary.Repos_and_Mapper
             return locations;
         }
 
+        public Location GetLocationByCityname(string name)
+        {
+            return Mapper.Map(_db.StoreLocation.AsNoTracking().First(l => l.CityName.ToLower().Equals(name.ToLower())));
+        }
+
         public void EditLocation(StoreLocation location)
         {
             _db.Update(location);
