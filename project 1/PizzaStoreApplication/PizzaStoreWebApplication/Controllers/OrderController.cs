@@ -14,6 +14,8 @@ namespace PizzaStoreWebApplication.Controllers
     {
         private readonly lib.Project1PizzaApplicationContext _context;
         public OrderRepo Repo { get; }
+        public LocationRepo locRepo { get; }
+        public UserRepo userRepo { get; }
 
         public OrderController(OrderRepo repo)
         {
@@ -66,7 +68,7 @@ namespace PizzaStoreWebApplication.Controllers
         }
 
         // GET: Order/Create
-        public ActionResult Create()
+        public ActionResult Create(string user)
         {
             return View();
         }
@@ -74,11 +76,34 @@ namespace PizzaStoreWebApplication.Controllers
         // POST: Order/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(IFormCollection collection, string user)
         {
             try
             {
-                // TODO: Add insert logic here
+                lib.Order order;
+                List<lib.Order> OrderHistory;
+                lib.User CurrentUser = userRepo.GetUserByUsername(user);
+                if (ModelState.IsValid)
+                {
+                    lib.Location location;
+                    string loc = collection["Location"];
+                    if(loc.ToLower().Equals("reston") || loc.ToLower().Equals("herndon") || 
+                        loc.ToLower().Equals("hattontown") || loc.ToLower().Equals("dulles"))
+                    {
+                        lib.Order OrderToCheck = lib.Mapper.Map(Repo.GetOrdersByUser(user).First(o => o.StoreLocation.ToLower().Equals(loc.ToLower())));
+                        DateTime CurrentTime = DateTime.Now;
+                        if(OrderToCheck.OrderPlaced - CurrentTime >= TimeSpan.FromHours(2))
+                        {
+                            order = new lib.Order
+                            {
+                                OrderPlaced = DateTime.Now,
+                                username = user,
+                                name = CurrentUser.FirstName,
+
+                            };
+                        }
+                    }
+                }
 
                 return RedirectToAction(nameof(Index));
             }

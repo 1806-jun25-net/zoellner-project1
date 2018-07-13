@@ -1,0 +1,170 @@
+﻿@model PizzaStoreWebApplication.Models.Order
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>Order</h4>
+<hr />
+<p>Please enter information below: </p>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div class="form-group">
+                <label asp-for="NumPizzas" class="control-label">Total Number of Pizzas</label>
+                <input asp-for="NumPizzas" class="form-control" />
+                <span asp-validation-for="NumPizzas" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StoreLocation" class="control-label">Delivery Location</label>
+                <input asp-for="StoreLocation" class="form-control" />
+                <span asp-validation-for="StoreLocation" class="text-danger"></span>
+            </div>
+            <p>Pizza ids: </p>
+            <p>1 - none, 2 - small cheese - $8.00, 3 - medium cheese - $11.00, 4 - large cheese - $14.00</p>
+            <p>5 - small pepperoni - $9.00, 6 - medium pepperoni - $12.00, 7 - large pepperoni - $15.00</p>
+            <p>8 - small meat - $11.00, 9 - medium meat - $14.00, 10 - large meat - $17.00</p>
+            <p>11 - small veggie - $11.00, 12 - medium veggie - $14.00, 13 - large veggie - $17.00</p>
+            <div class="form-group">
+                <label asp-for="PizzaNum1" class="control-label">Pizza 1</label>
+                <input asp-for="PizzaNum1" class="form-control" />
+                <span asp-validation-for="PizzaNum1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PizzaNum2" class="control-label"></label>
+                <input asp-for="PizzaNum2" class="form-control" />
+                <span asp-validation-for="PizzaNum2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PizzaNum3" class="control-label"></label>
+                <input asp-for="PizzaNum3" class="form-control" />
+                <span asp-validation-for="PizzaNum3" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PizzaNum4" class="control-label"></label>
+                <input asp-for="PizzaNum4" class="form-control" />
+                <span asp-validation-for="PizzaNum4" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PizzaNum5" class="control-label"></label>
+                <input asp-for="PizzaNum5" class="form-control" />
+                <span asp-validation-for="PizzaNum5" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PizzaNum6" class="control-label"></label>
+                <input asp-for="PizzaNum6" class="form-control" />
+                <span asp-validation-for="PizzaNum6" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PizzaNum7" class="control-label"></label>
+                <input asp-for="PizzaNum7" class="form-control" />
+                <span asp-validation-for="PizzaNum7" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PizzaNum8" class="control-label"></label>
+                <input asp-for="PizzaNum8" class="form-control" />
+                <span asp-validation-for="PizzaNum8" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PizzaNum9" class="control-label"></label>
+                <input asp-for="PizzaNum9" class="form-control" />
+                <span asp-validation-for="PizzaNum9" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PizzaNum10" class="control-label"></label>
+                <input asp-for="PizzaNum10" class="form-control" />
+                <span asp-validation-for="PizzaNum10" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PizzaNum11" class="control-label"></label>
+                <input asp-for="PizzaNum11" class="form-control" />
+                <span asp-validation-for="PizzaNum11" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PizzaNum12" class="control-label"></label>
+                <input asp-for="PizzaNum12" class="form-control" />
+                <span asp-validation-for="PizzaNum12" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalCost" class="control-label"></label>
+                <input asp-for="TotalCost" class="form-control" />
+                <span asp-validation-for="TotalCost" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pizza1" class="control-label"></label>
+                <input asp-for="Pizza1" class="form-control" />
+                <span asp-validation-for="Pizza1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pizza2" class="control-label"></label>
+                <input asp-for="Pizza2" class="form-control" />
+                <span asp-validation-for="Pizza2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pizza3" class="control-label"></label>
+                <input asp-for="Pizza3" class="form-control" />
+                <span asp-validation-for="Pizza3" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pizza4" class="control-label"></label>
+                <input asp-for="Pizza4" class="form-control" />
+                <span asp-validation-for="Pizza4" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pizza5" class="control-label"></label>
+                <input asp-for="Pizza5" class="form-control" />
+                <span asp-validation-for="Pizza5" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pizza6" class="control-label"></label>
+                <input asp-for="Pizza6" class="form-control" />
+                <span asp-validation-for="Pizza6" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pizza7" class="control-label"></label>
+                <input asp-for="Pizza7" class="form-control" />
+                <span asp-validation-for="Pizza7" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pizza8" class="control-label"></label>
+                <input asp-for="Pizza8" class="form-control" />
+                <span asp-validation-for="Pizza8" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pizza9" class="control-label"></label>
+                <input asp-for="Pizza9" class="form-control" />
+                <span asp-validation-for="Pizza9" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pizza10" class="control-label"></label>
+                <input asp-for="Pizza10" class="form-control" />
+                <span asp-validation-for="Pizza10" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pizza11" class="control-label"></label>
+                <input asp-for="Pizza11" class="form-control" />
+                <span asp-validation-for="Pizza11" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pizza12" class="control-label"></label>
+                <input asp-for="Pizza12" class="form-control" />
+                <span asp-validation-for="Pizza12" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
