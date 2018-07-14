@@ -25,10 +25,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Username)
             </td>
-            
+
             <td>
                 @Html.ActionLink("Details", "Details", new { username = item.Username })
+            </td>
+            <td>
                 @Html.ActionLink("Orders", "Index", "Order", new { user = item.Username })
+            </td>
+            <td>
                 @Html.ActionLink("Create New Order", "Create", "Order", new { user = item.Username })
 
             </td>
