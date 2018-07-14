@@ -15,79 +15,50 @@
         <form asp-action="Create">
             @Html.HiddenFor(model => model.Username)
             @Html.HiddenFor(model => model.FirstName)
+            <h3>Select a location to order pizza from:</h3>
+            <p></p>
             <p>@TempData["FavoriteLocation"]</p>
-            <div class="form-group">
-                <label asp-for="StoreLocation" class="control-label">Delivery Location</label>
-                <input asp-for="StoreLocation" class="form-control" />
-                <span asp-validation-for="StoreLocation" class="text-danger"></span>
-            </div>
-            <p>Pizza ids: </p>
-            <p>1 - none </p>
-            <p>2 - small cheese - $8.00, 3 - medium cheese - $11.00, 4 - large cheese - $14.00</p>
-            <p>5 - small pepperoni - $9.00, 6 - medium pepperoni - $12.00, 7 - large pepperoni - $15.00</p>
-            <p>8 - small meat - $11.00, 9 - medium meat - $14.00, 10 - large meat - $17.00</p>
-            <p>11 - small veggie - $11.00, 12 - medium veggie - $14.00, 13 - large veggie - $17.00</p>
+            @Html.DropDownList("Locations", null, null)
+            <h3>Select you pizzas (max of 12, min of 1)</h3>
+            <p></p>
             <p>@TempData["Recommend"]</p>
-            <div class="form-group">
-                <label asp-for="PizzaNum1" class="control-label">Pizza 1</label>
-                <input asp-for="PizzaNum1" class="form-control" />
-                <span asp-validation-for="PizzaNum1" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PizzaNum2" class="control-label"></label>
-                <input asp-for="PizzaNum2" class="form-control" />
-                <span asp-validation-for="PizzaNum2" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PizzaNum3" class="control-label"></label>
-                <input asp-for="PizzaNum3" class="form-control" />
-                <span asp-validation-for="PizzaNum3" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PizzaNum4" class="control-label"></label>
-                <input asp-for="PizzaNum4" class="form-control" />
-                <span asp-validation-for="PizzaNum4" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PizzaNum5" class="control-label"></label>
-                <input asp-for="PizzaNum5" class="form-control" />
-                <span asp-validation-for="PizzaNum5" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PizzaNum6" class="control-label"></label>
-                <input asp-for="PizzaNum6" class="form-control" />
-                <span asp-validation-for="PizzaNum6" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PizzaNum7" class="control-label"></label>
-                <input asp-for="PizzaNum7" class="form-control" />
-                <span asp-validation-for="PizzaNum7" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PizzaNum8" class="control-label"></label>
-                <input asp-for="PizzaNum8" class="form-control" />
-                <span asp-validation-for="PizzaNum8" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PizzaNum9" class="control-label"></label>
-                <input asp-for="PizzaNum9" class="form-control" />
-                <span asp-validation-for="PizzaNum9" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PizzaNum10" class="control-label"></label>
-                <input asp-for="PizzaNum10" class="form-control" />
-                <span asp-validation-for="PizzaNum10" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PizzaNum11" class="control-label"></label>
-                <input asp-for="PizzaNum11" class="form-control" />
-                <span asp-validation-for="PizzaNum11" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PizzaNum12" class="control-label"></label>
-                <input asp-for="PizzaNum12" class="form-control" />
-                <span asp-validation-for="PizzaNum12" class="text-danger"></span>
-            </div>
+            <p></p>
+            <p>Pizza number 1</p>
+            @Html.DropDownList("Pizza1", null, null)
+            <p></p>
+            <p>Pizza number 2</p>
+            @Html.DropDownList("Pizza2", null, null)
+            <p></p>
+            <p>Pizza number 3</p>
+            @Html.DropDownList("Pizza3", null, null)
+            <p></p>
+            <p>Pizza number 4</p>
+            @Html.DropDownList("Pizza4", null, null)
+            <p></p>
+            <p>Pizza number 5</p>
+            @Html.DropDownList("Pizza5", null, null)
+            <p></p>
+            <p>Pizza number 6</p>
+            @Html.DropDownList("Pizza6", null, null)
+            <p></p>
+            <p>Pizza number 7</p>
+            @Html.DropDownList("Pizza7", null, null)
+            <p></p>
+            <p>Pizza number 8</p>
+            @Html.DropDownList("Pizza8", null, null)
+            <p></p>
+            <p>Pizza number 9</p>
+            @Html.DropDownList("Pizza9", null, null)
+            <p></p>
+            <p>Pizza number 10</p>
+            @Html.DropDownList("Pizza10", null, null)
+            <p></p>
+            <p>Pizza number 11</p>
+            @Html.DropDownList("Pizza11", null, null)
+            <p></p>
+            <p>Pizza number 12</p>
+            @Html.DropDownList("Pizza12", null, null)
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
