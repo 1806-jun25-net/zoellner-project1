@@ -94,6 +94,7 @@ namespace PizzaStoreWebApplication.Controllers
         public ActionResult Create(string user)
         {
             lib.User newUser = UserRepo.GetUserByUsername(user);
+            TempData["FavoriteLocation"] = "Your favorite location is " + newUser.Favorite;
             TempData["Recommend"] = "We recommend ordering " + newUser.FavoritePizza;
             return View(new Order { Username = user, FirstName = newUser.FirstName});
         }

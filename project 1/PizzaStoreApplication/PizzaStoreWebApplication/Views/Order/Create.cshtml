@@ -15,6 +15,7 @@
         <form asp-action="Create">
             @Html.HiddenFor(model => model.Username)
             @Html.HiddenFor(model => model.FirstName)
+            <p>@TempData["FavoriteLocation"]</p>
             <div class="form-group">
                 <label asp-for="StoreLocation" class="control-label">Delivery Location</label>
                 <input asp-for="StoreLocation" class="form-control" />
