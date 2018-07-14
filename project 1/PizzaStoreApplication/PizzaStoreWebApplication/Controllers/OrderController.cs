@@ -26,6 +26,10 @@ namespace PizzaStoreWebApplication.Controllers
         // GET: Order
         public ActionResult Index(string user, string sortOrder)
         {
+            if(user == null && TempData["User"] != null)
+            {
+                user = (string)TempData["User"];
+            }
             ViewBag.TimeSortParm = String.IsNullOrEmpty(sortOrder) ? "time_desc" : "";
             ViewBag.CostSortParm = sortOrder == "Cost" ? "cost_desc" : "Cost";
 
@@ -46,7 +50,14 @@ namespace PizzaStoreWebApplication.Controllers
                 case "time_desc":
                     webOrders = webOrders.OrderByDescending(o => o.OrderTime);
                     break;
+                case "Cost":
+                    webOrders = webOrders.OrderBy(o => o.TotalCost);
+                    break;
+                case "cost_desc":
+                    webOrders = webOrders.OrderByDescending(o => o.TotalCost);
+                    break;
             }
+            TempData["User"] = user;
             return View(webOrders);
         }
 
