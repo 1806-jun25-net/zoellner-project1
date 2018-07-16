@@ -445,7 +445,7 @@ namespace PizzaStoreWebApplication.Controllers
                             else
                             {
                                 TempData["ErrorMessage"] = "Error: Cost is over the $500 limit. Please adjust order to meet limit.";
-                                return View(new Order { Username = webOrder.Username, FirstName = webOrder.FirstName });
+                                return View(webOrder.Username);
                             }
                         }
                         else { 
@@ -558,20 +558,19 @@ namespace PizzaStoreWebApplication.Controllers
                                 else
                                 {
                                     TempData["ErrorMessage"] = "Error: Cost is over the $500 limit. Please adjust order to meet limit.";
-                                    return View(new Order { Username = webOrder.Username, FirstName = webOrder.FirstName });
+                                    return View(webOrder.Username);
                                 }
                             }
                             else
                             {
                                 TempData["ErrorMessage"] = "Error: You have ordered from " + location.Name + " less than 2 hours ago." +
                                     "Either select a new location or wait 2 hours.";
-                                return View(new Order { Username = webOrder.Username, FirstName = webOrder.FirstName });
+                                return View(webOrder.Username);
                             }
                         }
                     }
                     TempData["ErrorMessage"] = "Please select a valid location: Reston, Herndon, Hattontown, or Dulles.";
-                    return View();
-
+                    return View(webOrder.Username);
                 }
                 return RedirectToAction(nameof(Index));
             }
