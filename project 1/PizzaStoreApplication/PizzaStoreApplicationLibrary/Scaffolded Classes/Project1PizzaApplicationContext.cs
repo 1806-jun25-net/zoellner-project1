@@ -20,14 +20,6 @@ namespace PizzaStoreApplicationLibrary
         public virtual DbSet<StoreLocation> StoreLocation { get; set; }
         public virtual DbSet<Users> Users { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-
-            }
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Orders>(entity =>
