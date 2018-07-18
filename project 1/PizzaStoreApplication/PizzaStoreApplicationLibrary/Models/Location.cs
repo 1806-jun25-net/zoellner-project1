@@ -65,7 +65,6 @@ namespace PizzaStoreApplicationLibrary
                             if (!size.Equals("1") && !size.Equals("2") && !size.Equals("3"))
                             {
                                 Console.WriteLine("Invalid input. Try again.");
-                                continue;
                             }
                             else
                             {
@@ -119,7 +118,6 @@ namespace PizzaStoreApplicationLibrary
                                 if (!pizzaType.Equals("1") && !pizzaType.Equals("2") && !pizzaType.Equals("3") && !pizzaType.Equals("4"))
                                 {
                                     Console.WriteLine("Invalid input. Try again.");
-                                    continue;
                                 }
                                 else
                                 {
@@ -276,7 +274,6 @@ namespace PizzaStoreApplicationLibrary
                     if (Input.Equals("y") && Input.Equals("n"))
                     {
                         Console.WriteLine("Please input either 'y' for yes or 'n' for no.");
-                        continue;
                     }
                     else if (Input.Equals("n"))
                     {
