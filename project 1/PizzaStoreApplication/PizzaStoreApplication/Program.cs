@@ -91,67 +91,6 @@ namespace PizzaStoreApplication
             return NewUser;
         }
 
-        //public static Location DeserializeLocation(string fileName)
-        //{
-        //    using (var stream = new FileStream(fileName, FileMode.Open))
-        //    {
-        //        var serializer = new XmlSerializer(typeof(Location));
-        //        return (Location)serializer.Deserialize(stream);
-        //    }
-
-        //}
-
-        //public static User DeserializeUser(string fileName)
-        //{
-        //    using (var stream = new FileStream(fileName, FileMode.Open))
-        //    {
-        //        var serializer = new XmlSerializer(typeof(User));
-        //        return (User)serializer.Deserialize(stream);
-        //    }
-        //}
-
-        //public static void DeserializeUserList(string fileName)
-        //{
-        //    using (var stream = new FileStream(fileName, FileMode.Open))
-        //    {
-        //        var serializer = new XmlSerializer(typeof(List<User>));
-        //        IEnumerable<User> desList = (IEnumerable<User>)serializer.Deserialize(stream);
-        //        foreach (var item in desList)
-        //        {
-        //            User user = (User)item;
-        //            UserList.Add(user);
-        //        }
-        //    }
-            
-        //}
-
-        //public static void SerializeLocation(string fileName, Location location)
-        //{
-        //    using (var stream = new FileStream(fileName, FileMode.Create))
-        //    {
-        //        var serializer = new XmlSerializer(typeof(Location));
-        //        serializer.Serialize(stream, location);
-        //    }
-        //}
-
-        //public static void SerializeUser(string fileName, User user)
-        //{
-        //    using (var stream = new FileStream(fileName, FileMode.Create))
-        //    {
-        //        var serializer = new XmlSerializer(typeof(User));
-        //        serializer.Serialize(stream, user);
-        //    }
-        //}
-
-        //public static void SerializeUserList(string fileName, List<User> list)
-        //{
-        //    using (var stream = new FileStream(fileName, FileMode.Create))
-        //    {
-        //        var serializer = new XmlSerializer(typeof(List<User>));
-        //        serializer.Serialize(stream, list);
-        //    }
-        //}
-
         public static void ViewCurrentUsers(IEnumerable<Users> UserList)
         {
             Console.WriteLine("Listing current users:");
@@ -197,7 +136,6 @@ namespace PizzaStoreApplication
 
             var optionsBuilder = new DbContextOptionsBuilder<Project1PizzaApplicationContext>();
             optionsBuilder.UseSqlServer(configuration.GetConnectionString("Project1PizzaApplication"));
-            var options = optionsBuilder.Options;
 
             logger.Info("Creating repo objects");
             var userRepo = new UserRepo(new Project1PizzaApplicationContext(optionsBuilder.Options));
