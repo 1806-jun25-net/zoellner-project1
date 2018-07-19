@@ -301,10 +301,7 @@ namespace PizzaStoreApplication
                             {
                                 Console.WriteLine("Please input either 'y' for yes or 'n' for no.");
                                 Input = Console.ReadLine().ToLower();
-                                if (Input != "y" && Input != "n")
-                                {
-                                }
-                                else
+                                if (Input == "y" && Input == "n")
                                 {
                                     AcceptedInput = true;
                                 }
